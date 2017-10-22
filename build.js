@@ -73,8 +73,9 @@ return Promise.resolve()
         'rxjs/add/observable/throw': 'Rx.Observable',
         'rxjs/add/observable/of': 'Rx.Observable',
         'fullcalendar': 'fullcalendar',
-        '$': 'jquery'
+        jquery: 'jQuery'
       },
+      format: 'iife',
       external: [
         // List of dependencies
         // See https://github.com/rollup/rollup/wiki/JavaScript-API#external for more.
@@ -92,15 +93,18 @@ return Promise.resolve()
         'rxjs/add/observable/throw',
         'rxjs/add/observable/of',
         'fullcalendar',
-        'jquery'
+        'jquery',
+        '$'
       ],
       plugins: [
         commonjs({
           include: [
             'node_modules/rxjs/**',
-            'node_modules/fullcalendar/**',
-            'node_modules/jquery/**'
-          ]
+            'node_modules/fullcalendar/**'
+          ],
+          namedExports: {
+            'node_modules/jquery/dist/jquery.min.js': ['jquery']
+          }
         }),
         sourcemaps(),
         nodeResolve({ jsnext: true, module: true })

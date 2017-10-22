@@ -1,6 +1,7 @@
 {
   "extends": "./tsconfig.lib.json",
   "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
     "target": "es5",
     "outDir": "../../out-tsc/lib-es5/",
     "baseUrl": "",

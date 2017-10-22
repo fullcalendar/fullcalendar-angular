@@ -1,5 +1,5 @@
 import { Component, Input, Output, OnInit, AfterViewInit, HostListener, AfterContentChecked, AfterViewChecked, ElementRef, EventEmitter } from '@angular/core';
-import * as jqueryProxy from 'jquery';
+import $ from 'jquery';
 import 'fullcalendar';
 import { Options } from 'fullcalendar';
 import { ButtonClickModel } from './models/buttonClickModel';
@@ -17,7 +17,6 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentChe
 
     text: string;
     calendarInitiated: boolean;
-    public jquery: JQueryStatic = (<any>jqueryProxy).default || jqueryProxy;
     constructor(private element: ElementRef) {
     }
 
