@@ -1,0 +1,98 @@
+{
+  "name": "ng-fullcalendar",
+  "version": "1.0.0",
+  "description": "Angular 2.x.x , 4.x.x fullcalendar",
+  "main": "./bundles/ng-fullcalendar.umd.js",
+  "module": "./ng-fullcalendar.es5.js",
+  "es2015": "./ng-fullcalendar.js",
+  "typings": "./ng-fullcalendar.d.ts",
+  "author": "Jamaks",
+  "license": "MIT",
+  "keywords": [
+    "angular",
+    "angular4",
+    "angular 4",
+    "fullcalendar",
+    "full calendar",
+    "angular calendar"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jamaks/ng-fullcalendar.git"
+  },
+  "homepage": "https://github.com/jamaks/ng-fullcalendar",
+  "bugs": {
+    "url": "https://github.com/jamaks/ng-fullcalendar/issues"
+  },
+  "engines": {
+    "node": ">= 6.9.0",
+    "npm": ">= 3.0.0"
+  },
+  "scripts": {
+    "clean": "rimraf out-tsc dist/*",
+    "prebuild": "npm run clean",
+    "build": "node build.js",
+    "build-demo": "tsc -p src/demo/",
+    "build-demo:watch": "tsc -p src/demo/ -w",
+    "serve": "lite-server -c=bs-config.json",
+    "prestart": "npm run build-demo",
+    "start": "concurrently \"npm run build-demo:watch\" \"npm run serve\"",
+    "build-test": "tsc -p src/lib/tsconfig.spec.json",
+    "build-test:watch": "tsc -p src/lib/tsconfig.spec.json -w",
+    "pretest": "npm run build-test",
+    "test": "concurrently \"npm run build-test:watch\" \"karma start karma.conf.js\"",
+    "coverage": "karma start karma-coverage.conf.js --single-run",
+    "pretest:once": "npm run build-test",
+    "test:once": "karma start karma.conf.js --single-run",
+    "lint": "tslint ./src/**/*.ts -t verbose",
+    "release": "standard-version"
+  },
+  "peerDependencies": {
+    "@angular/core": ">=4.0.0 <5.0.0",
+    "@angular/common": ">=4.0.0 <5.0.0"
+  },
+  "devDependencies": {
+    "@angular/common": "~4.1.3",
+    "@angular/compiler": "~4.1.3",
+    "@angular/compiler-cli": "~4.1.3",
+    "@angular/core": "~4.1.3",
+    "@angular/platform-browser": "~4.1.3",
+    "@angular/platform-browser-dynamic": "~4.1.3",
+    "@types/fullcalendar": "^3.5.0",
+    "@types/jasmine": "2.5.36",
+    "@types/jquery": "^3.2.15",
+    "@types/node": "^6.0.46",
+    "camelcase": "^4.0.0",
+    "concurrently": "3.4.0",
+    "core-js": "^2.4.1",
+    "glob": "^7.1.1",
+    "jasmine-core": "^2.5.2",
+    "karma": "^1.5.0",
+    "karma-chrome-launcher": "^2.0.0",
+    "karma-cli": "^1.0.1",
+    "karma-coverage": "^1.1.1",
+    "karma-firefox-launcher": "^1.0.1",
+    "karma-html-reporter": "^0.2.7",
+    "karma-jasmine": "^1.1.0",
+    "karma-jasmine-html-reporter": "^0.2.2",
+    "karma-remap-coverage": "^0.1.4",
+    "karma-safari-launcher": "^1.0.0",
+    "lite-server": "^2.2.2",
+    "rimraf": "^2.6.1",
+    "rollup": "^0.42.0",
+    "rollup-plugin-commonjs": "^8.0.2",
+    "rollup-plugin-node-resolve": "^3.0.0",
+    "rollup-plugin-sourcemaps": "^0.4.1",
+    "rollup-plugin-uglify": "^2.0.1",
+    "rxjs": "^5.0.1",
+    "standard-version": "^4.0.0",
+    "systemjs": "^0.19.40",
+    "tslint": "^4.4.2",
+    "typescript": "~2.3.0",
+    "zone.js": "^0.8.4"
+  },
+  "dependencies": {
+    "fullcalendar": "^3.6.1",
+    "jquery": "^3.2.1"
+  }
+}

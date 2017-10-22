@@ -1,0 +1,24 @@
+{
+  "extends": "./tsconfig.lib.json",
+  "compilerOptions": {
+    "target": "es5",
+    "outDir": "../../out-tsc/lib-es5/",
+    "baseUrl": "",
+    "types": [
+      "@types/jquery",
+      "@types/fullcalendar"
+    ]
+  },
+  "files": [
+    "./index.ts",
+    "./typings.d.ts"
+  ],
+  "angularCompilerOptions": {
+    "annotateForClosureCompiler": true,
+    "strictMetadataEmit": true,
+    "skipTemplateCodegen": true,
+    "flatModuleOutFile": "ng-fullcalendar.js",
+    "flatModuleId": "ng-fullcalendar",
+    "genDir": "../../out-tsc/lib-gen-dir/"
+  }
+}

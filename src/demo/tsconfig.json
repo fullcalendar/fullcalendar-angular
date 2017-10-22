@@ -1,0 +1,17 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "baseUrl": "",
+    "module": "commonjs",
+    "declaration": false,
+    "emitDecoratorMetadata": true,
+    "paths": {
+      "ng-fullcalendar": [
+        "../lib"
+      ]
+    }
+  },
+  "exclude": [
+    "main-aot.ts"
+  ]
+}
