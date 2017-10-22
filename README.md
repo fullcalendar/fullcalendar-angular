@@ -73,11 +73,12 @@ then your app.component.html
 ```
 
 ## Callbacks
-Output 3 EventEmitters
+Output 4 EventEmitters
 ```typescript
   clickButton
   eventClick
-  updateEvent
+  eventDrop
+  eventResize
 ```
 ## API
 

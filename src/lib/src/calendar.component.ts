@@ -110,7 +110,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentChe
         return $(this.element.nativeElement).fullCalendar('updateEvent', event);
     }
 
-    clientEvents(idOrFilter: any) {
+    clientEvents(idOrFilter: any): any {
         return $(this.element.nativeElement).fullCalendar('clientEvents', idOrFilter);
     }
 }
