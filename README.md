@@ -1,8 +1,9 @@
 # Angular fullcalendar module
-Jquery fullcalendar module [FullCallendar](https://fullcalendar.io) 
+Jquery fullcalendar module [FullCalendar](https://fullcalendar.io) 
 
 This package fullcalendar module for Angular 2, 4
 
+Demo project in Stackblitz [DEMO](https://stackblitz.com/edit/ng-fullcalendar-demo)
 
 ## Getting started
 
@@ -12,7 +13,7 @@ Install via [npm](http://npmjs.com) :
 npm install ng-fullcalendar
 ```
 
-Then include the `FullCallendarModule` module in your module.
+Then include the `FullCalendarModule` module in your module.
 
 ```typescript
 import { FullCalendarModule } from 'ng-fullcalendar';
@@ -20,7 +21,7 @@ import { FullCalendarModule } from 'ng-fullcalendar';
 @NgModule({
   imports: [
     BrowserModule,
-    FullCallendarModule,
+    FullCalendarModule,
     ...
   ]
   ...
