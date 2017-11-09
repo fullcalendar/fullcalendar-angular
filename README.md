@@ -5,12 +5,14 @@ This package fullcalendar module for Angular 2, 4
 
 Demo project in Stackblitz [DEMO](https://stackblitz.com/edit/ng-fullcalendar-demo)
 
+Demo src [Demo](https://github.com/Jamaks/ng-fullcalendar/tree/master/src/demo)
 ## Getting started
 
 Install via [npm](http://npmjs.com) :
 
 ```bash
 npm install ng-fullcalendar
+npm install fullcalendar
 ```
 
 Then include the `FullCalendarModule` module in your module.
