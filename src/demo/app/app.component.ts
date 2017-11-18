@@ -62,4 +62,7 @@ export class AppComponent implements OnInit {
     }
     this.displayEvent = model;
   }
+  windowResize(model: any) {
+    alert('The calendar has adjusted to a window resize');
+  }
 }

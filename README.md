@@ -82,6 +82,7 @@ Output 4 EventEmitters
   eventClick
   eventDrop
   eventResize
+  windowResize
 ```
 ## API
 
