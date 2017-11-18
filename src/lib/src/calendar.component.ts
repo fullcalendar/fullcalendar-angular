@@ -16,6 +16,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentChe
     @Output() clickButton = new EventEmitter<any>();
     @Output() windowResize = new EventEmitter<any>();
     @Output() viewRender = new EventEmitter<any>();
+    @Output() viewDestroy = new EventEmitter<any>();
     text: string;
     calendarInitiated: boolean;
     constructor(private element: ElementRef) {
@@ -100,6 +101,14 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentChe
         this.options.viewRender = function (view, element) {
             let detail = { view: view, element: element };
             var widgetEvent = new CustomEvent('viewRender', {
+                bubbles: true,
+                detail: detail
+            });
+            elem[0].dispatchEvent(widgetEvent);
+        };
+        this.options.viewDestroy = function (view, element) {
+            let detail = { view: view, element: element };
+            var widgetEvent = new CustomEvent('viewDestroy', {
                 bubbles: true,
                 detail: detail
             });
