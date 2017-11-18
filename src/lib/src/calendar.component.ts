@@ -14,7 +14,9 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentChe
     @Output() eventResize = new EventEmitter<any>();
     @Output() eventClick = new EventEmitter<any>();
     @Output() clickButton = new EventEmitter<any>();
-
+    @Output() windowResize = new EventEmitter<any>();
+    @Output() viewRender = new EventEmitter<any>();
+    @Output() viewDestroy = new EventEmitter<any>();
     text: string;
     calendarInitiated: boolean;
     constructor(private element: ElementRef) {
@@ -83,6 +85,30 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentChe
         this.options.eventClick = function (event) {
             let detail: UpdateEventModel = { event: event, duration: null };
             var widgetEvent = new CustomEvent('eventClick', {
+                bubbles: true,
+                detail: detail
+            });
+            elem[0].dispatchEvent(widgetEvent);
+        };
+        this.options.windowResize = function (view) {
+            let detail = { view: view };
+            var widgetEvent = new CustomEvent('windowResize', {
+                bubbles: true,
+                detail: detail
+            });
+            elem[0].dispatchEvent(widgetEvent);
+        };
+        this.options.viewRender = function (view, element) {
+            let detail = { view: view, element: element };
+            var widgetEvent = new CustomEvent('viewRender', {
+                bubbles: true,
+                detail: detail
+            });
+            elem[0].dispatchEvent(widgetEvent);
+        };
+        this.options.viewDestroy = function (view, element) {
+            let detail = { view: view, element: element };
+            var widgetEvent = new CustomEvent('viewDestroy', {
                 bubbles: true,
                 detail: detail
             });
