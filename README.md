@@ -14,7 +14,7 @@ Install via [npm](http://npmjs.com) :
 
 ```bash
 npm install ng-fullcalendar
-npm install fullcalendar
+npm install fullcalendar@3.6.1
 ```
 
 Then include the `FullCalendarModule` module in your module.
