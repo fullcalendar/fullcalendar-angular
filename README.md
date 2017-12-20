@@ -87,6 +87,7 @@ Output 7 EventEmitters
   windowResize
   viewRender
   viewDestroy
+  eventRender
 ```
 ## API
 
