@@ -8,11 +8,21 @@ interface User {
 
 @Component({
   selector: 'demo-app',
-  templateUrl: './app.component.html'
+  templateUrl: './app.component.html',
+  styles: [`.logger{
+    z-index:99;
+    top:100px;
+    left:0px; 
+    background-color: #80808075;
+    color: green;
+    height:200px;
+    overflow: auto;
+   }`]
 })
 export class AppComponent implements OnInit {
   calendarOptions: Options;
   displayEvent: any;
+  logger: any[] = [];
   @ViewChild(CalendarComponent) ucCalendar: CalendarComponent;
   constructor(protected eventService: EventSesrvice) { }
 
@@ -67,5 +77,8 @@ export class AppComponent implements OnInit {
   }
   viewRender(model: any) {
     console.log('viewRender');
+  }
+  eventRender(model: any) {
+    this.logger.push(model);
   }
 }
