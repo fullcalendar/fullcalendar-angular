@@ -1,9 +1,10 @@
 import { Component, Input, Output, OnInit, AfterViewInit, HostListener, AfterContentChecked, AfterViewChecked, ElementRef, EventEmitter } from '@angular/core';
-import $ from 'jquery';
+import * as $ from 'jquery';
 import 'fullcalendar';
 import { Options } from 'fullcalendar';
 import { ButtonClickModel } from './models/buttonClickModel';
 import { UpdateEventModel } from './models/updateEventModel';
+import { RenderEventModel } from './models/renderEventModel';
 @Component({
     selector: 'ng-fullcalendar',
     template: '<div id="calendar"></div>',
@@ -17,6 +18,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentChe
     @Output() windowResize = new EventEmitter<any>();
     @Output() viewRender = new EventEmitter<any>();
     @Output() viewDestroy = new EventEmitter<any>();
+    @Output() eventRender = new EventEmitter<any>();
     text: string;
     calendarInitiated: boolean;
     constructor(private element: ElementRef) {
@@ -77,6 +79,14 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentChe
         this.options.eventResize = function (event, duration) {
             let detail: UpdateEventModel = { event: event, duration: duration };
             var widgetEvent = new CustomEvent('eventResize', {
+                bubbles: true,
+                detail: detail
+            });
+            elem[0].dispatchEvent(widgetEvent);
+        };
+        this.options.eventRender = function (event, element) {
+            let detail: RenderEventModel = { event: event, element: element };
+            var widgetEvent = new CustomEvent('eventRender', {
                 bubbles: true,
                 detail: detail
             });
