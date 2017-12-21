@@ -3,6 +3,8 @@ Jquery fullcalendar module [FullCalendar](https://fullcalendar.io)
 
 This package fullcalendar module for Angular 2, 4
 
+[![latest](https://img.shields.io/npm/v/ng-fullcalendar/latest.svg)](http://npmjs.com/packages/ng-fullcalendar) 
+
 Demo project in Stackblitz [DEMO](https://stackblitz.com/edit/ng-fullcalendar-demo)
 
 Demo src [Demo](https://github.com/Jamaks/ng-fullcalendar/tree/master/src/demo)
@@ -12,7 +14,7 @@ Install via [npm](http://npmjs.com) :
 
 ```bash
 npm install ng-fullcalendar
-npm install fullcalendar
+npm install fullcalendar@3.6.1
 ```
 
 Then include the `FullCalendarModule` module in your module.
