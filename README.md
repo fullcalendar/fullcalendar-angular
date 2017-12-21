@@ -78,16 +78,17 @@ then your app.component.html
 ```
 
 ## Callbacks
-Output 7 EventEmitters
+Output 9 EventEmitters
 ```typescript
   clickButton
   eventClick
   eventDrop
   eventResize
+  eventRender
   windowResize
   viewRender
   viewDestroy
-  eventRender
+  initialized
 ```
 ## API
 

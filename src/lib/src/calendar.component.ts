@@ -1,4 +1,4 @@
-import { Component, Input, Output, OnInit, AfterViewInit, HostListener, AfterContentChecked, AfterViewChecked, ElementRef, EventEmitter } from '@angular/core';
+import { Component, Input, Output, OnInit, NgZone, AfterViewInit, HostListener, AfterContentChecked, AfterViewChecked, ElementRef, EventEmitter } from '@angular/core';
 import $ from 'jquery';
 import 'fullcalendar';
 import { Options } from 'fullcalendar';
@@ -20,9 +20,8 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentChe
     @Output() viewRender = new EventEmitter<any>();
     @Output() viewDestroy = new EventEmitter<any>();
     @Output() eventRender = new EventEmitter<any>();
-    text: string;
-    calendarInitiated: boolean;
-    constructor(private element: ElementRef) {
+    @Output() initialized = new EventEmitter<any>();
+    constructor(private element: ElementRef, private zone: NgZone) {
     }
 
     ngOnInit(): void {
@@ -31,35 +30,36 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentChe
     ngAfterViewInit() {
         setTimeout(() => {
             this.updaterOptions();
-            $('ng-fullcalendar').fullCalendar(this.options);
+            this.zone.runOutsideAngular(() => {
+                $('ng-fullcalendar').fullCalendar(this.options);
+                this.initialized.emit(true);
+                // Click listeners
+                let elem = document.getElementsByTagName('ng-fullcalendar');
 
-            // Click listeners
-            let elem = document.getElementsByTagName('ng-fullcalendar');
-
-            $('[class ^="fc"][class *="button"]').click(el => {
-                let classnames = el.currentTarget.className.split(' ');
-                classnames.forEach(name => {
-                    if (name.indexOf('button') == name.length - 6) {
-                        name = name.replace(/fc|button|-/g, '');
-                        if (name != '') {
-                            eventDispatch(name);
+                $('[class ^="fc"][class *="button"]').click(el => {
+                    let classnames = el.currentTarget.className.split(' ');
+                    classnames.forEach(name => {
+                        if (name.indexOf('button') == name.length - 6) {
+                            name = name.replace(/fc|button|-/g, '');
+                            if (name != '') {
+                                eventDispatch(name);
+                            }
                         }
-                    }
+                    });
                 });
+                function eventDispatch(buttonType: string) {
+                    let data = $('ng-fullcalendar').fullCalendar('getDate');
+                    let currentDetail: ButtonClickModel = {
+                        buttonType: buttonType,
+                        data: data
+                    };
+                    var widgetEvent = new CustomEvent('clickButton', {
+                        bubbles: true,
+                        detail: currentDetail
+                    });
+                    elem[0].dispatchEvent(widgetEvent);
+                }
             });
-
-            function eventDispatch(buttonType: string) {
-                let data = $('ng-fullcalendar').fullCalendar('getDate');
-                let currentDetail: ButtonClickModel = {
-                    buttonType: buttonType,
-                    data: data
-                };
-                var widgetEvent = new CustomEvent('clickButton', {
-                    bubbles: true,
-                    detail: currentDetail
-                });
-                elem[0].dispatchEvent(widgetEvent);
-            }
         }, 100);
 
     }
