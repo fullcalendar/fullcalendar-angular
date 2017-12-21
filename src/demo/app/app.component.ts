@@ -36,7 +36,7 @@ export class AppComponent implements OnInit {
           center: 'title',
           right: 'month,agendaWeek,agendaDay,listMonth'
         },
-        events: data
+        events: data,
       };
     });
   }
@@ -80,5 +80,8 @@ export class AppComponent implements OnInit {
   }
   eventRender(model: any) {
     this.logger.push(model);
+  }
+  initialized() {
+    console.log('Initialized compleate');
   }
 }
