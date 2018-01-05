@@ -1,6 +1,6 @@
 {
   "name": "ng-fullcalendar",
-  "version": "1.3.0",
+  "version": "1.3.1",
   "description": "Angular 2.x.x , 4.x.x fullcalendar",
   "main": "./bundles/ng-fullcalendar.umd.js",
   "module": "./ng-fullcalendar.es5.js",
@@ -58,6 +58,7 @@
     "@angular/core": "~4.1.3",
     "@angular/platform-browser": "~4.1.3",
     "@angular/platform-browser-dynamic": "~4.1.3",
+    "@angular/router": "^5.1.3",
     "@types/fullcalendar": "^3.5.0",
     "@types/jasmine": "2.5.36",
     "@types/jquery": "^3.2.15",

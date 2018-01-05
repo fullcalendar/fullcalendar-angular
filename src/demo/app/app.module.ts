@@ -2,12 +2,15 @@ import { NgModule }      from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FullCalendarModule } from 'ng-fullcalendar';
 
+import { AppRoutingModule } from './routing.module';
 import { EventSesrvice } from './event.service';
 import { AppComponent }  from './app.component';
+import { HomeComponent } from './home/home.component';
+import { SecondComponent } from './second/second.component';
 
 @NgModule({
-  imports:      [ BrowserModule, FullCalendarModule ],
-  declarations: [ AppComponent ],
+  imports:      [ BrowserModule, AppRoutingModule, FullCalendarModule ],
+  declarations: [ AppComponent, HomeComponent, SecondComponent ],
   bootstrap:    [ AppComponent ],
   providers: [ EventSesrvice ]
 })

@@ -94,6 +94,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentChe
             elem[0].dispatchEvent(widgetEvent);
         };
         this.options.eventClick = function (event) {
+            debugger
             let detail: UpdateEventModel = { event: event, duration: null };
             var widgetEvent = new CustomEvent('eventClick', {
                 bubbles: true,
@@ -107,7 +108,9 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentChe
                 bubbles: true,
                 detail: detail
             });
-            elem[0].dispatchEvent(widgetEvent);
+            if (elem && elem[0]) {
+                elem[0].dispatchEvent(widgetEvent);
+            }
         };
         this.options.viewRender = function (view, element) {
             let detail = { view: view, element: element };
