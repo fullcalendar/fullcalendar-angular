@@ -21,6 +21,8 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentChe
     @Output() viewDestroy = new EventEmitter<any>();
     @Output() eventRender = new EventEmitter<any>();
     @Output() initialized = new EventEmitter<any>();
+    @Output() select = new EventEmitter<any>();
+    @Output() unselect = new EventEmitter<any>();
     constructor(private element: ElementRef, private zone: NgZone) {
     }
 
@@ -94,7 +96,6 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentChe
             elem[0].dispatchEvent(widgetEvent);
         };
         this.options.eventClick = function (event) {
-            debugger
             let detail: UpdateEventModel = { event: event, duration: null };
             var widgetEvent = new CustomEvent('eventClick', {
                 bubbles: true,
@@ -123,6 +124,22 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentChe
         this.options.viewDestroy = function (view, element) {
             let detail = { view: view, element: element };
             var widgetEvent = new CustomEvent('viewDestroy', {
+                bubbles: true,
+                detail: detail
+            });
+            elem[0].dispatchEvent(widgetEvent);
+        };
+        this.options.select = function (start: any, end: any, jsEvent: MouseEvent, view: any, resource?: any) {
+            let detail = { start: start, end: end, jsEvent: jsEvent, view: view, resource: resource };
+            var widgetEvent = new CustomEvent('select', {
+                bubbles: true,
+                detail: detail
+            });
+            elem[0].dispatchEvent(widgetEvent);
+        };
+        this.options.unselect = function (view: any, jsEvent: Event) {
+            let detail = { view: view, jsEvent: jsEvent };
+            var widgetEvent = new CustomEvent('unselect', {
                 bubbles: true,
                 detail: detail
             });

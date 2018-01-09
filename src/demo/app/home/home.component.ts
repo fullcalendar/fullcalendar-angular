@@ -36,6 +36,7 @@ export class HomeComponent implements OnInit {
             center: 'title',
             right: 'month,agendaWeek,agendaDay,listMonth'
           },
+          selectable: true,
           events: data,
         };
       });
@@ -83,5 +84,11 @@ export class HomeComponent implements OnInit {
     }
     initialized() {
       console.log('Initialized compleate');
+    }
+    select(model: any) {
+      console.log(model);
+    }
+    unselect(model: any) {
+      console.log(model);
     }
 }
