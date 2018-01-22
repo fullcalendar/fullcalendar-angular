@@ -1,5 +1,6 @@
 import { Component, Input, Output, OnInit, NgZone, AfterViewInit, HostListener, AfterContentChecked, AfterViewChecked, ElementRef, EventEmitter } from '@angular/core';
-import 'fullcalendar.es5.js';
+import $ from 'jquery';
+import 'fullcalendar';
 import { Options } from 'fullcalendar';
 import './lib/customEvent';
 import { ButtonClickModel } from './models/buttonClickModel';

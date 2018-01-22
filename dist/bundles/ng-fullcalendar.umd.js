@@ -1,8 +1,10 @@
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('fullcalendar.es5.js')) :
-	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', 'fullcalendar.es5.js'], factory) :
-	(factory((global.ngFullcalendar = global.ngFullcalendar || {}),global.ng.core));
-}(this, (function (exports,_angular_core) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('jquery'), require('fullcalendar')) :
+	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', 'jquery', 'fullcalendar'], factory) :
+	(factory((global.ngFullcalendar = global.ngFullcalendar || {}),global.ng.core,global.jQuery));
+}(this, (function (exports,_angular_core,$) { 'use strict';
+
+$ = 'default' in $ ? $['default'] : $;
 
 (function () {
     /**

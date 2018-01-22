@@ -52,6 +52,7 @@ $.fn.fullCalendar = function(options) {
 	return res;
 };
 
+
 (function () {
     /**
      * @param {?} event
