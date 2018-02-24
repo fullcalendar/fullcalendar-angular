@@ -23,6 +23,13 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentChe
     @Output() initialized = new EventEmitter<any>();
     @Output() select = new EventEmitter<any>();
     @Output() unselect = new EventEmitter<any>();
+    @Output() dayClick = new EventEmitter<any>();
+    @Output() navLinkDayClick = new EventEmitter<any>();
+    @Output() navLinkWeekClick = new EventEmitter<any>();
+    @Output() eventMouseover = new EventEmitter<any>();
+    @Output() eventMouseout = new EventEmitter<any>();
+
+
     constructor(private element: ElementRef, private zone: NgZone) {
     }
 
@@ -139,6 +146,30 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentChe
         };
         this.options.unselect = function (view: any, jsEvent: Event) {
             let detail = { view: view, jsEvent: jsEvent };
+            var widgetEvent = new CustomEvent('unselect', {
+                bubbles: true,
+                detail: detail
+            });
+            elem[0].dispatchEvent(widgetEvent);
+        };
+        this.options.dayClick = function (date: any, jsEvent: Event, view: any) {
+            let detail = { date: date, jsEvent: jsEvent, view: view };
+            var widgetEvent = new CustomEvent('unselect', {
+                bubbles: true,
+                detail: detail
+            });
+            elem[0].dispatchEvent(widgetEvent);
+        };
+        this.options.navLinkDayClick = function (date: any, jsEvent: Event) {
+            let detail = { date: date, jsEvent: jsEvent };
+            var widgetEvent = new CustomEvent('unselect', {
+                bubbles: true,
+                detail: detail
+            });
+            elem[0].dispatchEvent(widgetEvent);
+        };
+        this.options.navLinkWeekClick = function (weekStart: any, jsEvent: Event) {
+            let detail = { weekStart: weekStart, jsEvent: jsEvent };
             var widgetEvent = new CustomEvent('unselect', {
                 bubbles: true,
                 detail: detail
