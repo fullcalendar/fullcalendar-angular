@@ -19,7 +19,9 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentChe
     @Input('eventsModel')
     set eventsModel(value: any[]) {
         this._eventsModel = value;
+        setTimeout(() => {
         this.renderEvents(value);
+        }, 50)
     }
     @Output()
     eventsModelChange = new EventEmitter<any>();
@@ -84,7 +86,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentChe
                     elem[0].dispatchEvent(widgetEvent);
                 }
             });
-        }, 100);
+        }, );
 
     }
     ngAfterContentChecked() {
@@ -92,7 +94,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentChe
     ngAfterViewChecked() {
     }
     updateEventsBeforeResize() {
-        let events: FC.EventObject[] = <FC.EventObject[]>this.fullCalendar('clientEvents');
+        let events = this.fullCalendar('clientEvents');
             this.eventsModel = events;
             this.eventsModelChange.next(events);
     }

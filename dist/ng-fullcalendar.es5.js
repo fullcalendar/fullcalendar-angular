@@ -1,6 +1,6 @@
 import { Component, ElementRef, EventEmitter, Input, NgModule, NgZone, Output } from '@angular/core';
 import $ from 'jquery';
-import 'fullcalendar';
+import fullcalendar from 'fullcalendar';
 $.fn.fullCalendar = function(options) {
 	var args = Array.prototype.slice.call(arguments, 1); // for a possible method call
 	var res = this; // what this function will return (this jQuery object by default)
@@ -51,7 +51,6 @@ $.fn.fullCalendar = function(options) {
 
 	return res;
 };
-
 (function () {
     /**
      * @param {?} event
@@ -105,8 +104,11 @@ var CalendarComponent = (function () {
          * @return {?}
          */
         set: function (value) {
+            var _this = this;
             this._eventsModel = value;
-            this.renderEvents(value);
+            setTimeout(function () {
+                _this.renderEvents(value);
+            }, 50);
         },
         enumerable: true,
         configurable: true
@@ -159,7 +161,7 @@ var CalendarComponent = (function () {
                     elem[0].dispatchEvent(widgetEvent);
                 }
             });
-        }, 100);
+        });
     };
     /**
      * @return {?}
@@ -175,7 +177,7 @@ var CalendarComponent = (function () {
      * @return {?}
      */
     CalendarComponent.prototype.updateEventsBeforeResize = function () {
-        var /** @type {?} */ events = (this.fullCalendar('clientEvents'));
+        var /** @type {?} */ events = this.fullCalendar('clientEvents');
         this.eventsModel = events;
         this.eventsModelChange.next(events);
     };

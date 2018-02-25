@@ -59,8 +59,11 @@ var CalendarComponent = (function () {
          * @return {?}
          */
         set: function (value) {
+            var _this = this;
             this._eventsModel = value;
-            this.renderEvents(value);
+            setTimeout(function () {
+                _this.renderEvents(value);
+            }, 50);
         },
         enumerable: true,
         configurable: true
@@ -113,7 +116,7 @@ var CalendarComponent = (function () {
                     elem[0].dispatchEvent(widgetEvent);
                 }
             });
-        }, 100);
+        });
     };
     /**
      * @return {?}
@@ -129,7 +132,7 @@ var CalendarComponent = (function () {
      * @return {?}
      */
     CalendarComponent.prototype.updateEventsBeforeResize = function () {
-        var /** @type {?} */ events = (this.fullCalendar('clientEvents'));
+        var /** @type {?} */ events = this.fullCalendar('clientEvents');
         this.eventsModel = events;
         this.eventsModelChange.next(events);
     };
