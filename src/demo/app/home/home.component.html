@@ -1,12 +1,15 @@
 <a [routerLink]="['/second']"> Second page</a>
 <p>Display event : {{displayEvent | json}}</p>
-
+<a (click)="clearEvents()">clearEvents</a>
+<br/>
+<a (click)="loadAgain()">loadAgain</a>
 <div *ngIf="calendarOptions">
     <ng-fullcalendar #ucCalendar [options]="calendarOptions" (eventClick)="eventClick($event.detail)" (eventDrop)="updateEvent($event.detail)"
         (viewRender)="viewRender($event.detail)" (initialized)="initialized()" (eventRender)="eventRender($event.detail)" (select)="select($event.detail)"
         (unselect)="unselect($event.detail)" (eventResize)="updateEvent($event.detail)" (clickButton)="clickButton($event.detail)"
-        (windowResize)="windowResize($event.detail)"></ng-fullcalendar>
+        (windowResize)="windowResize($event.detail)" [(eventModel)]="events"></ng-fullcalendar>
 </div>
+
 <h4> eventRender: </h4>
 <div class="logger">
     <p *ngFor="let log of logger">

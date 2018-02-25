@@ -1,5 +1,5 @@
 import { Component, Input, Output, OnInit, NgZone, AfterViewInit, HostListener, AfterContentChecked, AfterViewChecked, ElementRef, EventEmitter } from '@angular/core';
-import $ from 'jquery';
+import * as $ from 'jquery';
 import 'fullcalendar';
 import { Options } from 'fullcalendar';
 import './lib/customEvent';
@@ -11,6 +11,19 @@ import { RenderEventModel } from './models/renderEventModel';
     template: '<div id="calendar"></div>',
 })
 export class CalendarComponent implements OnInit, AfterViewInit, AfterContentChecked, AfterViewChecked {
+    private _eventModel: any[];
+    get eventModel(): any[] {
+        return this._eventModel;
+    }
+
+    @Input('eventModel')
+    set eventModel(value: any[]) {
+        this._eventModel = value;
+        this.renderEvents(value);
+    }
+    @Output()
+    eventModelChange = new EventEmitter<any>();
+
     @Input() options: Options;
     @Output() eventDrop = new EventEmitter<any>();
     @Output() eventResize = new EventEmitter<any>();
@@ -40,7 +53,10 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentChe
         setTimeout(() => {
             this.updaterOptions();
             this.zone.runOutsideAngular(() => {
+
                 $('ng-fullcalendar').fullCalendar(this.options);
+                this._eventModel = this.options.events;
+                this.eventModelChange.next(this.options.events);
                 this.initialized.emit(true);
                 // Click listeners
                 let elem = document.getElementsByTagName('ng-fullcalendar');
@@ -51,6 +67,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentChe
                         if (name.indexOf('button') == name.length - 6) {
                             name = name.replace(/fc|button|-/g, '');
                             if (name != '') {
+                                this.renderEvents(this._eventModel);
                                 eventDispatch(name);
                             }
                         }
@@ -76,22 +93,29 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentChe
     }
     ngAfterViewChecked() {
     }
+    updateEventsBeforeResize() {
+        let events: FC.EventObject[] = <FC.EventObject[]>this.fullCalendar('clientEvents');
+            this.eventModel = events;
+            this.eventModelChange.next(events);
+    }
     updaterOptions() {
         let elem = document.getElementsByTagName('ng-fullcalendar');
-        this.options.eventDrop = function (event, duration) {
+        this.options.eventDrop = (event, duration) => {
             let detail: UpdateEventModel = { event: event, duration: duration };
             var widgetEvent = new CustomEvent('eventDrop', {
                 bubbles: true,
                 detail: detail
             });
+            this.updateEventsBeforeResize();
             elem[0].dispatchEvent(widgetEvent);
         };
-        this.options.eventResize = function (event, duration) {
+        this.options.eventResize = (event, duration) => {
             let detail: UpdateEventModel = { event: event, duration: duration };
             var widgetEvent = new CustomEvent('eventResize', {
                 bubbles: true,
                 detail: detail
             });
+            this.updateEventsBeforeResize();
             elem[0].dispatchEvent(widgetEvent);
         };
         this.options.eventRender = function (event, element, view) {
@@ -102,13 +126,14 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentChe
             });
             elem[0].dispatchEvent(widgetEvent);
         };
-        this.options.eventClick = function (event) {
+        this.options.eventClick = (event) => {
             let detail: UpdateEventModel = { event: event, duration: null };
             var widgetEvent = new CustomEvent('eventClick', {
                 bubbles: true,
                 detail: detail
             });
             elem[0].dispatchEvent(widgetEvent);
+
         };
         this.options.windowResize = function (view) {
             let detail = { view: view };
@@ -154,7 +179,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentChe
         };
         this.options.dayClick = function (date: any, jsEvent: Event, view: any) {
             let detail = { date: date, jsEvent: jsEvent, view: view };
-            var widgetEvent = new CustomEvent('unselect', {
+            var widgetEvent = new CustomEvent('dayClick', {
                 bubbles: true,
                 detail: detail
             });
@@ -162,7 +187,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentChe
         };
         this.options.navLinkDayClick = function (date: any, jsEvent: Event) {
             let detail = { date: date, jsEvent: jsEvent };
-            var widgetEvent = new CustomEvent('unselect', {
+            var widgetEvent = new CustomEvent('navLinkDayClick', {
                 bubbles: true,
                 detail: detail
             });
@@ -170,7 +195,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentChe
         };
         this.options.navLinkWeekClick = function (weekStart: any, jsEvent: Event) {
             let detail = { weekStart: weekStart, jsEvent: jsEvent };
-            var widgetEvent = new CustomEvent('unselect', {
+            var widgetEvent = new CustomEvent('navLinkWeekClick', {
                 bubbles: true,
                 detail: detail
             });
@@ -178,7 +203,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentChe
         };
     }
 
-    fullCalendar(...args: any[]) {
+    fullCalendar(...args: any[]): any {
         if (!args) {
             return;
         }
@@ -201,4 +226,14 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentChe
     clientEvents(idOrFilter: any): any {
         return $(this.element.nativeElement).fullCalendar('clientEvents', idOrFilter);
     }
+    renderEvents(events: any[]) {
+        $(this.element.nativeElement).fullCalendar('removeEvents');
+        if (events && events.length > 0) {
+            events.forEach(el => {
+                $(this.element.nativeElement).fullCalendar('renderEvent', el);
+            });
+            $(this.element.nativeElement).fullCalendar('rerenderEvents');
+        }
+    }
+
 }
