@@ -1,6 +1,6 @@
 import { Component, ElementRef, EventEmitter, Input, NgModule, NgZone, Output } from '@angular/core';
-import $ from 'jquery';
-import fullcalendar from 'fullcalendar';
+import $ from 'jquery/index';
+import 'fullcalendar/index';
 $.fn.fullCalendar = function(options) {
 	var args = Array.prototype.slice.call(arguments, 1); // for a possible method call
 	var res = this; // what this function will return (this jQuery object by default)
@@ -52,7 +52,6 @@ $.fn.fullCalendar = function(options) {
 	return res;
 };
 
-
 (function () {
     /**
      * @param {?} event
@@ -78,6 +77,7 @@ class CalendarComponent {
     constructor(element, zone) {
         this.element = element;
         this.zone = zone;
+        this.eventsModelChange = new EventEmitter();
         this.eventDrop = new EventEmitter();
         this.eventResize = new EventEmitter();
         this.eventClick = new EventEmitter();
@@ -89,6 +89,23 @@ class CalendarComponent {
         this.initialized = new EventEmitter();
         this.select = new EventEmitter();
         this.unselect = new EventEmitter();
+        this.dayClick = new EventEmitter();
+        this.navLinkDayClick = new EventEmitter();
+        this.navLinkWeekClick = new EventEmitter();
+    }
+    /**
+     * @return {?}
+     */
+    get eventsModel() {
+        return this._eventsModel;
+    }
+    /**
+     * @param {?} value
+     * @return {?}
+     */
+    set eventsModel(value) {
+        this._eventsModel = value;
+        this.renderEvents(value);
     }
     /**
      * @return {?}
@@ -103,6 +120,8 @@ class CalendarComponent {
             this.updaterOptions();
             this.zone.runOutsideAngular(() => {
                 $('ng-fullcalendar').fullCalendar(this.options);
+                this._eventsModel = this.options.events;
+                this.eventsModelChange.next(this.options.events);
                 this.initialized.emit(true);
                 // Click listeners
                 let /** @type {?} */ elem = document.getElementsByTagName('ng-fullcalendar');
@@ -112,6 +131,7 @@ class CalendarComponent {
                         if (name.indexOf('button') == name.length - 6) {
                             name = name.replace(/fc|button|-/g, '');
                             if (name != '') {
+                                this.renderEvents(this._eventsModel);
                                 eventDispatch(name);
                             }
                         }
@@ -149,33 +169,43 @@ class CalendarComponent {
     /**
      * @return {?}
      */
+    updateEventsBeforeResize() {
+        let /** @type {?} */ events = (this.fullCalendar('clientEvents'));
+        this.eventsModel = events;
+        this.eventsModelChange.next(events);
+    }
+    /**
+     * @return {?}
+     */
     updaterOptions() {
         let /** @type {?} */ elem = document.getElementsByTagName('ng-fullcalendar');
-        this.options.eventDrop = function (event, duration) {
+        this.options.eventDrop = (event, duration) => {
             let /** @type {?} */ detail = { event: event, duration: duration };
             var /** @type {?} */ widgetEvent = new CustomEvent('eventDrop', {
                 bubbles: true,
                 detail: detail
             });
+            this.updateEventsBeforeResize();
             elem[0].dispatchEvent(widgetEvent);
         };
-        this.options.eventResize = function (event, duration) {
+        this.options.eventResize = (event, duration) => {
             let /** @type {?} */ detail = { event: event, duration: duration };
             var /** @type {?} */ widgetEvent = new CustomEvent('eventResize', {
                 bubbles: true,
                 detail: detail
             });
+            this.updateEventsBeforeResize();
             elem[0].dispatchEvent(widgetEvent);
         };
-        this.options.eventRender = function (event, element) {
-            let /** @type {?} */ detail = { event: event, element: element };
+        this.options.eventRender = function (event, element, view) {
+            let /** @type {?} */ detail = { event: event, element: element, view: view };
             var /** @type {?} */ widgetEvent = new CustomEvent('eventRender', {
                 bubbles: true,
                 detail: detail
             });
             elem[0].dispatchEvent(widgetEvent);
         };
-        this.options.eventClick = function (event) {
+        this.options.eventClick = (event) => {
             let /** @type {?} */ detail = { event: event, duration: null };
             var /** @type {?} */ widgetEvent = new CustomEvent('eventClick', {
                 bubbles: true,
@@ -225,6 +255,30 @@ class CalendarComponent {
             });
             elem[0].dispatchEvent(widgetEvent);
         };
+        this.options.dayClick = function (date, jsEvent, view) {
+            let /** @type {?} */ detail = { date: date, jsEvent: jsEvent, view: view };
+            var /** @type {?} */ widgetEvent = new CustomEvent('dayClick', {
+                bubbles: true,
+                detail: detail
+            });
+            elem[0].dispatchEvent(widgetEvent);
+        };
+        this.options.navLinkDayClick = function (date, jsEvent) {
+            let /** @type {?} */ detail = { date: date, jsEvent: jsEvent };
+            var /** @type {?} */ widgetEvent = new CustomEvent('navLinkDayClick', {
+                bubbles: true,
+                detail: detail
+            });
+            elem[0].dispatchEvent(widgetEvent);
+        };
+        this.options.navLinkWeekClick = function (weekStart, jsEvent) {
+            let /** @type {?} */ detail = { weekStart: weekStart, jsEvent: jsEvent };
+            var /** @type {?} */ widgetEvent = new CustomEvent('navLinkWeekClick', {
+                bubbles: true,
+                detail: detail
+            });
+            elem[0].dispatchEvent(widgetEvent);
+        };
     }
     /**
      * @param {...?} args
@@ -259,6 +313,19 @@ class CalendarComponent {
     clientEvents(idOrFilter) {
         return $(this.element.nativeElement).fullCalendar('clientEvents', idOrFilter);
     }
+    /**
+     * @param {?} events
+     * @return {?}
+     */
+    renderEvents(events) {
+        $(this.element.nativeElement).fullCalendar('removeEvents');
+        if (events && events.length > 0) {
+            events.forEach(el => {
+                $(this.element.nativeElement).fullCalendar('renderEvent', el);
+            });
+            $(this.element.nativeElement).fullCalendar('rerenderEvents');
+        }
+    }
 }
 CalendarComponent.decorators = [
     { type: Component, args: [{
@@ -274,6 +341,8 @@ CalendarComponent.ctorParameters = () => [
     { type: NgZone, },
 ];
 CalendarComponent.propDecorators = {
+    'eventsModel': [{ type: Input, args: ['eventsModel',] },],
+    'eventsModelChange': [{ type: Output },],
     'options': [{ type: Input },],
     'eventDrop': [{ type: Output },],
     'eventResize': [{ type: Output },],
@@ -286,6 +355,9 @@ CalendarComponent.propDecorators = {
     'initialized': [{ type: Output },],
     'select': [{ type: Output },],
     'unselect': [{ type: Output },],
+    'dayClick': [{ type: Output },],
+    'navLinkDayClick': [{ type: Output },],
+    'navLinkWeekClick': [{ type: Output },],
 };
 
 class FullCalendarModule {

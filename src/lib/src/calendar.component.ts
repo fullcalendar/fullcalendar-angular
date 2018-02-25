@@ -1,5 +1,5 @@
 import { Component, Input, Output, OnInit, NgZone, AfterViewInit, HostListener, AfterContentChecked, AfterViewChecked, ElementRef, EventEmitter } from '@angular/core';
-import * as $ from 'jquery';
+import $ from 'jquery';
 import 'fullcalendar';
 import { Options } from 'fullcalendar';
 import './lib/customEvent';

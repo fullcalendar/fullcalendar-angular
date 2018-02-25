@@ -5,6 +5,9 @@ import './lib/customEvent';
 export declare class CalendarComponent implements OnInit, AfterViewInit, AfterContentChecked, AfterViewChecked {
     private element;
     private zone;
+    private _eventsModel;
+    eventsModel: any[];
+    eventsModelChange: EventEmitter<any>;
     options: Options;
     eventDrop: EventEmitter<any>;
     eventResize: EventEmitter<any>;
@@ -17,13 +20,18 @@ export declare class CalendarComponent implements OnInit, AfterViewInit, AfterCo
     initialized: EventEmitter<any>;
     select: EventEmitter<any>;
     unselect: EventEmitter<any>;
+    dayClick: EventEmitter<any>;
+    navLinkDayClick: EventEmitter<any>;
+    navLinkWeekClick: EventEmitter<any>;
     constructor(element: ElementRef, zone: NgZone);
     ngOnInit(): void;
     ngAfterViewInit(): void;
     ngAfterContentChecked(): void;
     ngAfterViewChecked(): void;
+    updateEventsBeforeResize(): void;
     updaterOptions(): void;
-    fullCalendar(...args: any[]): void;
+    fullCalendar(...args: any[]): any;
     updateEvent(event: any): void;
     clientEvents(idOrFilter: any): any;
+    renderEvents(events: any[]): void;
 }
