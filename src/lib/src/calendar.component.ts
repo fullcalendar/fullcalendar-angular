@@ -11,18 +11,18 @@ import { RenderEventModel } from './models/renderEventModel';
     template: '<div id="calendar"></div>',
 })
 export class CalendarComponent implements OnInit, AfterViewInit, AfterContentChecked, AfterViewChecked {
-    private _eventModel: any[];
-    get eventModel(): any[] {
-        return this._eventModel;
+    private _eventsModel: any[];
+    get eventsModel(): any[] {
+        return this._eventsModel;
     }
 
-    @Input('eventModel')
-    set eventModel(value: any[]) {
-        this._eventModel = value;
+    @Input('eventsModel')
+    set eventsModel(value: any[]) {
+        this._eventsModel = value;
         this.renderEvents(value);
     }
     @Output()
-    eventModelChange = new EventEmitter<any>();
+    eventsModelChange = new EventEmitter<any>();
 
     @Input() options: Options;
     @Output() eventDrop = new EventEmitter<any>();
@@ -39,8 +39,6 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentChe
     @Output() dayClick = new EventEmitter<any>();
     @Output() navLinkDayClick = new EventEmitter<any>();
     @Output() navLinkWeekClick = new EventEmitter<any>();
-    @Output() eventMouseover = new EventEmitter<any>();
-    @Output() eventMouseout = new EventEmitter<any>();
 
 
     constructor(private element: ElementRef, private zone: NgZone) {
@@ -55,8 +53,8 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentChe
             this.zone.runOutsideAngular(() => {
 
                 $('ng-fullcalendar').fullCalendar(this.options);
-                this._eventModel = this.options.events;
-                this.eventModelChange.next(this.options.events);
+                this._eventsModel = this.options.events;
+                this.eventsModelChange.next(this.options.events);
                 this.initialized.emit(true);
                 // Click listeners
                 let elem = document.getElementsByTagName('ng-fullcalendar');
@@ -67,7 +65,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentChe
                         if (name.indexOf('button') == name.length - 6) {
                             name = name.replace(/fc|button|-/g, '');
                             if (name != '') {
-                                this.renderEvents(this._eventModel);
+                                this.renderEvents(this._eventsModel);
                                 eventDispatch(name);
                             }
                         }
@@ -95,8 +93,8 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentChe
     }
     updateEventsBeforeResize() {
         let events: FC.EventObject[] = <FC.EventObject[]>this.fullCalendar('clientEvents');
-            this.eventModel = events;
-            this.eventModelChange.next(events);
+            this.eventsModel = events;
+            this.eventsModelChange.next(events);
     }
     updaterOptions() {
         let elem = document.getElementsByTagName('ng-fullcalendar');

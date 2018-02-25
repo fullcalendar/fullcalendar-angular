@@ -77,8 +77,46 @@ then your app.component.html
 </div>
 ```
 
+## Events binging
+
+From 1.5.0 version new feature `[(eventsModel)]="events"` two events binding
+
+```html
+<div *ngIf="calendarOptions">
+    <ng-fullcalendar #ucCalendar [options]="calendarOptions" [(eventsModel)]="events"></ng-fullcalendar>
+</div>
+```
+
+```ts
+
+ngOnInit() {
+  this.eventService.getEvents().subscribe(data => {
+    this.calendarOptions = {
+      editable: true,
+      eventLimit: false,
+      header: {
+        left: 'prev,next today',
+        center: 'title',
+        right: 'month,agendaWeek,agendaDay,listMonth'
+      },
+      selectable: true,
+      events: [],
+      };
+  });
+}
+clearEvents() {
+  this.events = [];
+}
+loadEvents() {
+  this.eventService.getEvents().subscribe(data => {
+    this.events = data;
+  });
+}
+
+```
+
 ## Callbacks
-Output 11 EventEmitters
+Output 14 EventEmitters
 ```typescript
   clickButton
   eventClick
@@ -91,6 +129,9 @@ Output 11 EventEmitters
   initialized
   select
   unselect
+  dayClick
+  navLinkDayClick
+  navLinkWeekClick
 ```
 ## API
 

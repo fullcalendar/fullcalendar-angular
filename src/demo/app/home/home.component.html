@@ -7,7 +7,7 @@
     <ng-fullcalendar #ucCalendar [options]="calendarOptions" (eventClick)="eventClick($event.detail)" (eventDrop)="updateEvent($event.detail)"
         (viewRender)="viewRender($event.detail)" (initialized)="initialized()" (eventRender)="eventRender($event.detail)" (select)="select($event.detail)"
         (unselect)="unselect($event.detail)" (eventResize)="updateEvent($event.detail)" (clickButton)="clickButton($event.detail)"
-        (windowResize)="windowResize($event.detail)" [(eventModel)]="events"></ng-fullcalendar>
+        (windowResize)="windowResize($event.detail)" [(eventsModel)]="events"></ng-fullcalendar>
 </div>
 
 <h4> eventRender: </h4>
