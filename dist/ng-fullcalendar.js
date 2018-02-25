@@ -1,6 +1,6 @@
 import { Component, ElementRef, EventEmitter, Input, NgModule, NgZone, Output } from '@angular/core';
-import $ from 'jquery/index';
-import 'fullcalendar/index';
+import $ from 'jquery';
+import fullcalendar from 'fullcalendar';
 $.fn.fullCalendar = function(options) {
 	var args = Array.prototype.slice.call(arguments, 1); // for a possible method call
 	var res = this; // what this function will return (this jQuery object by default)

@@ -1,6 +1,6 @@
 {
   "name": "ng-fullcalendar",
-  "version": "1.5.0",
+  "version": "1.5.1",
   "description": "Angular 2.x.x , 4.x.x fullcalendar",
   "main": "./bundles/ng-fullcalendar.umd.js",
   "module": "./ng-fullcalendar.es5.js",
