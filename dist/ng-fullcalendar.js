@@ -105,7 +105,9 @@ class CalendarComponent {
      */
     set eventsModel(value) {
         this._eventsModel = value;
-        this.renderEvents(value);
+        setTimeout(() => {
+            this.renderEvents(value);
+        }, 50);
     }
     /**
      * @return {?}
@@ -154,7 +156,7 @@ class CalendarComponent {
                     elem[0].dispatchEvent(widgetEvent);
                 }
             });
-        }, 100);
+        });
     }
     /**
      * @return {?}
@@ -170,7 +172,7 @@ class CalendarComponent {
      * @return {?}
      */
     updateEventsBeforeResize() {
-        let /** @type {?} */ events = (this.fullCalendar('clientEvents'));
+        let /** @type {?} */ events = this.fullCalendar('clientEvents');
         this.eventsModel = events;
         this.eventsModelChange.next(events);
     }
