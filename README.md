@@ -1,7 +1,7 @@
 # Angular fullcalendar module
 Jquery fullcalendar module [FullCalendar](https://fullcalendar.io) 
 
-This package fullcalendar module for Angular 2, 4
+This package fullcalendar module for Angular 2, 4, 5
 
 [![latest](https://img.shields.io/npm/v/ng-fullcalendar/latest.svg)](http://npmjs.com/packages/ng-fullcalendar) 
 
@@ -36,6 +36,12 @@ For index.html style urls
 
 ```html
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.6.1/fullcalendar.min.css">
+```
+
+Or you can add this in your SCSS pipe 
+
+```scss
+@import "~/fullcalendar/dist/fullcalendar.css";
 ```
 
 Import CalendarComponent in your component :
