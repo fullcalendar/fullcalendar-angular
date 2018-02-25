@@ -27,8 +27,7 @@
       'jquery': 'npm:jquery/dist/jquery.js',
       'fullcalendar': 'npm:fullcalendar/dist/fullcalendar.js',
       'moment': 'npm:moment/moment.js',
-      'rxjs': 'npm:rxjs',
-      
+      'rxjs': 'npm:rxjs'
     },
     // packages tells the System loader how to load when no filename and/or no extension
     packages: {

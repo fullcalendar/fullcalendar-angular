@@ -1,5 +1,4 @@
 .DS_STORE
-dist/
 node_modules/
 out-tsc/
 debug.log

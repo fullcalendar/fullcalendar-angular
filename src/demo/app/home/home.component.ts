@@ -23,6 +23,7 @@ export class HomeComponent implements OnInit {
     calendarOptions: Options;
     displayEvent: any;
     logger: any[] = [];
+    events: any[];
     @ViewChild(CalendarComponent) ucCalendar: CalendarComponent;
     constructor(protected eventService: EventSesrvice) { }
 
@@ -39,6 +40,14 @@ export class HomeComponent implements OnInit {
           selectable: true,
           events: data,
         };
+      });
+    }
+    clearEvents() {
+      this.events = [];
+    }
+    loadAgain() {
+      this.eventService.getEvents().subscribe(data => {
+        this.events = data;
       });
     }
     clickButton(model: any) {
