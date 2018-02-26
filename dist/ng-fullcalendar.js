@@ -1,57 +1,11 @@
 import { Component, ElementRef, EventEmitter, Input, NgModule, NgZone, Output } from '@angular/core';
 import $ from 'jquery';
-import fullcalendar from 'fullcalendar';
-$.fn.fullCalendar = function(options) {
-	var args = Array.prototype.slice.call(arguments, 1); // for a possible method call
-	var res = this; // what this function will return (this jQuery object by default)
+import 'fullcalendar';
 
-	this.each(function(i, _element) { // loop each DOM element involved
-		var element = $(_element);
-		var calendar = element.data('fullCalendar'); // get the existing calendar object (if any)
-		var singleRes; // the returned value of this single method call
-
-		// a method call
-		if (typeof options === 'string') {
-
-			if (options === 'getCalendar') {
-				if (!i) { // first element only
-					res = calendar;
-				}
-			}
-			else if (options === 'destroy') { // don't warn if no calendar object
-				if (calendar) {
-					calendar.destroy();
-					element.removeData('fullCalendar');
-				}
-			}
-			else if (!calendar) {
-				FC.warn("Attempting to call a FullCalendar method on an element with no calendar.");
-			}
-			else if ($.isFunction(calendar[options])) {
-				singleRes = calendar[options].apply(calendar, args);
-
-				if (!i) {
-					res = singleRes; // record the first method call result
-				}
-				if (options === 'destroy') { // for the destroy method, must remove Calendar object data
-					element.removeData('fullCalendar');
-				}
-			}
-			else {
-				FC.warn("'" + options + "' is an unknown FullCalendar method.");
-			}
-		}
-		// a new calendar initialization
-		else if (!calendar) { // don't initialize twice
-			calendar = new fullcalendar.Calendar(element, options);
-			element.data('fullCalendar', calendar);
-			calendar.render();
-		}
-	});
-
-	return res;
-};
-
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 (function () {
     /**
      * @param {?} event
@@ -60,15 +14,19 @@ $.fn.fullCalendar = function(options) {
      */
     function CustomEvent(event, params) {
         params = params || { bubbles: false, cancelable: false, detail: undefined };
-        var /** @type {?} */ evt = (document.createEvent('CustomEvent'));
+        var /** @type {?} */ evt = /** @type {?} */ (document.createEvent('CustomEvent'));
         evt.initCustomEvent(event, params.bubbles, params.cancelable, params.detail);
         return evt;
     }
     
     CustomEvent.prototype = Event.prototype;
-    window.CustomEvent = (CustomEvent);
+    window.CustomEvent = /** @type {?} */ (CustomEvent);
 })();
 
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 class CalendarComponent {
     /**
      * @param {?} element
@@ -335,33 +293,35 @@ CalendarComponent.decorators = [
                 template: '<div id="calendar"></div>',
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 CalendarComponent.ctorParameters = () => [
     { type: ElementRef, },
     { type: NgZone, },
 ];
 CalendarComponent.propDecorators = {
-    'eventsModel': [{ type: Input, args: ['eventsModel',] },],
-    'eventsModelChange': [{ type: Output },],
-    'options': [{ type: Input },],
-    'eventDrop': [{ type: Output },],
-    'eventResize': [{ type: Output },],
-    'eventClick': [{ type: Output },],
-    'clickButton': [{ type: Output },],
-    'windowResize': [{ type: Output },],
-    'viewRender': [{ type: Output },],
-    'viewDestroy': [{ type: Output },],
-    'eventRender': [{ type: Output },],
-    'initialized': [{ type: Output },],
-    'select': [{ type: Output },],
-    'unselect': [{ type: Output },],
-    'dayClick': [{ type: Output },],
-    'navLinkDayClick': [{ type: Output },],
-    'navLinkWeekClick': [{ type: Output },],
+    "eventsModel": [{ type: Input, args: ['eventsModel',] },],
+    "eventsModelChange": [{ type: Output },],
+    "options": [{ type: Input },],
+    "eventDrop": [{ type: Output },],
+    "eventResize": [{ type: Output },],
+    "eventClick": [{ type: Output },],
+    "clickButton": [{ type: Output },],
+    "windowResize": [{ type: Output },],
+    "viewRender": [{ type: Output },],
+    "viewDestroy": [{ type: Output },],
+    "eventRender": [{ type: Output },],
+    "initialized": [{ type: Output },],
+    "select": [{ type: Output },],
+    "unselect": [{ type: Output },],
+    "dayClick": [{ type: Output },],
+    "navLinkDayClick": [{ type: Output },],
+    "navLinkWeekClick": [{ type: Output },],
 };
 
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 class FullCalendarModule {
 }
 FullCalendarModule.decorators = [
@@ -370,17 +330,32 @@ FullCalendarModule.decorators = [
                 exports: [CalendarComponent],
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 FullCalendarModule.ctorParameters = () => [];
 
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 class ButtonClickModel {
 }
 
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 class UpdateEventModel {
 }
 
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 /**
  * Generated bundle index. Do not edit.
  */

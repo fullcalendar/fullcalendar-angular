@@ -10,8 +10,8 @@
   "license": "MIT",
   "keywords": [
     "angular",
-    "angular4",
-    "angular 4",
+    "angular5",
+    "angular 5",
     "fullcalendar",
     "full calendar",
     "angular calendar"
@@ -52,13 +52,13 @@
     "@angular/common": ">=4.0.0 <6.0.0"
   },
   "devDependencies": {
-    "@angular/common": "~4.1.3",
-    "@angular/compiler": "~4.1.3",
-    "@angular/compiler-cli": "~4.1.3",
-    "@angular/core": "~4.1.3",
-    "@angular/platform-browser": "~4.1.3",
-    "@angular/platform-browser-dynamic": "~4.1.3",
-    "@angular/router": "^5.1.3",
+    "@angular/common": "5.2.6",
+    "@angular/compiler": "5.2.6",
+    "@angular/compiler-cli": "5.2.6",
+    "@angular/core": "5.2.6",
+    "@angular/platform-browser": "5.2.6",
+    "@angular/platform-browser-dynamic": "5.2.6",
+    "@angular/router": "5.2.6",
     "@types/fullcalendar": "^3.5.0",
     "@types/jasmine": "2.5.36",
     "@types/jquery": "^3.2.15",
@@ -67,9 +67,9 @@
     "concurrently": "3.4.0",
     "core-js": "^2.4.1",
     "glob": "^7.1.1",
-    "jasmine-core": "^2.5.2",
-    "karma": "^1.5.0",
-    "karma-chrome-launcher": "^2.0.0",
+    "jasmine-core": "^2.6.2",
+    "karma": "^1.7.0",
+    "karma-chrome-launcher": "^2.1.1",
     "karma-cli": "^1.0.1",
     "karma-coverage": "^1.1.1",
     "karma-firefox-launcher": "^1.0.1",
@@ -85,16 +85,15 @@
     "rollup-plugin-node-resolve": "^3.0.0",
     "rollup-plugin-sourcemaps": "^0.4.1",
     "rollup-plugin-uglify": "^2.0.1",
-    "rxjs": "^5.0.1",
+    "rxjs": "^5.5.5",
     "standard-version": "^4.0.0",
     "systemjs": "^0.19.40",
     "tslint": "^4.4.2",
-    "typescript": "~2.3.0",
-    "zone.js": "^0.8.4"
+    "typescript": "~2.5.3",
+    "zone.js": "^0.8.14"
   },
   "dependencies": {
     "fullcalendar": "3.6.1",
-    "jquery": "3.2.1",
     "@types/fullcalendar": "3.5.2",
     "@types/jquery": "3.2.17"
   }
