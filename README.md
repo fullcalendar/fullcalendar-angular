@@ -154,7 +154,7 @@ Example render new event
  this.ucCalendar.fullCalendar('renderEvent', el);
  this.ucCalendar.fullCalendar('rerenderEvents');
 ```
-##Thanks
+## Thanks
 
 - Aleksandr Sobakar ([@xaosaki](https://github.com/xaosaki))
 - Mario Mol ([@mariohmol](https://github.com/mariohmol))
