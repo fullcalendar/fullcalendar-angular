@@ -6,6 +6,7 @@ export declare class CalendarComponent implements OnInit, AfterViewInit, AfterCo
     private element;
     private zone;
     private _eventsModel;
+    private _reRender;
     eventsModel: any[];
     eventsModelChange: EventEmitter<any>;
     options: Options;

@@ -1,5 +1,5 @@
 import { Component, Input, Output, OnInit, NgZone, AfterViewInit, HostListener, AfterContentChecked, AfterViewChecked, ElementRef, EventEmitter } from '@angular/core';
-import * as $ from 'jquery';
+import $ from 'jquery';
 import 'fullcalendar';
 import { Options } from 'fullcalendar';
 import './lib/customEvent';
@@ -12,6 +12,7 @@ import { RenderEventModel } from './models/renderEventModel';
 })
 export class CalendarComponent implements OnInit, AfterViewInit, AfterContentChecked, AfterViewChecked {
     private _eventsModel: any[];
+    private _reRender = true;
     get eventsModel(): any[] {
         return this._eventsModel;
     }
@@ -19,9 +20,13 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentChe
     @Input('eventsModel')
     set eventsModel(value: any[]) {
         this._eventsModel = value;
-        setTimeout(() => {
-        this.renderEvents(value);
-        }, 50)
+        if (this._reRender) {
+            setTimeout(() => {
+                this.renderEvents(value);
+            }, 50);
+        } else {
+            this._reRender = true;
+        }
     }
     @Output()
     eventsModelChange = new EventEmitter<any>();
@@ -95,8 +100,9 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentChe
     }
     updateEventsBeforeResize() {
         let events = this.fullCalendar('clientEvents');
-            this.eventsModel = events;
-            this.eventsModelChange.next(events);
+        this._reRender = false;
+        this.eventsModel = events;
+        this.eventsModelChange.next(events);
     }
     updaterOptions() {
         let elem = document.getElementsByTagName('ng-fullcalendar');

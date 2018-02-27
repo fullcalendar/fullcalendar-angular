@@ -35,6 +35,7 @@ var CalendarComponent = /** @class */ (function () {
     function CalendarComponent(element, zone) {
         this.element = element;
         this.zone = zone;
+        this._reRender = true;
         this.eventsModelChange = new _angular_core.EventEmitter();
         this.eventDrop = new _angular_core.EventEmitter();
         this.eventResize = new _angular_core.EventEmitter();
@@ -65,9 +66,14 @@ var CalendarComponent = /** @class */ (function () {
         function (value) {
             var _this = this;
             this._eventsModel = value;
-            setTimeout(function () {
-                _this.renderEvents(value);
-            }, 50);
+            if (this._reRender) {
+                setTimeout(function () {
+                    _this.renderEvents(value);
+                }, 50);
+            }
+            else {
+                this._reRender = true;
+            }
         },
         enumerable: true,
         configurable: true
@@ -152,6 +158,7 @@ var CalendarComponent = /** @class */ (function () {
      */
     function () {
         var /** @type {?} */ events = this.fullCalendar('clientEvents');
+        this._reRender = false;
         this.eventsModel = events;
         this.eventsModelChange.next(events);
     };
