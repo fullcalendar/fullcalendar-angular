@@ -152,7 +152,7 @@ Example render new event
    ...
  }
  this.ucCalendar.fullCalendar('renderEvent', el);
- this.ucCalendar.fullCalendar('rerenderEvents');
+ this.ucCalendar.fullCalendar('renderEvents');
 ```
 ## Thanks
 
