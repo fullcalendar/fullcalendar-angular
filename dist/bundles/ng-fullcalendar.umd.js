@@ -6,10 +6,6 @@
 
 $ = 'default' in $ ? $['default'] : $;
 
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
- */
 (function () {
     /**
      * @param {?} event
@@ -18,20 +14,20 @@ $ = 'default' in $ ? $['default'] : $;
      */
     function CustomEvent(event, params) {
         params = params || { bubbles: false, cancelable: false, detail: undefined };
-        var /** @type {?} */ evt = /** @type {?} */ (document.createEvent('CustomEvent'));
+        var /** @type {?} */ evt = (document.createEvent('CustomEvent'));
         evt.initCustomEvent(event, params.bubbles, params.cancelable, params.detail);
         return evt;
     }
     
     CustomEvent.prototype = Event.prototype;
-    window.CustomEvent = /** @type {?} */ (CustomEvent);
+    window.CustomEvent = (CustomEvent);
 })();
 
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
- */
-var CalendarComponent = /** @class */ (function () {
+var CalendarComponent = (function () {
+    /**
+     * @param {?} element
+     * @param {?} zone
+     */
     function CalendarComponent(element, zone) {
         this.element = element;
         this.zone = zone;
@@ -53,17 +49,17 @@ var CalendarComponent = /** @class */ (function () {
         this.navLinkWeekClick = new _angular_core.EventEmitter();
     }
     Object.defineProperty(CalendarComponent.prototype, "eventsModel", {
-        get: /**
+        /**
          * @return {?}
          */
-        function () {
+        get: function () {
             return this._eventsModel;
         },
-        set: /**
+        /**
          * @param {?} value
          * @return {?}
          */
-        function (value) {
+        set: function (value) {
             var _this = this;
             this._eventsModel = value;
             if (this._reRender) {
@@ -81,18 +77,12 @@ var CalendarComponent = /** @class */ (function () {
     /**
      * @return {?}
      */
-    CalendarComponent.prototype.ngOnInit = /**
-     * @return {?}
-     */
-    function () {
+    CalendarComponent.prototype.ngOnInit = function () {
     };
     /**
      * @return {?}
      */
-    CalendarComponent.prototype.ngAfterViewInit = /**
-     * @return {?}
-     */
-    function () {
+    CalendarComponent.prototype.ngAfterViewInit = function () {
         var _this = this;
         setTimeout(function () {
             _this.updaterOptions();
@@ -137,26 +127,17 @@ var CalendarComponent = /** @class */ (function () {
     /**
      * @return {?}
      */
-    CalendarComponent.prototype.ngAfterContentChecked = /**
-     * @return {?}
-     */
-    function () {
+    CalendarComponent.prototype.ngAfterContentChecked = function () {
     };
     /**
      * @return {?}
      */
-    CalendarComponent.prototype.ngAfterViewChecked = /**
-     * @return {?}
-     */
-    function () {
+    CalendarComponent.prototype.ngAfterViewChecked = function () {
     };
     /**
      * @return {?}
      */
-    CalendarComponent.prototype.updateEventsBeforeResize = /**
-     * @return {?}
-     */
-    function () {
+    CalendarComponent.prototype.updateEventsBeforeResize = function () {
         var /** @type {?} */ events = this.fullCalendar('clientEvents');
         this._reRender = false;
         this.eventsModel = events;
@@ -165,10 +146,7 @@ var CalendarComponent = /** @class */ (function () {
     /**
      * @return {?}
      */
-    CalendarComponent.prototype.updaterOptions = /**
-     * @return {?}
-     */
-    function () {
+    CalendarComponent.prototype.updaterOptions = function () {
         var _this = this;
         var /** @type {?} */ elem = document.getElementsByTagName('ng-fullcalendar');
         this.options.eventDrop = function (event, duration) {
@@ -276,11 +254,7 @@ var CalendarComponent = /** @class */ (function () {
      * @param {...?} args
      * @return {?}
      */
-    CalendarComponent.prototype.fullCalendar = /**
-     * @param {...?} args
-     * @return {?}
-     */
-    function () {
+    CalendarComponent.prototype.fullCalendar = function () {
         var args = [];
         for (var _i = 0; _i < arguments.length; _i++) {
             args[_i] = arguments[_i];
@@ -303,33 +277,21 @@ var CalendarComponent = /** @class */ (function () {
      * @param {?} event
      * @return {?}
      */
-    CalendarComponent.prototype.updateEvent = /**
-     * @param {?} event
-     * @return {?}
-     */
-    function (event) {
+    CalendarComponent.prototype.updateEvent = function (event) {
         return $(this.element.nativeElement).fullCalendar('updateEvent', event);
     };
     /**
      * @param {?} idOrFilter
      * @return {?}
      */
-    CalendarComponent.prototype.clientEvents = /**
-     * @param {?} idOrFilter
-     * @return {?}
-     */
-    function (idOrFilter) {
+    CalendarComponent.prototype.clientEvents = function (idOrFilter) {
         return $(this.element.nativeElement).fullCalendar('clientEvents', idOrFilter);
     };
     /**
      * @param {?} events
      * @return {?}
      */
-    CalendarComponent.prototype.renderEvents = /**
-     * @param {?} events
-     * @return {?}
-     */
-    function (events) {
+    CalendarComponent.prototype.renderEvents = function (events) {
         var _this = this;
         $(this.element.nativeElement).fullCalendar('removeEvents');
         if (events && events.length > 0) {
@@ -339,86 +301,69 @@ var CalendarComponent = /** @class */ (function () {
             $(this.element.nativeElement).fullCalendar('rerenderEvents');
         }
     };
-    CalendarComponent.decorators = [
-        { type: _angular_core.Component, args: [{
-                    selector: 'ng-fullcalendar',
-                    template: '<div id="calendar"></div>',
-                },] },
-    ];
-    /** @nocollapse */
-    CalendarComponent.ctorParameters = function () { return [
-        { type: _angular_core.ElementRef, },
-        { type: _angular_core.NgZone, },
-    ]; };
-    CalendarComponent.propDecorators = {
-        "eventsModel": [{ type: _angular_core.Input, args: ['eventsModel',] },],
-        "eventsModelChange": [{ type: _angular_core.Output },],
-        "options": [{ type: _angular_core.Input },],
-        "eventDrop": [{ type: _angular_core.Output },],
-        "eventResize": [{ type: _angular_core.Output },],
-        "eventClick": [{ type: _angular_core.Output },],
-        "clickButton": [{ type: _angular_core.Output },],
-        "windowResize": [{ type: _angular_core.Output },],
-        "viewRender": [{ type: _angular_core.Output },],
-        "viewDestroy": [{ type: _angular_core.Output },],
-        "eventRender": [{ type: _angular_core.Output },],
-        "initialized": [{ type: _angular_core.Output },],
-        "select": [{ type: _angular_core.Output },],
-        "unselect": [{ type: _angular_core.Output },],
-        "dayClick": [{ type: _angular_core.Output },],
-        "navLinkDayClick": [{ type: _angular_core.Output },],
-        "navLinkWeekClick": [{ type: _angular_core.Output },],
-    };
     return CalendarComponent;
 }());
-
+CalendarComponent.decorators = [
+    { type: _angular_core.Component, args: [{
+                selector: 'ng-fullcalendar',
+                template: '<div id="calendar"></div>',
+            },] },
+];
 /**
- * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @nocollapse
  */
-var FullCalendarModule = /** @class */ (function () {
+CalendarComponent.ctorParameters = function () { return [
+    { type: _angular_core.ElementRef, },
+    { type: _angular_core.NgZone, },
+]; };
+CalendarComponent.propDecorators = {
+    'eventsModel': [{ type: _angular_core.Input, args: ['eventsModel',] },],
+    'eventsModelChange': [{ type: _angular_core.Output },],
+    'options': [{ type: _angular_core.Input },],
+    'eventDrop': [{ type: _angular_core.Output },],
+    'eventResize': [{ type: _angular_core.Output },],
+    'eventClick': [{ type: _angular_core.Output },],
+    'clickButton': [{ type: _angular_core.Output },],
+    'windowResize': [{ type: _angular_core.Output },],
+    'viewRender': [{ type: _angular_core.Output },],
+    'viewDestroy': [{ type: _angular_core.Output },],
+    'eventRender': [{ type: _angular_core.Output },],
+    'initialized': [{ type: _angular_core.Output },],
+    'select': [{ type: _angular_core.Output },],
+    'unselect': [{ type: _angular_core.Output },],
+    'dayClick': [{ type: _angular_core.Output },],
+    'navLinkDayClick': [{ type: _angular_core.Output },],
+    'navLinkWeekClick': [{ type: _angular_core.Output },],
+};
+
+var FullCalendarModule = (function () {
     function FullCalendarModule() {
     }
-    FullCalendarModule.decorators = [
-        { type: _angular_core.NgModule, args: [{
-                    declarations: [CalendarComponent],
-                    exports: [CalendarComponent],
-                },] },
-    ];
-    /** @nocollapse */
-    FullCalendarModule.ctorParameters = function () { return []; };
     return FullCalendarModule;
 }());
-
+FullCalendarModule.decorators = [
+    { type: _angular_core.NgModule, args: [{
+                declarations: [CalendarComponent],
+                exports: [CalendarComponent],
+            },] },
+];
 /**
- * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @nocollapse
  */
-var ButtonClickModel = /** @class */ (function () {
+FullCalendarModule.ctorParameters = function () { return []; };
+
+var ButtonClickModel = (function () {
     function ButtonClickModel() {
     }
     return ButtonClickModel;
 }());
 
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
- */
-var UpdateEventModel = /** @class */ (function () {
+var UpdateEventModel = (function () {
     function UpdateEventModel() {
     }
     return UpdateEventModel;
 }());
 
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
- */
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
- */
 /**
  * Generated bundle index. Do not edit.
  */

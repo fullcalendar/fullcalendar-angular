@@ -29,13 +29,15 @@ return Promise.resolve()
     .then(() => console.log('Inlining succeeded.'))
   )
   // Compile to ES2015.
-  .then(() => ngc(['-p',`${tempLibFolder}/tsconfig.lib.json` ],
-    exitCode => exitCode === 0 ? Promise.resolve() : Promise.reject())
+  .then(() =>  ngc({ project: `${tempLibFolder}/tsconfig.lib.json` })
+  .then(exitCode => exitCode === 0 ? Promise.resolve() : Promise.reject())
+  .then(() => console.log('ES2015 compilation succeeded.'))
   )
   // Compile to ES5.
-  .then(() => ngc(['-p',`${tempLibFolder}/tsconfig.es5.json` ],
-    exitCode => exitCode === 0 ? Promise.resolve() : Promise.reject())
-  )
+  .then(() => ngc({ project: `${tempLibFolder}/tsconfig.es5.json` })
+  .then(exitCode => exitCode === 0 ? Promise.resolve() : Promise.reject())
+  .then(() => console.log('ES5 compilation succeeded.'))
+)
   // Copy typings and metadata to `dist/` folder.
   .then(() => Promise.resolve()
     .then(() => _relativeCopy('**/*.d.ts', es2015OutputFolder, distFolder))
