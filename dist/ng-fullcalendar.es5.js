@@ -1,7 +1,56 @@
 import { Component, ElementRef, EventEmitter, Input, NgModule, NgZone, Output } from '@angular/core';
 import $ from 'jquery';
-import 'fullcalendar';
+import fullcalendar from 'fullcalendar';
+$.fn.fullCalendar = function(options) {
+	var args = Array.prototype.slice.call(arguments, 1); // for a possible method call
+	var res = this; // what this function will return (this jQuery object by default)
 
+	this.each(function(i, _element) { // loop each DOM element involved
+		var element = $(_element);
+		var calendar = element.data('fullCalendar'); // get the existing calendar object (if any)
+		var singleRes; // the returned value of this single method call
+
+		// a method call
+		if (typeof options === 'string') {
+
+			if (options === 'getCalendar') {
+				if (!i) { // first element only
+					res = calendar;
+				}
+			}
+			else if (options === 'destroy') { // don't warn if no calendar object
+				if (calendar) {
+					calendar.destroy();
+					element.removeData('fullCalendar');
+				}
+			}
+			else if (!calendar) {
+				FC.warn("Attempting to call a FullCalendar method on an element with no calendar.");
+			}
+			else if ($.isFunction(calendar[options])) {
+				singleRes = calendar[options].apply(calendar, args);
+
+				if (!i) {
+					res = singleRes; // record the first method call result
+				}
+				if (options === 'destroy') { // for the destroy method, must remove Calendar object data
+					element.removeData('fullCalendar');
+				}
+			}
+			else {
+				FC.warn("'" + options + "' is an unknown FullCalendar method.");
+			}
+		}
+		// a new calendar initialization
+		else if (!calendar) { // don't initialize twice
+			calendar = new fullcalendar.Calendar(element, options);
+			element.data('fullCalendar', calendar);
+			calendar.render();
+		}
+	});
+
+	return res;
+};
 (function () {
     /**
      * @param {?} event
@@ -95,7 +144,7 @@ var CalendarComponent = (function () {
                         if (name.indexOf('button') == name.length - 6) {
                             name = name.replace(/fc|button|-/g, '');
                             if (name != '') {
-                                _this.renderEvents(_this._eventsModel);
+                                // this.renderEvents(this._eventsModel);
                                 eventDispatch(name);
                             }
                         }
@@ -288,12 +337,9 @@ var CalendarComponent = (function () {
      * @return {?}
      */
     CalendarComponent.prototype.renderEvents = function (events) {
-        var _this = this;
         $(this.element.nativeElement).fullCalendar('removeEvents');
         if (events && events.length > 0) {
-            events.forEach(function (el) {
-                $(_this.element.nativeElement).fullCalendar('renderEvent', el);
-            });
+            $(this.element.nativeElement).fullCalendar('renderEvents', events, true);
             $(this.element.nativeElement).fullCalendar('rerenderEvents');
         }
     };

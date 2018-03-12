@@ -72,7 +72,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentChe
                         if (name.indexOf('button') == name.length - 6) {
                             name = name.replace(/fc|button|-/g, '');
                             if (name != '') {
-                                this.renderEvents(this._eventsModel);
+                                // this.renderEvents(this._eventsModel);
                                 eventDispatch(name);
                             }
                         }
@@ -235,9 +235,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentChe
     renderEvents(events: any[]) {
         $(this.element.nativeElement).fullCalendar('removeEvents');
         if (events && events.length > 0) {
-            events.forEach(el => {
-                $(this.element.nativeElement).fullCalendar('renderEvent', el);
-            });
+            $(this.element.nativeElement).fullCalendar('renderEvents', events, true);
             $(this.element.nativeElement).fullCalendar('rerenderEvents');
         }
     }

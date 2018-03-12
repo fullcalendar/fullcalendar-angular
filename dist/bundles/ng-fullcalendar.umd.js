@@ -99,7 +99,7 @@ var CalendarComponent = (function () {
                         if (name.indexOf('button') == name.length - 6) {
                             name = name.replace(/fc|button|-/g, '');
                             if (name != '') {
-                                _this.renderEvents(_this._eventsModel);
+                                // this.renderEvents(this._eventsModel);
                                 eventDispatch(name);
                             }
                         }
@@ -292,12 +292,9 @@ var CalendarComponent = (function () {
      * @return {?}
      */
     CalendarComponent.prototype.renderEvents = function (events) {
-        var _this = this;
         $(this.element.nativeElement).fullCalendar('removeEvents');
         if (events && events.length > 0) {
-            events.forEach(function (el) {
-                $(_this.element.nativeElement).fullCalendar('renderEvent', el);
-            });
+            $(this.element.nativeElement).fullCalendar('renderEvents', events, true);
             $(this.element.nativeElement).fullCalendar('rerenderEvents');
         }
     };
