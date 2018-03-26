@@ -154,6 +154,14 @@ Example render new event
  this.ucCalendar.fullCalendar('renderEvent', el);
  this.ucCalendar.fullCalendar('rerenderEvents');
 ```
+
+## TODO
+
+ - Support of all events
+ - Add CustomButtons property
+ - 
+
+
 ## Thanks
 
 - Aleksandr Sobakar ([@xaosaki](https://github.com/xaosaki))
