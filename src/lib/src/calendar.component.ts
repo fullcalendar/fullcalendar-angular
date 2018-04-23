@@ -8,7 +8,7 @@ import { UpdateEventModel } from './models/updateEventModel';
 import { RenderEventModel } from './models/renderEventModel';
 @Component({
     selector: 'ng-fullcalendar',
-    template: '<div id="calendar"></div>',
+    template: '',
 })
 export class CalendarComponent implements OnInit, AfterViewInit, AfterContentChecked, AfterViewChecked {
     private _eventsModel: any[];
@@ -59,7 +59,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentChe
             this.updaterOptions();
             this.zone.runOutsideAngular(() => {
 
-                $('ng-fullcalendar').fullCalendar(this.options);
+                $(this.element.nativeElement).fullCalendar(this.options);
                 this._eventsModel = this.options.events;
                 this.eventsModelChange.next(this.options.events);
                 this.initialized.emit(true);
