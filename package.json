@@ -6,7 +6,7 @@
   "module": "./ng-fullcalendar.es5.js",
   "es2015": "./ng-fullcalendar.js",
   "typings": "./ng-fullcalendar.d.ts",
-  "author": "Jamaks",
+  "author": "vz28bh",
   "license": "MIT",
   "keywords": [
     "angular",
@@ -18,11 +18,11 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/jamaks/ng-fullcalendar.git"
+    "url": "https://github.com/vz28bh/ng-fullcalendar.git"
   },
-  "homepage": "https://github.com/jamaks/ng-fullcalendar",
+  "homepage": "https://github.com/vz28bh/ng-fullcalendar",
   "bugs": {
-    "url": "https://github.com/jamaks/ng-fullcalendar/issues"
+    "url": "https://github.com/vz28bh/ng-fullcalendar/issues"
   },
   "engines": {
     "node": ">= 6.9.0",

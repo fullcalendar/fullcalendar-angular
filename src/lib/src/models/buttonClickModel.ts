@@ -1,4 +1,4 @@
 export class ButtonClickModel {
-    buttonType: string;
+    buttonType: any;
     data: any;
 }

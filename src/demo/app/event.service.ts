@@ -11,7 +11,7 @@ export class EventSesrvice {
             start: yearMonth + '-01'
         },
         {
-            title: 'Long Event',
+            title: 'Matts Long Event',
             start: yearMonth + '-07',
             end: yearMonth + '-10'
         },
