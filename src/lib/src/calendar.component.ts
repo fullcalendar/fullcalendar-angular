@@ -5,7 +5,6 @@ import {
 } from '@angular/core';
 import * as $ from 'jquery';
 import 'fullcalendar';
-import { Options } from 'fullcalendar';
 import './lib/customEvent';
 import { ButtonClickModel } from './models/buttonClickModel';
 import { UpdateEventModel } from './models/updateEventModel';
@@ -69,7 +68,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentChe
     @Output() eventsModelChange = new EventEmitter<any>();
 
     // Options object, see fullcalendar docs
-    @Input() options: Options;
+    @Input() options: any;
 
     // Various events
     @Output() eventDrop = new EventEmitter<any>();
