@@ -3,7 +3,8 @@ import {
     AfterViewInit, HostListener, AfterContentChecked, AfterViewChecked,
     ElementRef, EventEmitter
 } from '@angular/core';
-import * as $ from 'jquery';
+import * as jquery from 'jquery';
+const $ = jquery;
 import 'fullcalendar';
 import './lib/customEvent';
 import { ButtonClickModel } from './models/buttonClickModel';
@@ -16,21 +17,21 @@ import { ResizeEventModel } from './models/resizeEventModel';
     template: '',
 })
 export class CalendarComponent implements OnInit, AfterViewInit, AfterContentChecked, AfterViewChecked {
-    // The event array for the calendar, getter/setter
-    private eventId = 0;
+    private debug = false;
+    // Global id ctr increments for each event
+    private eventId = 1;
+    // Array of the assigned event ids
     private eventIds: number[] = [];
+    // The event array for the calendar, getter/setter
     private _eventsModel: any[] = [];
     @Input() set eventsModel(newEvents: any[]) {
-        console.log('set eventsModel', newEvents);
-        // Possibly setting events to null
-        if (!newEvents || newEvents.length === 0) {
-            if (this._eventsModel !== newEvents) {
-                this.eventIds = [];
-                this._eventsModel = newEvents;
-            }
-            return;
+        if (this.debug) {
+            console.log('set eventsModel', newEvents);
         }
-        const currentEventIds = this.eventIds;
+        // Possibly setting events to null
+        if (!newEvents) {
+            newEvents = [];
+        }
 
         // Check each event, add new ids if needed
         const existingEventIds = this.eventIds;
@@ -41,7 +42,9 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentChe
             }
             const existingIdIndex = this.eventIds.indexOf(newEvent['$$id']);
             if (existingIdIndex === -1) {
-                console.log('adding event and sticking', newEvent);
+                if (this.debug) {
+                    console.log('adding event and sticking', newEvent);
+                }
                 $(this.element.nativeElement).fullCalendar('renderEvent', newEvent, true);
             } else {
                 delete (existingEventIds[existingIdIndex]);
@@ -51,7 +54,9 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentChe
 
         // There may be excess events
         existingEventIds.forEach((existingEventId) => {
-            console.log('removing event', existingEventId);
+            if (this.debug) {
+                console.log('removing event', existingEventId);
+            }
             $(this.element.nativeElement).fullCalendar('removeEvents', function (event: any) {
                 return event['$$id'] === existingEventId;
             });
@@ -111,7 +116,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentChe
             this.updaterOptions();
             this.zone.runOutsideAngular(() => {
 
-                this.options.events = this._eventsModel;
+                this.options.events = this.eventsModel;
                 $(this.element.nativeElement).fullCalendar(this.options);
                 // this.eventsModelChange.next(this.options.events);
                 this.initialized.emit(true);
@@ -153,9 +158,11 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentChe
     }
     ngAfterViewChecked() {
     }
-    // Replace an existing event in array with new data
+    // Update an existing event in array with new data
     updateEventsModel(event: any) {
-        console.log('updateEventsModel', event);
+        if (this.debug) {
+            console.log('updateEventsModel', event);
+        }
         const tempEvents: any[] = [];
         this.eventsModel.forEach((eventModel, index) => {
             if (eventModel['$$id'] === event['$$id']) {
@@ -164,11 +171,14 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentChe
                 tempEvents.push(eventModel);
             }
         });
-        this.eventsModel = tempEvents;
+        // Update and bypass setter since it is already drawn
+        this._eventsModel = tempEvents;
     }
     // Add new event to array
     addEventsModel(newEvent: any) {
-        console.log('addEventsModel', newEvent);
+        if (this.debug) {
+            console.log('addEventsModel', newEvent);
+        }
         const events = this.eventsModel;
         events.push(newEvent);
         this.eventsModel = events;
@@ -195,7 +205,6 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentChe
                 bubbles: true,
                 detail: detail
             });
-            this.updateEventsModel(event);
             elem[0].dispatchEvent(widgetEvent);
         };
         // Event is resized
@@ -207,7 +216,6 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentChe
                 bubbles: true,
                 detail: detail
             });
-            this.updateEventsModel(event);
             elem[0].dispatchEvent(widgetEvent);
         };
         this.options.eventResizeStart = (event: any, jsEvent: any, ui: any, view: any) => {
@@ -231,6 +239,9 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentChe
             elem[0].dispatchEvent(widgetEvent);
         };
         this.options.eventRender = (event: any, element: any, view: any) => {
+            if (this.debug) {
+                console.log('eventRender', event);
+            }
             let detail: RenderEventModel = { event: event, element: element, view: view };
             const widgetEvent = new CustomEvent('eventRender', {
                 bubbles: true,
@@ -244,11 +255,14 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentChe
                 bubbles: true,
                 detail: detail
             });
+            this.updateEventsModel(event);
             elem[0].dispatchEvent(widgetEvent);
         };
-        this.options.eventClick = function(event: any, jsEvent: any, view: any) {
+        this.options.eventClick = (event: any, jsEvent: any, view: any) => {
             let detail: ClickEventModel = { event: event, jsEvent: jsEvent, view: view };
-            console.log('eventClick detail', detail);
+            if (this.debug) {
+                console.log('eventClick', detail);
+            }
             const widgetEvent = new CustomEvent('eventClick', {
                 bubbles: true,
                 detail: detail
@@ -265,15 +279,13 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentChe
             elem[0].dispatchEvent(widgetEvent);
 
         };
-        this.options.windowResize = function (view: any) {
+        this.options.windowResize = (view: any) => {
             let detail = { view: view };
             const widgetEvent = new CustomEvent('windowResize', {
                 bubbles: true,
                 detail: detail
             });
-            if (elem && elem[0]) {
-                elem[0].dispatchEvent(widgetEvent);
-            }
+            elem[0].dispatchEvent(widgetEvent);
         };
         this.options.viewRender = function (view: any, element: any) {
             let detail = { view: view, element: element };
@@ -291,22 +303,23 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentChe
             });
             elem[0].dispatchEvent(widgetEvent);
         };
-        this.options.select = (start: any, end: any, jsEvent: Event, view: any, resource?: any) => {
+        this.options.select = (start: any, end: any, jsEvent: any, view: any, resource?: any) => {
             let detail = { start: start, end: end, jsEvent: jsEvent, view: view, resource: resource };
             const widgetEvent = new CustomEvent('select', {
                 bubbles: true,
                 detail: detail
             });
             const newEvent = {
+                title: 'Untitled',
                 start: start,
                 end: end
             };
             // Add the new event to the eventsModel
             this.addEventsModel(newEvent);
-
+            $(this.element.nativeElement).fullCalendar('unselect');
             elem[0].dispatchEvent(widgetEvent);
         };
-        this.options.unselect = (view: any, jsEvent: Event) => {
+        this.options.unselect = (jsEvent: Event, view: any) => {
             let detail = { view: view, jsEvent: jsEvent };
             const widgetEvent = new CustomEvent('unselect', {
                 bubbles: true,
