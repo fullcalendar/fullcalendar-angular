@@ -14,7 +14,6 @@ Install via [npm](http://npmjs.com) :
 
 ```bash
 npm install ng-fullcalendar
-npm install fullcalendar@3.6.1
 ```
 
 Then include the `FullCalendarModule` module in your module.
@@ -49,14 +48,13 @@ Import CalendarComponent in your component :
 ```typescript
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { CalendarComponent } from 'ng-fullcalendar';
-import { Options } from 'fullcalendar';
 
 @Component({
   selector: 'demo-app',
   templateUrl: './app.component.html'
 })
 export class AppComponent implements OnInit {
-  calendarOptions: Options;
+  calendarOptions: any;
   @ViewChild(CalendarComponent) ucCalendar: CalendarComponent;
   constructor() {}
   ngOnInit() {
@@ -83,7 +81,7 @@ then your app.component.html
 </div>
 ```
 
-## Events binging
+## Events binding
 
 From 1.5.0 version new feature `[(eventsModel)]="events"` two events binding
 
@@ -122,23 +120,36 @@ loadEvents() {
 ```
 
 ## Callbacks
-Output 14 EventEmitters
+Output 27 EventEmitters
 ```typescript
-  clickButton
-  eventClick
-  eventDrop
-  eventResize
-  eventRender
-  windowResize
-  viewRender
-  viewDestroy
-  initialized
-  select
-  unselect
-  dayClick
-  navLinkDayClick
-  navLinkWeekClick
-```
+    eventDrop
+    eventResize
+    eventResizeStart
+    eventResizeStop
+    eventClick
+    clickButton
+    windowResize
+    viewRender
+    eventAfterRender
+    eventAfterAllRender
+    viewDestroy
+    eventRender
+    eventDestroy
+    eventMouseOver
+    eventMouseOut
+    initialized
+    select
+    unselect
+    dayClick
+    navLinkDayClick
+    navLinkWeekClick
+    eventDragStart
+    eventDragStop
+    drop
+    eventReceive
+    dayRender
+    resourceRender
+  ```
 ## API
 
 More api docs: [Official fullcalendar docs](https://fullcalendar.io/docs/)

@@ -6,7 +6,7 @@
   "module": "./ng-fullcalendar.es5.js",
   "es2015": "./ng-fullcalendar.js",
   "typings": "./ng-fullcalendar.d.ts",
-  "author": "Jamaks",
+  "author": "vz28bh",
   "license": "MIT",
   "keywords": [
     "angular",
@@ -18,11 +18,11 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/jamaks/ng-fullcalendar.git"
+    "url": "https://github.com/vz28bh/ng-fullcalendar.git"
   },
-  "homepage": "https://github.com/jamaks/ng-fullcalendar",
+  "homepage": "https://github.com/vz28bh/ng-fullcalendar",
   "bugs": {
-    "url": "https://github.com/jamaks/ng-fullcalendar/issues"
+    "url": "https://github.com/vz28bh/ng-fullcalendar/issues"
   },
   "engines": {
     "node": ">= 6.9.0",
@@ -59,7 +59,6 @@
     "@angular/platform-browser": "5.2.6",
     "@angular/platform-browser-dynamic": "5.2.6",
     "@angular/router": "5.2.6",
-    "@types/fullcalendar": "^3.5.0",
     "@types/jasmine": "2.5.36",
     "@types/jquery": "^3.3.0",
     "@types/node": "^6.0.46",
@@ -94,9 +93,8 @@
     "zone.js": "^0.8.14"
   },
   "dependencies": {
-    "@types/fullcalendar": "3.5.2",
     "@types/jquery": "3.2.17",
-    "fullcalendar": "3.6.1",
+    "fullcalendar": "^3.9.0",
     "jquery": "^3.2.1"
   }
 }
