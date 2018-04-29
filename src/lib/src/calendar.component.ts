@@ -88,7 +88,9 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentChe
                         bubbles: true,
                         detail: currentDetail
                     });
-                    elem[0].dispatchEvent(widgetEvent);
+                    for (let i = 0; i < elem.length; i++) {
+                        elem[i].dispatchEvent(widgetEvent);
+                    }
                 }
             });
         }, );
@@ -113,7 +115,9 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentChe
                 detail: detail
             });
             this.updateEventsBeforeResize();
-            elem[0].dispatchEvent(widgetEvent);
+            for (let i = 0; i < elem.length; i++) {
+                elem[i].dispatchEvent(widgetEvent);
+            }
         };
         this.options.eventResize = (event, duration) => {
             let detail: UpdateEventModel = { event: event, duration: duration };
@@ -122,7 +126,9 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentChe
                 detail: detail
             });
             this.updateEventsBeforeResize();
-            elem[0].dispatchEvent(widgetEvent);
+            for (let i = 0; i < elem.length; i++) {
+                elem[i].dispatchEvent(widgetEvent);
+            }
         };
         this.options.eventRender = function (event, element, view) {
             let detail: RenderEventModel = { event: event, element: element, view: view };
@@ -130,7 +136,9 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentChe
                 bubbles: true,
                 detail: detail
             });
-            elem[0].dispatchEvent(widgetEvent);
+            for (let i = 0; i < elem.length; i++) {
+                elem[i].dispatchEvent(widgetEvent);
+            }
         };
         this.options.eventClick = (event) => {
             let detail: UpdateEventModel = { event: event, duration: null };
@@ -138,7 +146,9 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentChe
                 bubbles: true,
                 detail: detail
             });
-            elem[0].dispatchEvent(widgetEvent);
+            for (let i = 0; i < elem.length; i++) {
+                elem[i].dispatchEvent(widgetEvent);
+            }
 
         };
         this.options.windowResize = function (view) {
@@ -148,7 +158,9 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentChe
                 detail: detail
             });
             if (elem && elem[0]) {
-                elem[0].dispatchEvent(widgetEvent);
+                for (let i = 0; i < elem.length; i++) {
+                    elem[i].dispatchEvent(widgetEvent);
+                }
             }
         };
         this.options.viewRender = function (view, element) {
@@ -157,7 +169,9 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentChe
                 bubbles: true,
                 detail: detail
             });
-            elem[0].dispatchEvent(widgetEvent);
+            for (let i = 0; i < elem.length; i++) {
+                elem[i].dispatchEvent(widgetEvent);
+            }
         };
         this.options.viewDestroy = function (view, element) {
             let detail = { view: view, element: element };
@@ -165,7 +179,9 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentChe
                 bubbles: true,
                 detail: detail
             });
-            elem[0].dispatchEvent(widgetEvent);
+            for (let i = 0; i < elem.length; i++) {
+                elem[i].dispatchEvent(widgetEvent);
+            }
         };
         this.options.select = function (start: any, end: any, jsEvent: MouseEvent, view: any, resource?: any) {
             let detail = { start: start, end: end, jsEvent: jsEvent, view: view, resource: resource };
@@ -173,7 +189,9 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentChe
                 bubbles: true,
                 detail: detail
             });
-            elem[0].dispatchEvent(widgetEvent);
+            for (let i = 0; i < elem.length; i++) {
+                elem[i].dispatchEvent(widgetEvent);
+            }
         };
         this.options.unselect = function (view: any, jsEvent: Event) {
             let detail = { view: view, jsEvent: jsEvent };
@@ -181,7 +199,9 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentChe
                 bubbles: true,
                 detail: detail
             });
-            elem[0].dispatchEvent(widgetEvent);
+            for (let i = 0; i < elem.length; i++) {
+                elem[i].dispatchEvent(widgetEvent);
+            }
         };
         this.options.dayClick = function (date: any, jsEvent: Event, view: any) {
             let detail = { date: date, jsEvent: jsEvent, view: view };
@@ -189,7 +209,9 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentChe
                 bubbles: true,
                 detail: detail
             });
-            elem[0].dispatchEvent(widgetEvent);
+            for (let i = 0; i < elem.length; i++) {
+                elem[i].dispatchEvent(widgetEvent);
+            }
         };
         this.options.navLinkDayClick = function (date: any, jsEvent: Event) {
             let detail = { date: date, jsEvent: jsEvent };
@@ -197,7 +219,9 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentChe
                 bubbles: true,
                 detail: detail
             });
-            elem[0].dispatchEvent(widgetEvent);
+            for (let i = 0; i < elem.length; i++) {
+                elem[i].dispatchEvent(widgetEvent);
+            }
         };
         this.options.navLinkWeekClick = function (weekStart: any, jsEvent: Event) {
             let detail = { weekStart: weekStart, jsEvent: jsEvent };
@@ -205,7 +229,9 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentChe
                 bubbles: true,
                 detail: detail
             });
-            elem[0].dispatchEvent(widgetEvent);
+            for (let i = 0; i < elem.length; i++) {
+                elem[i].dispatchEvent(widgetEvent);
+            }
         };
     }
 

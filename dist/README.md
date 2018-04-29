@@ -3,7 +3,7 @@ Jquery fullcalendar module [FullCalendar](https://fullcalendar.io)
 
 This package fullcalendar module for Angular 2, 4, 5
 
-[![latest](https://img.shields.io/npm/v/ng-fullcalendar/latest.svg)](http://npmjs.com/packages/ng-fullcalendar) 
+[![latest](https://img.shields.io/npm/v/ng-fullcalendar/latest.svg)](http://npmjs.com/package/ng-fullcalendar) 
 
 Demo project in Stackblitz [DEMO](https://stackblitz.com/edit/ng-fullcalendar-demo)
 
@@ -154,6 +154,14 @@ Example render new event
  this.ucCalendar.fullCalendar('renderEvent', el);
  this.ucCalendar.fullCalendar('rerenderEvents');
 ```
+
+## TODO
+
+ - Support of all events
+ - Add CustomButtons property
+ - 
+
+
 ## Thanks
 
 - Aleksandr Sobakar ([@xaosaki](https://github.com/xaosaki))

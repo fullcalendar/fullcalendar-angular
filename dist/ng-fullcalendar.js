@@ -1,56 +1,6 @@
 import { Component, ElementRef, EventEmitter, Input, NgModule, NgZone, Output } from '@angular/core';
-import $ from 'jquery';
-import fullcalendar from 'fullcalendar';
-$.fn.fullCalendar = function(options) {
-	var args = Array.prototype.slice.call(arguments, 1); // for a possible method call
-	var res = this; // what this function will return (this jQuery object by default)
-
-	this.each(function(i, _element) { // loop each DOM element involved
-		var element = $(_element);
-		var calendar = element.data('fullCalendar'); // get the existing calendar object (if any)
-		var singleRes; // the returned value of this single method call
-
-		// a method call
-		if (typeof options === 'string') {
-
-			if (options === 'getCalendar') {
-				if (!i) { // first element only
-					res = calendar;
-				}
-			}
-			else if (options === 'destroy') { // don't warn if no calendar object
-				if (calendar) {
-					calendar.destroy();
-					element.removeData('fullCalendar');
-				}
-			}
-			else if (!calendar) {
-				FC.warn("Attempting to call a FullCalendar method on an element with no calendar.");
-			}
-			else if ($.isFunction(calendar[options])) {
-				singleRes = calendar[options].apply(calendar, args);
-
-				if (!i) {
-					res = singleRes; // record the first method call result
-				}
-				if (options === 'destroy') { // for the destroy method, must remove Calendar object data
-					element.removeData('fullCalendar');
-				}
-			}
-			else {
-				FC.warn("'" + options + "' is an unknown FullCalendar method.");
-			}
-		}
-		// a new calendar initialization
-		else if (!calendar) { // don't initialize twice
-			calendar = new fullcalendar.Calendar(element, options);
-			element.data('fullCalendar', calendar);
-			calendar.render();
-		}
-	});
-
-	return res;
-};
+import $ from 'jquery/index';
+import 'fullcalendar/index';
 
 (function () {
     /**
@@ -127,7 +77,7 @@ class CalendarComponent {
         setTimeout(() => {
             this.updaterOptions();
             this.zone.runOutsideAngular(() => {
-                $('ng-fullcalendar').fullCalendar(this.options);
+                $(this.element.nativeElement).fullCalendar(this.options);
                 this._eventsModel = this.options.events;
                 this.eventsModelChange.next(this.options.events);
                 this.initialized.emit(true);
@@ -159,7 +109,9 @@ class CalendarComponent {
                         bubbles: true,
                         detail: currentDetail
                     });
-                    elem[0].dispatchEvent(widgetEvent);
+                    for (let /** @type {?} */ i = 0; i < elem.length; i++) {
+                        elem[i].dispatchEvent(widgetEvent);
+                    }
                 }
             });
         });
@@ -195,7 +147,9 @@ class CalendarComponent {
                 detail: detail
             });
             this.updateEventsBeforeResize();
-            elem[0].dispatchEvent(widgetEvent);
+            for (let /** @type {?} */ i = 0; i < elem.length; i++) {
+                elem[i].dispatchEvent(widgetEvent);
+            }
         };
         this.options.eventResize = (event, duration) => {
             let /** @type {?} */ detail = { event: event, duration: duration };
@@ -204,7 +158,9 @@ class CalendarComponent {
                 detail: detail
             });
             this.updateEventsBeforeResize();
-            elem[0].dispatchEvent(widgetEvent);
+            for (let /** @type {?} */ i = 0; i < elem.length; i++) {
+                elem[i].dispatchEvent(widgetEvent);
+            }
         };
         this.options.eventRender = function (event, element, view) {
             let /** @type {?} */ detail = { event: event, element: element, view: view };
@@ -212,7 +168,9 @@ class CalendarComponent {
                 bubbles: true,
                 detail: detail
             });
-            elem[0].dispatchEvent(widgetEvent);
+            for (let /** @type {?} */ i = 0; i < elem.length; i++) {
+                elem[i].dispatchEvent(widgetEvent);
+            }
         };
         this.options.eventClick = (event) => {
             let /** @type {?} */ detail = { event: event, duration: null };
@@ -220,7 +178,9 @@ class CalendarComponent {
                 bubbles: true,
                 detail: detail
             });
-            elem[0].dispatchEvent(widgetEvent);
+            for (let /** @type {?} */ i = 0; i < elem.length; i++) {
+                elem[i].dispatchEvent(widgetEvent);
+            }
         };
         this.options.windowResize = function (view) {
             let /** @type {?} */ detail = { view: view };
@@ -229,7 +189,9 @@ class CalendarComponent {
                 detail: detail
             });
             if (elem && elem[0]) {
-                elem[0].dispatchEvent(widgetEvent);
+                for (let /** @type {?} */ i = 0; i < elem.length; i++) {
+                    elem[i].dispatchEvent(widgetEvent);
+                }
             }
         };
         this.options.viewRender = function (view, element) {
@@ -238,7 +200,9 @@ class CalendarComponent {
                 bubbles: true,
                 detail: detail
             });
-            elem[0].dispatchEvent(widgetEvent);
+            for (let /** @type {?} */ i = 0; i < elem.length; i++) {
+                elem[i].dispatchEvent(widgetEvent);
+            }
         };
         this.options.viewDestroy = function (view, element) {
             let /** @type {?} */ detail = { view: view, element: element };
@@ -246,7 +210,9 @@ class CalendarComponent {
                 bubbles: true,
                 detail: detail
             });
-            elem[0].dispatchEvent(widgetEvent);
+            for (let /** @type {?} */ i = 0; i < elem.length; i++) {
+                elem[i].dispatchEvent(widgetEvent);
+            }
         };
         this.options.select = function (start, end, jsEvent, view, resource) {
             let /** @type {?} */ detail = { start: start, end: end, jsEvent: jsEvent, view: view, resource: resource };
@@ -254,7 +220,9 @@ class CalendarComponent {
                 bubbles: true,
                 detail: detail
             });
-            elem[0].dispatchEvent(widgetEvent);
+            for (let /** @type {?} */ i = 0; i < elem.length; i++) {
+                elem[i].dispatchEvent(widgetEvent);
+            }
         };
         this.options.unselect = function (view, jsEvent) {
             let /** @type {?} */ detail = { view: view, jsEvent: jsEvent };
@@ -262,7 +230,9 @@ class CalendarComponent {
                 bubbles: true,
                 detail: detail
             });
-            elem[0].dispatchEvent(widgetEvent);
+            for (let /** @type {?} */ i = 0; i < elem.length; i++) {
+                elem[i].dispatchEvent(widgetEvent);
+            }
         };
         this.options.dayClick = function (date, jsEvent, view) {
             let /** @type {?} */ detail = { date: date, jsEvent: jsEvent, view: view };
@@ -270,7 +240,9 @@ class CalendarComponent {
                 bubbles: true,
                 detail: detail
             });
-            elem[0].dispatchEvent(widgetEvent);
+            for (let /** @type {?} */ i = 0; i < elem.length; i++) {
+                elem[i].dispatchEvent(widgetEvent);
+            }
         };
         this.options.navLinkDayClick = function (date, jsEvent) {
             let /** @type {?} */ detail = { date: date, jsEvent: jsEvent };
@@ -278,7 +250,9 @@ class CalendarComponent {
                 bubbles: true,
                 detail: detail
             });
-            elem[0].dispatchEvent(widgetEvent);
+            for (let /** @type {?} */ i = 0; i < elem.length; i++) {
+                elem[i].dispatchEvent(widgetEvent);
+            }
         };
         this.options.navLinkWeekClick = function (weekStart, jsEvent) {
             let /** @type {?} */ detail = { weekStart: weekStart, jsEvent: jsEvent };
@@ -286,7 +260,9 @@ class CalendarComponent {
                 bubbles: true,
                 detail: detail
             });
-            elem[0].dispatchEvent(widgetEvent);
+            for (let /** @type {?} */ i = 0; i < elem.length; i++) {
+                elem[i].dispatchEvent(widgetEvent);
+            }
         };
     }
     /**
@@ -337,7 +313,7 @@ class CalendarComponent {
 CalendarComponent.decorators = [
     { type: Component, args: [{
                 selector: 'ng-fullcalendar',
-                template: '<div id="calendar"></div>',
+                template: '',
             },] },
 ];
 /**
