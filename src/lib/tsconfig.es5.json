@@ -7,7 +7,6 @@
     "baseUrl": "",
     "types": [
       "@types/jquery",
-      "@types/fullcalendar"
     ]
   },
   "files": [

@@ -18,7 +18,7 @@ import { ResizeEventModel } from './models/resizeEventModel';
 export class CalendarComponent implements OnInit, AfterViewInit, AfterContentChecked, AfterViewChecked {
     // The event array for the calendar, getter/setter
     private eventId = 0;
-    private eventIds = [];
+    private eventIds: number[] = [];
     private _eventsModel: any[] = [];
     @Input() set eventsModel(newEvents: any[]) {
         console.log('set eventsModel', newEvents);
@@ -41,7 +41,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentChe
             }
             const existingIdIndex = this.eventIds.indexOf(newEvent['$$id']);
             if (existingIdIndex === -1) {
-                console.log('sticking event', newEvent);
+                console.log('adding event and sticking', newEvent);
                 $(this.element.nativeElement).fullCalendar('renderEvent', newEvent, true);
             } else {
                 delete (existingEventIds[existingIdIndex]);
@@ -51,6 +51,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentChe
 
         // There may be excess events
         existingEventIds.forEach((existingEventId) => {
+            console.log('removing event', existingEventId);
             $(this.element.nativeElement).fullCalendar('removeEvents', function (event: any) {
                 return event['$$id'] === existingEventId;
             });
@@ -115,6 +116,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentChe
                 // this.eventsModelChange.next(this.options.events);
                 this.initialized.emit(true);
                 // Click listeners
+                /*
                 let elem = document.getElementsByTagName('ng-fullcalendar');
 
                 // Don't know what this does
@@ -142,6 +144,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentChe
                     });
                     elem[0].dispatchEvent(widgetEvent);
                 }
+                */
             });
         }, );
 
@@ -182,7 +185,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentChe
     }
     // All the callbacks are defined here
     updaterOptions() {
-        let elem = document.getElementsByTagName('ng-fullcalendar');
+        let elem = $(this.element.nativeElement);
         // Event is dropped
         this.options.eventDrop = (event: any, duration: any, revertFunc: any, jsEvent: any, ui: any, view: any) => {
             let detail: UpdateEventModel = {
@@ -243,7 +246,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentChe
             });
             elem[0].dispatchEvent(widgetEvent);
         };
-        this.options.eventClick = (event: any, jsEvent: any, view: any) => {
+        this.options.eventClick = function(event: any, jsEvent: any, view: any) {
             let detail: ClickEventModel = { event: event, jsEvent: jsEvent, view: view };
             console.log('eventClick detail', detail);
             const widgetEvent = new CustomEvent('eventClick', {
@@ -400,37 +403,6 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentChe
             });
             elem[0].dispatchEvent(widgetEvent);
         };
-    }
-
-    fullCalendar(...args: any[]): any {
-        if (!args) {
-            return;
-        }
-        switch (args.length) {
-            case 0:
-                return;
-            case 1:
-                return $(this.element.nativeElement).fullCalendar(args[0]);
-            case 2:
-                return $(this.element.nativeElement).fullCalendar(args[0], args[1]);
-            case 3:
-                return $(this.element.nativeElement).fullCalendar(args[0], args[1], args[2]);
-        }
-    }
-
-    updateEvent(event: any) {
-        return $(this.element.nativeElement).fullCalendar('updateEvent', event);
-    }
-
-    clientEvents(idOrFilter: any): any {
-        return $(this.element.nativeElement).fullCalendar('clientEvents', idOrFilter);
-    }
-    renderEvents(events: any[]) {
-        $(this.element.nativeElement).fullCalendar('refetchEvents');
-        if (events && events.length > 0) {
-            // $(this.element.nativeElement).fullCalendar('renderEvents', events);
-            // $(this.element.nativeElement).fullCalendar('rerenderEvents');
-        }
     }
 
 }
