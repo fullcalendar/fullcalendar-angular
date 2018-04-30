@@ -205,6 +205,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentChe
                 bubbles: true,
                 detail: detail
             });
+            this.updateEventsModel(event);
             elem[0].dispatchEvent(widgetEvent);
         };
         // Event is resized
@@ -216,6 +217,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentChe
                 bubbles: true,
                 detail: detail
             });
+            this.updateEventsModel(event);
             elem[0].dispatchEvent(widgetEvent);
         };
         this.options.eventResizeStart = (event: any, jsEvent: any, ui: any, view: any) => {
@@ -255,7 +257,6 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentChe
                 bubbles: true,
                 detail: detail
             });
-            this.updateEventsModel(event);
             elem[0].dispatchEvent(widgetEvent);
         };
         this.options.eventClick = (event: any, jsEvent: any, view: any) => {
@@ -268,7 +269,6 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentChe
                 detail: detail
             });
             elem[0].dispatchEvent(widgetEvent);
-
         };
         this.options.eventDestroy = (event: any, element: any, view: any) => {
             let detail = { event: event, element: element, view: view };
@@ -277,7 +277,6 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentChe
                 detail: detail
             });
             elem[0].dispatchEvent(widgetEvent);
-
         };
         this.options.windowResize = (view: any) => {
             let detail = { view: view };
