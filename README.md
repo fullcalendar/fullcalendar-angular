@@ -1,7 +1,7 @@
 # Angular fullcalendar module
 Jquery fullcalendar module [FullCalendar](https://fullcalendar.io) 
 
-This package fullcalendar module for Angular 2, 4, 5
+This package wraps the fullcalendar module for Angular.
 
 [![latest](https://img.shields.io/npm/v/ng-fullcalendar/latest.svg)](http://www.npmjs.com/package/ng-fullcalendar) 
 
