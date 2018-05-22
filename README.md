@@ -146,7 +146,7 @@ More api docs: [Official fullcalendar docs](https://fullcalendar.io/docs/)
 Example render new event
 ```typescript
  let el = {
-   title: 'New event'
+   title: 'New event',
    start: '2017-10-07',
    end: '2017-10-10',
    ...
