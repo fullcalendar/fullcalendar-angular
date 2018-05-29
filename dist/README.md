@@ -3,7 +3,7 @@ Jquery fullcalendar module [FullCalendar](https://fullcalendar.io)
 
 This package fullcalendar module for Angular 2, 4, 5
 
-[![latest](https://img.shields.io/npm/v/ng-fullcalendar/latest.svg)](http://npmjs.com/package/ng-fullcalendar) 
+[![latest](https://img.shields.io/npm/v/ng-fullcalendar/latest.svg)](http://www.npmjs.com/package/ng-fullcalendar) 
 
 Demo project in Stackblitz [DEMO](https://stackblitz.com/edit/ng-fullcalendar-demo)
 
@@ -122,22 +122,36 @@ loadEvents() {
 ```
 
 ## Callbacks
-Output 14 EventEmitters
+Output 27 EventEmitters
 ```typescript
-  clickButton
-  eventClick
-  eventDrop
-  eventResize
-  eventRender
-  windowResize
-  viewRender
-  viewDestroy
-  initialized
-  select
-  unselect
-  dayClick
-  navLinkDayClick
-  navLinkWeekClick
+    eventDrop
+    eventResize
+    eventResizeStart
+    eventResizeStop
+    eventClick
+    clickButton
+    windowResize
+    viewRender
+    eventAfterRender
+    eventAfterAllRender
+    viewDestroy
+    eventRender
+    eventDestroy
+    eventMouseOver
+    eventMouseOut
+    initialized
+    select
+    unselect
+    dayClick
+    navLinkDayClick
+    navLinkWeekClick
+    eventDragStart
+    eventDragStop
+    drop
+    eventReceive
+    dayRender
+    resourceRender
+
 ```
 ## API
 
@@ -166,6 +180,7 @@ Example render new event
 
 - Aleksandr Sobakar ([@xaosaki](https://github.com/xaosaki))
 - Mario Mol ([@mariohmol](https://github.com/mariohmol))
+- ([@vz28bh](https://github.com/vz28bh))
 
 ## License
 

@@ -28,24 +28,40 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentChe
             this._reRender = true;
         }
     }
-    @Output()
-    eventsModelChange = new EventEmitter<any>();
+    // Notify when things change
+    @Output() eventsModelChange = new EventEmitter<any>();
 
-    @Input() options: Options;
+    // Options object, see fullcalendar docs
+    @Input() options: any;
+
+    // Various events
     @Output() eventDrop = new EventEmitter<any>();
     @Output() eventResize = new EventEmitter<any>();
+    @Output() eventResizeStart = new EventEmitter<any>();
+    @Output() eventResizeStop = new EventEmitter<any>();
     @Output() eventClick = new EventEmitter<any>();
     @Output() clickButton = new EventEmitter<any>();
     @Output() windowResize = new EventEmitter<any>();
     @Output() viewRender = new EventEmitter<any>();
+    @Output() eventAfterRender = new EventEmitter<any>();
+    @Output() eventAfterAllRender = new EventEmitter<any>();
     @Output() viewDestroy = new EventEmitter<any>();
     @Output() eventRender = new EventEmitter<any>();
+    @Output() eventDestroy = new EventEmitter<any>();
+    @Output() eventMouseOver = new EventEmitter<any>();
+    @Output() eventMouseOut = new EventEmitter<any>();
     @Output() initialized = new EventEmitter<any>();
     @Output() select = new EventEmitter<any>();
     @Output() unselect = new EventEmitter<any>();
     @Output() dayClick = new EventEmitter<any>();
     @Output() navLinkDayClick = new EventEmitter<any>();
     @Output() navLinkWeekClick = new EventEmitter<any>();
+    @Output() eventDragStart = new EventEmitter<any>();
+    @Output() eventDragStop = new EventEmitter<any>();
+    @Output() drop = new EventEmitter<any>();
+    @Output() eventReceive = new EventEmitter<any>();
+    @Output() dayRender = new EventEmitter<any>();
+    @Output() resourceRender = new EventEmitter<any>();
 
 
     constructor(private element: ElementRef, private zone: NgZone) {
@@ -108,7 +124,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentChe
     }
     updaterOptions() {
         let elem = document.getElementsByTagName('ng-fullcalendar');
-        this.options.eventDrop = (event, duration) => {
+        this.options.eventDrop = (event: any, duration: any) => {
             let detail: UpdateEventModel = { event: event, duration: duration };
             var widgetEvent = new CustomEvent('eventDrop', {
                 bubbles: true,
@@ -119,7 +135,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentChe
                 elem[i].dispatchEvent(widgetEvent);
             }
         };
-        this.options.eventResize = (event, duration) => {
+        this.options.eventResize = (event: any, duration: any) => {
             let detail: UpdateEventModel = { event: event, duration: duration };
             var widgetEvent = new CustomEvent('eventResize', {
                 bubbles: true,
@@ -130,7 +146,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentChe
                 elem[i].dispatchEvent(widgetEvent);
             }
         };
-        this.options.eventRender = function (event, element, view) {
+        this.options.eventRender = function (event: any, element: any, view: any) {
             let detail: RenderEventModel = { event: event, element: element, view: view };
             var widgetEvent = new CustomEvent('eventRender', {
                 bubbles: true,
@@ -140,7 +156,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentChe
                 elem[i].dispatchEvent(widgetEvent);
             }
         };
-        this.options.eventClick = (event) => {
+        this.options.eventClick = (event: any) => {
             let detail: UpdateEventModel = { event: event, duration: null };
             var widgetEvent = new CustomEvent('eventClick', {
                 bubbles: true,
@@ -151,7 +167,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentChe
             }
 
         };
-        this.options.windowResize = function (view) {
+        this.options.windowResize = function (view: any) {
             let detail = { view: view };
             var widgetEvent = new CustomEvent('windowResize', {
                 bubbles: true,
@@ -163,7 +179,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentChe
                 }
             }
         };
-        this.options.viewRender = function (view, element) {
+        this.options.viewRender = function (view: any, element: any) {
             let detail = { view: view, element: element };
             var widgetEvent = new CustomEvent('viewRender', {
                 bubbles: true,
@@ -173,7 +189,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentChe
                 elem[i].dispatchEvent(widgetEvent);
             }
         };
-        this.options.viewDestroy = function (view, element) {
+        this.options.viewDestroy = function (view: any, element: any) {
             let detail = { view: view, element: element };
             var widgetEvent = new CustomEvent('viewDestroy', {
                 bubbles: true,
@@ -232,6 +248,71 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentChe
             for (let i = 0; i < elem.length; i++) {
                 elem[i].dispatchEvent(widgetEvent);
             }
+        };
+        this.options.eventDragStart = (event: any, jsEvent: Event, ui: any, view: any) => {
+            let detail = { event: event, jsEvent: jsEvent, ui: ui, view: view };
+            const widgetEvent = new CustomEvent('eventDragStart', {
+                bubbles: true,
+                detail: detail
+            });
+            elem[0].dispatchEvent(widgetEvent);
+        };
+        this.options.eventDragStop = (event: any, jsEvent: Event, ui: any, view: any) => {
+            let detail = { event: event, jsEvent: jsEvent, ui: ui, view: view };
+            const widgetEvent = new CustomEvent('eventDragStop', {
+                bubbles: true,
+                detail: detail
+            });
+            elem[0].dispatchEvent(widgetEvent);
+        };
+        this.options.eventMouseover = (event: any, jsEvent: Event, view: any) => {
+            let detail = { event: event, jsEvent: jsEvent, view: view };
+            const widgetEvent = new CustomEvent('eventMouseover', {
+                bubbles: true,
+                detail: detail
+            });
+            elem[0].dispatchEvent(widgetEvent);
+        };
+        this.options.eventMouseout = (event: any, jsEvent: Event, view: any) => {
+            let detail = { event: event, jsEvent: jsEvent, view: view };
+            const widgetEvent = new CustomEvent('eventMouseout', {
+                bubbles: true,
+                detail: detail
+            });
+            elem[0].dispatchEvent(widgetEvent);
+        };
+        this.options.drop = (date: any, jsEvent: Event, ui: any, resourceId?: any) => {
+            let detail = { date: date, jsEvent: jsEvent, ui: ui, resourceId: resourceId };
+            const widgetEvent = new CustomEvent('drop', {
+                bubbles: true,
+                detail: detail
+            });
+            // probably need to add an event - not handled!
+            elem[0].dispatchEvent(widgetEvent);
+        };
+        this.options.eventReceive = (event: any) => {
+            let detail = { event: event };
+            const widgetEvent = new CustomEvent('eventReceive', {
+                bubbles: true,
+                detail: detail
+            });
+            elem[0].dispatchEvent(widgetEvent);
+        };
+        this.options.dayRender = (date: any, cell: any) => {
+            let detail = { date: date, cell: cell };
+            const widgetEvent = new CustomEvent('dayRender', {
+                bubbles: true,
+                detail: detail
+            });
+            elem[0].dispatchEvent(widgetEvent);
+        };
+        this.options.resourceRender = (resourceObj: any, labelTds: any, bodyTds: any) => {
+            let detail = { resourceObj: resourceObj, labelTds: labelTds, bodyTds: bodyTds };
+            const widgetEvent = new CustomEvent('resourceRender', {
+                bubbles: true,
+                detail: detail
+            });
+            elem[0].dispatchEvent(widgetEvent);
         };
     }
 
