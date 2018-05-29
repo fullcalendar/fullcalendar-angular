@@ -52,6 +52,7 @@ $.fn.fullCalendar = function(options) {
 	return res;
 };
 
+
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
@@ -235,6 +236,26 @@ class CalendarComponent {
                 elem[i].dispatchEvent(widgetEvent);
             }
         };
+        this.options.eventResizeStart = (event, jsEvent, ui, view) => {
+            let /** @type {?} */ detail = {
+                event: event, jsEvent: jsEvent, ui: ui, view: view
+            };
+            const /** @type {?} */ widgetEvent = new CustomEvent('eventResizeStart', {
+                bubbles: true,
+                detail: detail
+            });
+            elem[0].dispatchEvent(widgetEvent);
+        };
+        this.options.eventResizeStop = (event, jsEvent, ui, view) => {
+            let /** @type {?} */ detail = {
+                event: event, jsEvent: jsEvent, ui: ui, view: view
+            };
+            const /** @type {?} */ widgetEvent = new CustomEvent('eventResizeStop', {
+                bubbles: true,
+                detail: detail
+            });
+            elem[0].dispatchEvent(widgetEvent);
+        };
         this.options.eventRender = function (event, element, view) {
             let /** @type {?} */ detail = { event: event, element: element, view: view };
             var /** @type {?} */ widgetEvent = new CustomEvent('eventRender', {
@@ -244,6 +265,22 @@ class CalendarComponent {
             for (let /** @type {?} */ i = 0; i < elem.length; i++) {
                 elem[i].dispatchEvent(widgetEvent);
             }
+        };
+        this.options.eventDestroy = (event, element, view) => {
+            let /** @type {?} */ detail = { event: event, element: element, view: view };
+            const /** @type {?} */ widgetEvent = new CustomEvent('eventDestroy', {
+                bubbles: true,
+                detail: detail
+            });
+            elem[0].dispatchEvent(widgetEvent);
+        };
+        this.options.eventAfterRender = (event, element, view) => {
+            let /** @type {?} */ detail = { event: event, element: element, view: view };
+            const /** @type {?} */ widgetEvent = new CustomEvent('eventAfterRender', {
+                bubbles: true,
+                detail: detail
+            });
+            elem[0].dispatchEvent(widgetEvent);
         };
         this.options.eventClick = (event) => {
             let /** @type {?} */ detail = { event: event, duration: null };

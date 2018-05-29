@@ -146,6 +146,26 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentChe
                 elem[i].dispatchEvent(widgetEvent);
             }
         };
+        this.options.eventResizeStart = (event: any, jsEvent: any, ui: any, view: any) => {
+            let detail: any = {
+                event: event, jsEvent: jsEvent, ui: ui, view: view
+            };
+            const widgetEvent = new CustomEvent('eventResizeStart', {
+                bubbles: true,
+                detail: detail
+            });
+            elem[0].dispatchEvent(widgetEvent);
+        };
+        this.options.eventResizeStop = (event: any, jsEvent: any, ui: any, view: any) => {
+            let detail: any = {
+                event: event, jsEvent: jsEvent, ui: ui, view: view
+            };
+            const widgetEvent = new CustomEvent('eventResizeStop', {
+                bubbles: true,
+                detail: detail
+            });
+            elem[0].dispatchEvent(widgetEvent);
+        };
         this.options.eventRender = function (event: any, element: any, view: any) {
             let detail: RenderEventModel = { event: event, element: element, view: view };
             var widgetEvent = new CustomEvent('eventRender', {
@@ -155,6 +175,22 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentChe
             for (let i = 0; i < elem.length; i++) {
                 elem[i].dispatchEvent(widgetEvent);
             }
+        };
+        this.options.eventDestroy = (event: any, element: any, view: any) => {
+            let detail = { event: event, element: element, view: view };
+            const widgetEvent = new CustomEvent('eventDestroy', {
+                bubbles: true,
+                detail: detail
+            });
+            elem[0].dispatchEvent(widgetEvent);
+        };
+        this.options.eventAfterRender = (event: any, element: any, view: any) => {
+            let detail: RenderEventModel = { event: event, element: element, view: view };
+            const widgetEvent = new CustomEvent('eventAfterRender', {
+                bubbles: true,
+                detail: detail
+            });
+            elem[0].dispatchEvent(widgetEvent);
         };
         this.options.eventClick = (event: any) => {
             let detail: UpdateEventModel = { event: event, duration: null };

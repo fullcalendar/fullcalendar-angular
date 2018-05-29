@@ -52,7 +52,6 @@ $.fn.fullCalendar = function(options) {
 	return res;
 };
 
-
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
@@ -257,6 +256,26 @@ var CalendarComponent = /** @class */ (function () {
                 elem[i].dispatchEvent(widgetEvent);
             }
         };
+        this.options.eventResizeStart = function (event, jsEvent, ui, view) {
+            var /** @type {?} */ detail = {
+                event: event, jsEvent: jsEvent, ui: ui, view: view
+            };
+            var /** @type {?} */ widgetEvent = new CustomEvent('eventResizeStart', {
+                bubbles: true,
+                detail: detail
+            });
+            elem[0].dispatchEvent(widgetEvent);
+        };
+        this.options.eventResizeStop = function (event, jsEvent, ui, view) {
+            var /** @type {?} */ detail = {
+                event: event, jsEvent: jsEvent, ui: ui, view: view
+            };
+            var /** @type {?} */ widgetEvent = new CustomEvent('eventResizeStop', {
+                bubbles: true,
+                detail: detail
+            });
+            elem[0].dispatchEvent(widgetEvent);
+        };
         this.options.eventRender = function (event, element, view) {
             var /** @type {?} */ detail = { event: event, element: element, view: view };
             var /** @type {?} */ widgetEvent = new CustomEvent('eventRender', {
@@ -266,6 +285,22 @@ var CalendarComponent = /** @class */ (function () {
             for (var /** @type {?} */ i = 0; i < elem.length; i++) {
                 elem[i].dispatchEvent(widgetEvent);
             }
+        };
+        this.options.eventDestroy = function (event, element, view) {
+            var /** @type {?} */ detail = { event: event, element: element, view: view };
+            var /** @type {?} */ widgetEvent = new CustomEvent('eventDestroy', {
+                bubbles: true,
+                detail: detail
+            });
+            elem[0].dispatchEvent(widgetEvent);
+        };
+        this.options.eventAfterRender = function (event, element, view) {
+            var /** @type {?} */ detail = { event: event, element: element, view: view };
+            var /** @type {?} */ widgetEvent = new CustomEvent('eventAfterRender', {
+                bubbles: true,
+                detail: detail
+            });
+            elem[0].dispatchEvent(widgetEvent);
         };
         this.options.eventClick = function (event) {
             var /** @type {?} */ detail = { event: event, duration: null };
