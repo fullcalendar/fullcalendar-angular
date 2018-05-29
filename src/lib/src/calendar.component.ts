@@ -1,24 +1,26 @@
-import { Component, Input, Output, OnInit, NgZone, AfterViewInit, HostListener, AfterContentChecked, AfterViewChecked, ElementRef, EventEmitter } from '@angular/core';
-import $ from 'jquery';
+import { Component, Input, Output, OnInit, NgZone, AfterViewInit, AfterContentChecked,
+  AfterViewChecked, ElementRef, EventEmitter } from '@angular/core';
+import * as $ from 'jquery';
 import 'fullcalendar';
-import { Options } from 'fullcalendar';
 import './lib/customEvent';
 import { ButtonClickModel } from './models/buttonClickModel';
 import { UpdateEventModel } from './models/updateEventModel';
 import { RenderEventModel } from './models/renderEventModel';
+import { EventObjectInput, OptionsInput } from 'fullcalendar/src/types/input-types';
 @Component({
+    // tslint:disable-next-line
     selector: 'ng-fullcalendar',
     template: '',
 })
 export class CalendarComponent implements OnInit, AfterViewInit, AfterContentChecked, AfterViewChecked {
-    private _eventsModel: any[];
+    private _eventsModel: EventObjectInput[];
     private _reRender = true;
-    get eventsModel(): any[] {
+    get eventsModel(): EventObjectInput[] {
         return this._eventsModel;
     }
 
     @Input('eventsModel')
-    set eventsModel(value: any[]) {
+    set eventsModel(value: EventObjectInput[]) {
         this._eventsModel = value;
         if (this._reRender) {
             setTimeout(() => {
@@ -31,7 +33,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentChe
     @Output()
     eventsModelChange = new EventEmitter<any>();
 
-    @Input() options: Options;
+    @Input() options: OptionsInput;
     @Output() eventDrop = new EventEmitter<any>();
     @Output() eventResize = new EventEmitter<any>();
     @Output() eventClick = new EventEmitter<any>();
@@ -47,7 +49,6 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentChe
     @Output() navLinkDayClick = new EventEmitter<any>();
     @Output() navLinkWeekClick = new EventEmitter<any>();
 
-
     constructor(private element: ElementRef, private zone: NgZone) {
     }
 
@@ -58,9 +59,8 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentChe
         setTimeout(() => {
             this.updaterOptions();
             this.zone.runOutsideAngular(() => {
-
                 $(this.element.nativeElement).fullCalendar(this.options);
-                this._eventsModel = this.options.events;
+                this._eventsModel = this.options.events as EventObjectInput[];
                 this.eventsModelChange.next(this.options.events);
                 this.initialized.emit(true);
                 // Click listeners
@@ -69,10 +69,10 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentChe
                 $('[class ^="fc"][class *="button"]').click(el => {
                     let classnames = el.currentTarget.className.split(' ');
                     classnames.forEach(name => {
-                        if (name.indexOf('button') == name.length - 6) {
+                        if (name.indexOf('button') === name.length - 6) {
                             name = name.replace(/fc|button|-/g, '');
-                            if (name != '') {
-                                // this.renderEvents(this._eventsModel);
+                            if (name !== '') {
+                                this.renderEvents(this._eventsModel);
                                 eventDispatch(name);
                             }
                         }
@@ -84,7 +84,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentChe
                         buttonType: buttonType,
                         data: data
                     };
-                    var widgetEvent = new CustomEvent('clickButton', {
+                    let widgetEvent = new CustomEvent('clickButton', {
                         bubbles: true,
                         detail: currentDetail
                     });
@@ -110,7 +110,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentChe
         let elem = document.getElementsByTagName('ng-fullcalendar');
         this.options.eventDrop = (event, duration) => {
             let detail: UpdateEventModel = { event: event, duration: duration };
-            var widgetEvent = new CustomEvent('eventDrop', {
+            let widgetEvent = new CustomEvent('eventDrop', {
                 bubbles: true,
                 detail: detail
             });
@@ -121,7 +121,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentChe
         };
         this.options.eventResize = (event, duration) => {
             let detail: UpdateEventModel = { event: event, duration: duration };
-            var widgetEvent = new CustomEvent('eventResize', {
+            let widgetEvent = new CustomEvent('eventResize', {
                 bubbles: true,
                 detail: detail
             });
@@ -132,7 +132,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentChe
         };
         this.options.eventRender = function (event, element, view) {
             let detail: RenderEventModel = { event: event, element: element, view: view };
-            var widgetEvent = new CustomEvent('eventRender', {
+          let widgetEvent = new CustomEvent('eventRender', {
                 bubbles: true,
                 detail: detail
             });
@@ -142,7 +142,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentChe
         };
         this.options.eventClick = (event) => {
             let detail: UpdateEventModel = { event: event, duration: null };
-            var widgetEvent = new CustomEvent('eventClick', {
+            let widgetEvent = new CustomEvent('eventClick', {
                 bubbles: true,
                 detail: detail
             });
@@ -153,7 +153,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentChe
         };
         this.options.windowResize = function (view) {
             let detail = { view: view };
-            var widgetEvent = new CustomEvent('windowResize', {
+            let widgetEvent = new CustomEvent('windowResize', {
                 bubbles: true,
                 detail: detail
             });
@@ -165,7 +165,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentChe
         };
         this.options.viewRender = function (view, element) {
             let detail = { view: view, element: element };
-            var widgetEvent = new CustomEvent('viewRender', {
+            let widgetEvent = new CustomEvent('viewRender', {
                 bubbles: true,
                 detail: detail
             });
@@ -175,7 +175,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentChe
         };
         this.options.viewDestroy = function (view, element) {
             let detail = { view: view, element: element };
-            var widgetEvent = new CustomEvent('viewDestroy', {
+            let widgetEvent = new CustomEvent('viewDestroy', {
                 bubbles: true,
                 detail: detail
             });
@@ -185,7 +185,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentChe
         };
         this.options.select = function (start: any, end: any, jsEvent: MouseEvent, view: any, resource?: any) {
             let detail = { start: start, end: end, jsEvent: jsEvent, view: view, resource: resource };
-            var widgetEvent = new CustomEvent('select', {
+            let widgetEvent = new CustomEvent('select', {
                 bubbles: true,
                 detail: detail
             });
@@ -195,7 +195,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentChe
         };
         this.options.unselect = function (view: any, jsEvent: Event) {
             let detail = { view: view, jsEvent: jsEvent };
-            var widgetEvent = new CustomEvent('unselect', {
+            let widgetEvent = new CustomEvent('unselect', {
                 bubbles: true,
                 detail: detail
             });
@@ -205,7 +205,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentChe
         };
         this.options.dayClick = function (date: any, jsEvent: Event, view: any) {
             let detail = { date: date, jsEvent: jsEvent, view: view };
-            var widgetEvent = new CustomEvent('dayClick', {
+            let widgetEvent = new CustomEvent('dayClick', {
                 bubbles: true,
                 detail: detail
             });
@@ -215,7 +215,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentChe
         };
         this.options.navLinkDayClick = function (date: any, jsEvent: Event) {
             let detail = { date: date, jsEvent: jsEvent };
-            var widgetEvent = new CustomEvent('navLinkDayClick', {
+            let widgetEvent = new CustomEvent('navLinkDayClick', {
                 bubbles: true,
                 detail: detail
             });
@@ -225,7 +225,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentChe
         };
         this.options.navLinkWeekClick = function (weekStart: any, jsEvent: Event) {
             let detail = { weekStart: weekStart, jsEvent: jsEvent };
-            var widgetEvent = new CustomEvent('navLinkWeekClick', {
+            let widgetEvent = new CustomEvent('navLinkWeekClick', {
                 bubbles: true,
                 detail: detail
             });
@@ -258,7 +258,8 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentChe
     clientEvents(idOrFilter: any): any {
         return $(this.element.nativeElement).fullCalendar('clientEvents', idOrFilter);
     }
-    renderEvents(events: any[]) {
+
+    renderEvents(events: EventObjectInput[]) {
         $(this.element.nativeElement).fullCalendar('removeEvents');
         if (events && events.length > 0) {
             $(this.element.nativeElement).fullCalendar('renderEvents', events, true);
