@@ -8,6 +8,9 @@ This package wraps the fullcalendar module for Angular.
 Demo project in Stackblitz [DEMO](https://stackblitz.com/edit/ng-fullcalendar-demo)
 
 Demo src [Demo](https://github.com/Jamaks/ng-fullcalendar-demo)
+
+This package support Angular 6, see please demo src.
+
 ## Getting started
 
 Install via [npm](http://npmjs.com) :
