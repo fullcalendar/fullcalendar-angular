@@ -35,7 +35,6 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentChe
 
     // Options object, see fullcalendar docs
     @Input() options: OptionsInput;
-    @Input() options: any;
 
     // Various events
     @Output() eventDrop = new EventEmitter<any>();
