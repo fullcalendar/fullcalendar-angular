@@ -1,13 +1,17 @@
 # Angular fullcalendar module
 Jquery fullcalendar module [FullCalendar](https://fullcalendar.io) 
 
-This package fullcalendar module for Angular 2, 4, 5
+This package wraps the fullcalendar module for Angular.
 
 [![latest](https://img.shields.io/npm/v/ng-fullcalendar/latest.svg)](http://www.npmjs.com/package/ng-fullcalendar) 
+[![Npm Downloads](https://img.shields.io/npm/dt/ng-fullcalendar.svg?maxAge=2592000)](https://www.npmjs.com/package/ng-fullcalendar)
 
 Demo project in Stackblitz [DEMO](https://stackblitz.com/edit/ng-fullcalendar-demo)
 
 Demo src [Demo](https://github.com/Jamaks/ng-fullcalendar-demo)
+
+This package support Angular 6, see please demo src.
+
 ## Getting started
 
 Install via [npm](http://npmjs.com) :
@@ -122,22 +126,36 @@ loadEvents() {
 ```
 
 ## Callbacks
-Output 14 EventEmitters
+Output 27 EventEmitters
 ```typescript
-  clickButton
-  eventClick
-  eventDrop
-  eventResize
-  eventRender
-  windowResize
-  viewRender
-  viewDestroy
-  initialized
-  select
-  unselect
-  dayClick
-  navLinkDayClick
-  navLinkWeekClick
+    eventDrop
+    eventResize
+    eventResizeStart
+    eventResizeStop
+    eventClick
+    clickButton
+    windowResize
+    viewRender
+    eventAfterRender
+    eventAfterAllRender
+    viewDestroy
+    eventRender
+    eventDestroy
+    eventMouseOver
+    eventMouseOut
+    initialized
+    select
+    unselect
+    dayClick
+    navLinkDayClick
+    navLinkWeekClick
+    eventDragStart
+    eventDragStop
+    drop
+    eventReceive
+    dayRender
+    resourceRender
+
 ```
 ## API
 
@@ -146,7 +164,7 @@ More api docs: [Official fullcalendar docs](https://fullcalendar.io/docs/)
 Example render new event
 ```typescript
  let el = {
-   title: 'New event'
+   title: 'New event',
    start: '2017-10-07',
    end: '2017-10-10',
    ...
@@ -166,6 +184,7 @@ Example render new event
 
 - Aleksandr Sobakar ([@xaosaki](https://github.com/xaosaki))
 - Mario Mol ([@mariohmol](https://github.com/mariohmol))
+- ([@vz28bh](https://github.com/vz28bh))
 
 ## License
 
