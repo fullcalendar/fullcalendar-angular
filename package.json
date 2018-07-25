@@ -93,7 +93,6 @@
     "zone.js": "^0.8.14"
   },
   "dependencies": {
-    "@types/fullcalendar": "^3.8.0",
     "@types/jquery": "3.2.17",
     "fullcalendar": "^3.9.0",
     "jquery": "^3.2.1"
