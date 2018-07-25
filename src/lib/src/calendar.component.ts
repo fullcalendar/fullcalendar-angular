@@ -342,7 +342,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentChe
             });
             elem[0].dispatchEvent(widgetEvent);
         };
-        this.options.resourceRender = (resourceObj: any, labelTds: any, bodyTds: any) => {
+        (<any>this.options).resourceRender = (resourceObj: any, labelTds: any, bodyTds: any) => {
             let detail = { resourceObj: resourceObj, labelTds: labelTds, bodyTds: bodyTds };
             const widgetEvent = new CustomEvent('resourceRender', {
                 bubbles: true,
