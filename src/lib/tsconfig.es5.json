@@ -6,8 +6,7 @@
     "outDir": "../../out-tsc/lib-es5/",
     "baseUrl": "",
     "types": [
-      "@types/jquery",
-      "@types/fullcalendar"
+      "@types/jquery"
     ]
   },
   "files": [
