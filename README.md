@@ -12,6 +12,11 @@ Demo src [Demo](https://github.com/Jamaks/ng-fullcalendar-demo)
 
 This package support Angular 6, see please demo src.
 
+## TODO
+
+ - Upgrate this package to fullcalendar version 4! Stop Jquery!
+ - Support of all events
+
 ## Getting started
 
 Install via [npm](http://npmjs.com) :
@@ -172,12 +177,6 @@ Example render new event
  this.ucCalendar.fullCalendar('renderEvent', el);
  this.ucCalendar.fullCalendar('rerenderEvents');
 ```
-
-## TODO
-
- - Support of all events
- - Add CustomButtons property
- - 
 
 
 ## Thanks
