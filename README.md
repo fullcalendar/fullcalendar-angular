@@ -15,7 +15,6 @@ This package support Angular 6, see please demo src.
 ## TODO
 
  - Upgrate this package to fullcalendar version 4! Stop Jquery!
- - Support of all events
 
 ## Getting started
 
