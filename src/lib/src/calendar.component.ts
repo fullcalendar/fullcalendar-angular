@@ -125,7 +125,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentChe
     updaterOptions() {
         let elem = document.getElementsByTagName('ng-fullcalendar');
         this.options.eventDrop = (event: any, duration: any) => {
-            let detail: UpdateEventModel = { event: event, duration: duration };
+            let detail: UpdateEventModel = { event: event, duration: duration, revertFunc: revertFunc };
             var widgetEvent = new CustomEvent('eventDrop', {
                 bubbles: true,
                 detail: detail
@@ -136,7 +136,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentChe
             }
         };
         this.options.eventResize = (event: any, duration: any) => {
-            let detail: UpdateEventModel = { event: event, duration: duration };
+            let detail: UpdateEventModel = { event: event, duration: duration, revertFunc: revertFunc };
             var widgetEvent = new CustomEvent('eventResize', {
                 bubbles: true,
                 detail: detail
