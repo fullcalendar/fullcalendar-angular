@@ -192,8 +192,8 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentChe
             });
             elem[0].dispatchEvent(widgetEvent);
         };
-        this.options.eventClick = (event: any) => {
-            let detail: UpdateEventModel = { event: event, duration: null };
+        this.options.eventClick = (event: any, jsEvent: any, view: any) => {
+            let detail: any = { event: event, duration: null, jsEvent: jsEvent, view: view };
             var widgetEvent = new CustomEvent('eventClick', {
                 bubbles: true,
                 detail: detail

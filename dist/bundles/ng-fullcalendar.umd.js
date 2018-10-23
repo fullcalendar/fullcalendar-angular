@@ -256,8 +256,8 @@ var CalendarComponent = /** @class */ (function () {
             });
             elem[0].dispatchEvent(widgetEvent);
         };
-        this.options.eventClick = function (event) {
-            var /** @type {?} */ detail = { event: event, duration: null };
+        this.options.eventClick = function (event, jsEvent, view) {
+            var /** @type {?} */ detail = { event: event, duration: null, jsEvent: jsEvent, view: view };
             var /** @type {?} */ widgetEvent = new CustomEvent('eventClick', {
                 bubbles: true,
                 detail: detail
