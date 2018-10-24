@@ -214,8 +214,8 @@ class CalendarComponent {
      */
     updaterOptions() {
         let /** @type {?} */ elem = document.getElementsByTagName('ng-fullcalendar');
-        this.options.eventDrop = (event, duration) => {
-            let /** @type {?} */ detail = { event: event, duration: duration };
+        this.options.eventDrop = (event, duration, revertFunc) => {
+            let /** @type {?} */ detail = { event: event, duration: duration, revertFunc: revertFunc };
             var /** @type {?} */ widgetEvent = new CustomEvent('eventDrop', {
                 bubbles: true,
                 detail: detail
@@ -225,8 +225,8 @@ class CalendarComponent {
                 elem[i].dispatchEvent(widgetEvent);
             }
         };
-        this.options.eventResize = (event, duration) => {
-            let /** @type {?} */ detail = { event: event, duration: duration };
+        this.options.eventResize = (event, duration, revertFunc) => {
+            let /** @type {?} */ detail = { event: event, duration: duration, revertFunc: revertFunc };
             var /** @type {?} */ widgetEvent = new CustomEvent('eventResize', {
                 bubbles: true,
                 detail: detail
