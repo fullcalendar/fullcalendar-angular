@@ -1,3 +1,4 @@
+
 import { Component, ElementRef, EventEmitter, Input, NgModule, NgZone, Output } from '@angular/core';
 import $ from 'jquery';
 import fullcalendar from 'fullcalendar';
@@ -51,8 +52,6 @@ $.fn.fullCalendar = function(options) {
 
 	return res;
 };
-
-
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
@@ -216,7 +215,7 @@ class CalendarComponent {
         let /** @type {?} */ elem = document.getElementsByTagName('ng-fullcalendar');
         this.options.eventDrop = (event, duration, revertFunc) => {
             let /** @type {?} */ detail = { event: event, duration: duration, revertFunc: revertFunc };
-            var /** @type {?} */ widgetEvent = new CustomEvent('eventDrop', {
+            let /** @type {?} */ widgetEvent = new CustomEvent('eventDrop', {
                 bubbles: true,
                 detail: detail
             });
@@ -227,7 +226,7 @@ class CalendarComponent {
         };
         this.options.eventResize = (event, duration, revertFunc) => {
             let /** @type {?} */ detail = { event: event, duration: duration, revertFunc: revertFunc };
-            var /** @type {?} */ widgetEvent = new CustomEvent('eventResize', {
+            let /** @type {?} */ widgetEvent = new CustomEvent('eventResize', {
                 bubbles: true,
                 detail: detail
             });
@@ -541,8 +540,6 @@ FullCalendarModule.decorators = [
                 exports: [CalendarComponent],
             },] },
 ];
-/** @nocollapse */
-FullCalendarModule.ctorParameters = () => [];
 
 /**
  * @fileoverview added by tsickle

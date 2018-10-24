@@ -537,8 +537,6 @@ var FullCalendarModule = /** @class */ (function () {
                     exports: [CalendarComponent],
                 },] },
     ];
-    /** @nocollapse */
-    FullCalendarModule.ctorParameters = function () { return []; };
     return FullCalendarModule;
 }());
 

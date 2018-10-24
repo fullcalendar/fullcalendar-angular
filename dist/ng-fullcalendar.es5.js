@@ -51,7 +51,6 @@ $.fn.fullCalendar = function(options) {
 
 	return res;
 };
-
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
@@ -583,8 +582,6 @@ var FullCalendarModule = /** @class */ (function () {
                     exports: [CalendarComponent],
                 },] },
     ];
-    /** @nocollapse */
-    FullCalendarModule.ctorParameters = function () { return []; };
     return FullCalendarModule;
 }());
 
