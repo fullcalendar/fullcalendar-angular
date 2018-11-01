@@ -303,7 +303,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentChe
         };
         this.options.eventMouseover = (event: any, jsEvent: Event, view: any) => {
             let detail = { event: event, jsEvent: jsEvent, view: view };
-            const widgetEvent = new CustomEvent('eventMouseover', {
+            const widgetEvent = new CustomEvent('eventMouseOver', {
                 bubbles: true,
                 detail: detail
             });
@@ -311,7 +311,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentChe
         };
         this.options.eventMouseout = (event: any, jsEvent: Event, view: any) => {
             let detail = { event: event, jsEvent: jsEvent, view: view };
-            const widgetEvent = new CustomEvent('eventMouseout', {
+            const widgetEvent = new CustomEvent('eventMouseOut', {
                 bubbles: true,
                 detail: detail
             });
