@@ -1,4 +1,3 @@
-
 import { Component, ElementRef, EventEmitter, Input, NgModule, NgZone, Output } from '@angular/core';
 import $ from 'jquery';
 import fullcalendar from 'fullcalendar';
@@ -52,6 +51,7 @@ $.fn.fullCalendar = function(options) {
 
 	return res;
 };
+
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
@@ -391,7 +391,7 @@ class CalendarComponent {
         };
         this.options.eventMouseover = (event, jsEvent, view) => {
             let /** @type {?} */ detail = { event: event, jsEvent: jsEvent, view: view };
-            const /** @type {?} */ widgetEvent = new CustomEvent('eventMouseover', {
+            const /** @type {?} */ widgetEvent = new CustomEvent('eventMouseOver', {
                 bubbles: true,
                 detail: detail
             });
@@ -399,7 +399,7 @@ class CalendarComponent {
         };
         this.options.eventMouseout = (event, jsEvent, view) => {
             let /** @type {?} */ detail = { event: event, jsEvent: jsEvent, view: view };
-            const /** @type {?} */ widgetEvent = new CustomEvent('eventMouseout', {
+            const /** @type {?} */ widgetEvent = new CustomEvent('eventMouseOut', {
                 bubbles: true,
                 detail: detail
             });

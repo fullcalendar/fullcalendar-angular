@@ -51,6 +51,7 @@ $.fn.fullCalendar = function(options) {
 
 	return res;
 };
+
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
@@ -411,7 +412,7 @@ var CalendarComponent = /** @class */ (function () {
         };
         this.options.eventMouseover = function (event, jsEvent, view) {
             var /** @type {?} */ detail = { event: event, jsEvent: jsEvent, view: view };
-            var /** @type {?} */ widgetEvent = new CustomEvent('eventMouseover', {
+            var /** @type {?} */ widgetEvent = new CustomEvent('eventMouseOver', {
                 bubbles: true,
                 detail: detail
             });
@@ -419,7 +420,7 @@ var CalendarComponent = /** @class */ (function () {
         };
         this.options.eventMouseout = function (event, jsEvent, view) {
             var /** @type {?} */ detail = { event: event, jsEvent: jsEvent, view: view };
-            var /** @type {?} */ widgetEvent = new CustomEvent('eventMouseout', {
+            var /** @type {?} */ widgetEvent = new CustomEvent('eventMouseOut', {
                 bubbles: true,
                 detail: detail
             });
