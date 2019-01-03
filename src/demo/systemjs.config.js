@@ -25,7 +25,7 @@
 
       // other libraries
       'jquery': 'npm:jquery/dist/jquery.js',
-      'fullcalendar': 'npm:fullcalendar/dist/fullcalendar.js',
+      'fullcalendar': 'npm:fullcalendar/dist/fullcalendar.min.js',
       'moment': 'npm:moment/moment.js',
       'rxjs': 'npm:rxjs'
     },
@@ -42,12 +42,20 @@
       rxjs: {
         defaultExtension: 'js'
       },
+      'fullcalendar': {
+        defaultExtension: 'js',
+        meta: {
+          './*.js': {
+            loader: 'systemjs-angular-loader.js'
+          }
+        }
+      },
       'ng-fullcalendar': {
         main: 'index.js',
         defaultExtension: 'js',
         meta: {
           './*.js': {
-            loader: 'systemjs-angular-loader.js'
+            format: 'cjs'
           }
         }
       }

@@ -7,8 +7,7 @@
     "rootDir": "./",
     "baseUrl": "",
     "types": [
-      "@types/jquery",
-      "@types/fullcalendar"
+      "@types/jquery"
     ]
   },
   "files": [

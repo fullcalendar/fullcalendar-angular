@@ -44,7 +44,8 @@ export declare class CalendarComponent implements OnInit, AfterViewInit, AfterCo
     updateEventsBeforeResize(): void;
     updaterOptions(): void;
     fullCalendar(...args: any[]): any;
-    updateEvent(event: any): void;
+    updateEvent(event: any): JQuery<HTMLElement>;
     clientEvents(idOrFilter: any): any;
     renderEvents(events: any[]): void;
+    getElement(): JQuery<HTMLElement>;
 }

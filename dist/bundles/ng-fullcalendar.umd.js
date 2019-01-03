@@ -2,9 +2,9 @@
 	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('jquery'), require('fullcalendar')) :
 	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', 'jquery', 'fullcalendar'], factory) :
 	(factory((global.ngFullcalendar = global.ngFullcalendar || {}),global.ng.core,global.jQuery));
-}(this, (function (exports,_angular_core,$) { 'use strict';
+}(this, (function (exports,_angular_core,jqueryProxy) { 'use strict';
 
-$ = 'default' in $ ? $['default'] : $;
+var jqueryProxy__default = jqueryProxy['default'];
 
 /**
  * @fileoverview added by tsickle
@@ -31,10 +31,12 @@ $ = 'default' in $ ? $['default'] : $;
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+var $ = jqueryProxy__default || jqueryProxy;
 var CalendarComponent = /** @class */ (function () {
     function CalendarComponent(element, zone) {
         this.element = element;
         this.zone = zone;
+        this._eventsModel = [];
         this._reRender = true;
         // Notify when things change
         this.eventsModelChange = new _angular_core.EventEmitter();
@@ -112,7 +114,7 @@ var CalendarComponent = /** @class */ (function () {
         setTimeout(function () {
             _this.updaterOptions();
             _this.zone.runOutsideAngular(function () {
-                $(_this.element.nativeElement).fullCalendar(_this.options);
+                _this.getElement().fullCalendar(_this.options);
                 _this._eventsModel = _this.options.events;
                 _this.eventsModelChange.next(_this.options.events);
                 _this.initialized.emit(true);
@@ -434,11 +436,11 @@ var CalendarComponent = /** @class */ (function () {
             case 0:
                 return;
             case 1:
-                return $(this.element.nativeElement).fullCalendar(args[0]);
+                return this.getElement().fullCalendar(args[0]);
             case 2:
-                return $(this.element.nativeElement).fullCalendar(args[0], args[1]);
+                return this.getElement().fullCalendar(args[0], args[1]);
             case 3:
-                return $(this.element.nativeElement).fullCalendar(args[0], args[1], args[2]);
+                return this.getElement().fullCalendar(args[0], args[1], args[2]);
         }
     };
     /**
@@ -450,7 +452,7 @@ var CalendarComponent = /** @class */ (function () {
      * @return {?}
      */
     function (event) {
-        return $(this.element.nativeElement).fullCalendar('updateEvent', event);
+        return this.getElement().fullCalendar('updateEvent', event);
     };
     /**
      * @param {?} idOrFilter
@@ -461,7 +463,7 @@ var CalendarComponent = /** @class */ (function () {
      * @return {?}
      */
     function (idOrFilter) {
-        return $(this.element.nativeElement).fullCalendar('clientEvents', idOrFilter);
+        return this.getElement().fullCalendar('clientEvents', idOrFilter);
     };
     /**
      * @param {?} events
@@ -472,11 +474,27 @@ var CalendarComponent = /** @class */ (function () {
      * @return {?}
      */
     function (events) {
-        $(this.element.nativeElement).fullCalendar('removeEvents');
+        this.getElement().fullCalendar('removeEvents');
         if (events && events.length > 0) {
-            $(this.element.nativeElement).fullCalendar('renderEvents', events, true);
-            $(this.element.nativeElement).fullCalendar('rerenderEvents');
+            this.getElement().fullCalendar('renderEvents', events, true);
+            this.getElement().fullCalendar('rerenderEvents');
         }
+    };
+    /**
+     * @return {?}
+     */
+    CalendarComponent.prototype.getElement = /**
+     * @return {?}
+     */
+    function () {
+        var /** @type {?} */ byElement = $(this.element.nativeElement);
+        if (byElement) {
+            return byElement;
+        }
+        if (!this.element.nativeElement.id) {
+            this.element.nativeElement.id = 'ngfullcalendar' + new Date().getTime();
+        }
+        return $('#' + this.element.nativeElement.id);
     };
     CalendarComponent.decorators = [
         { type: _angular_core.Component, args: [{
@@ -537,6 +555,8 @@ var FullCalendarModule = /** @class */ (function () {
                     exports: [CalendarComponent],
                 },] },
     ];
+    /** @nocollapse */
+    FullCalendarModule.ctorParameters = function () { return []; };
     return FullCalendarModule;
 }());
 
