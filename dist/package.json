@@ -1,6 +1,6 @@
 {
   "name": "ng-fullcalendar",
-  "version": "1.5.2",
+  "version": "1.7.1",
   "description": "Angular 2.x.x , 4.x.x fullcalendar",
   "main": "./bundles/ng-fullcalendar.umd.js",
   "module": "./ng-fullcalendar.es5.js",
@@ -48,8 +48,8 @@
     "release": "standard-version"
   },
   "peerDependencies": {
-    "@angular/core": ">=4.0.0 <6.0.0",
-    "@angular/common": ">=4.0.0 <6.0.0"
+    "@angular/core": ">=4.0.0 <7.0.0",
+    "@angular/common": ">=4.0.0 <7.0.0"
   },
   "devDependencies": {
     "@angular/common": "5.2.6",
@@ -61,13 +61,14 @@
     "@angular/router": "5.2.6",
     "@types/fullcalendar": "^3.5.0",
     "@types/jasmine": "2.5.36",
-    "@types/jquery": "^3.2.15",
+    "@types/jquery": "^3.3.0",
     "@types/node": "^6.0.46",
     "camelcase": "^4.0.0",
     "concurrently": "3.4.0",
     "core-js": "^2.4.1",
     "glob": "^7.1.1",
     "jasmine-core": "^2.6.2",
+    "jquery": "^3.3.1",
     "karma": "^1.7.0",
     "karma-chrome-launcher": "^2.1.1",
     "karma-cli": "^1.0.1",
@@ -93,8 +94,9 @@
     "zone.js": "^0.8.14"
   },
   "dependencies": {
-    "fullcalendar": "3.6.1",
     "@types/fullcalendar": "3.5.2",
-    "@types/jquery": "3.2.17"
+    "@types/jquery": "3.2.17",
+    "fullcalendar": "3.6.1",
+    "jquery": "^3.2.1"
   }
 }
