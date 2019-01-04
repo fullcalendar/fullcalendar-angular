@@ -1,14 +1,18 @@
 import { OnInit, NgZone, AfterViewInit, AfterContentChecked, AfterViewChecked, ElementRef, EventEmitter } from '@angular/core';
 import 'fullcalendar';
 import './lib/customEvent';
+import { OptionsInputBase, EventObjectInput, EventSourceFunction, EventSourceExtendedInput } from 'fullcalendar/src/types/input-types';
+export interface Options extends OptionsInputBase {
+    resourceRender?: Function;
+}
 export declare class CalendarComponent implements OnInit, AfterViewInit, AfterContentChecked, AfterViewChecked {
     private element;
     private zone;
     private _eventsModel;
     private _reRender;
-    eventsModel: any[];
+    eventsModel: string | EventObjectInput[] | EventSourceFunction | EventSourceExtendedInput | undefined;
     eventsModelChange: EventEmitter<any>;
-    options: any;
+    options: Options;
     eventDrop: EventEmitter<any>;
     eventResize: EventEmitter<any>;
     eventResizeStart: EventEmitter<any>;
@@ -46,6 +50,6 @@ export declare class CalendarComponent implements OnInit, AfterViewInit, AfterCo
     fullCalendar(...args: any[]): any;
     updateEvent(event: any): JQuery<HTMLElement>;
     clientEvents(idOrFilter: any): any;
-    renderEvents(events: any[]): void;
+    renderEvents(events: string | EventObjectInput[] | EventSourceFunction | EventSourceExtendedInput | undefined): void;
     getElement(): JQuery<HTMLElement>;
 }

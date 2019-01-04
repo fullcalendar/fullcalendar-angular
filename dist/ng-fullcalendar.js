@@ -29,6 +29,10 @@ import 'fullcalendar';
  * @suppress {checkTypes} checked by tsc
  */
 const $ = jqueryProxy__default || jqueryProxy;
+/**
+ * @record
+ */
+
 class CalendarComponent {
     /**
      * @param {?} element
@@ -37,7 +41,6 @@ class CalendarComponent {
     constructor(element, zone) {
         this.element = element;
         this.zone = zone;
-        this._eventsModel = [];
         this._reRender = true;
         // Notify when things change
         this.eventsModelChange = new EventEmitter();
@@ -431,8 +434,9 @@ class CalendarComponent {
      */
     renderEvents(events) {
         this.getElement().fullCalendar('removeEvents');
-        if (events && events.length > 0) {
-            this.getElement().fullCalendar('renderEvents', events, true);
+        const /** @type {?} */ arrayEvents = (/** @type {?} */ (events));
+        if (arrayEvents && arrayEvents.length > 0) {
+            this.getElement().fullCalendar('renderEvents', arrayEvents, true);
             this.getElement().fullCalendar('rerenderEvents');
         }
     }

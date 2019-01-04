@@ -14,19 +14,24 @@ import './lib/customEvent';
 import { ButtonClickModel } from './models/buttonClickModel';
 import { UpdateEventModel } from './models/updateEventModel';
 import { RenderEventModel } from './models/renderEventModel';
+import { OptionsInputBase, EventObjectInput, EventSourceFunction, EventSourceExtendedInput } 
+from 'fullcalendar/src/types/input-types';
+export interface Options extends OptionsInputBase {
+  resourceRender?: Function;
+}
 @Component({
   selector: 'ng-fullcalendar',
   template: '',
 })
 export class CalendarComponent implements OnInit, AfterViewInit, AfterContentChecked, AfterViewChecked {
-  private _eventsModel: any[] = [];
+  private _eventsModel: string | EventObjectInput[] | EventSourceFunction | EventSourceExtendedInput | undefined;
   private _reRender = true;
-  get eventsModel(): any[] {
+  get eventsModel(): string | EventObjectInput[] | EventSourceFunction | EventSourceExtendedInput | undefined {
     return this._eventsModel;
   }
 
   @Input('eventsModel')
-  set eventsModel(value: any[]) {
+  set eventsModel(value: string | EventObjectInput[] | EventSourceFunction | EventSourceExtendedInput | undefined) {
     this._eventsModel = value;
     if (this._reRender) {
       setTimeout(() => {
@@ -40,7 +45,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentChe
   @Output() eventsModelChange = new EventEmitter<any>();
 
   // Options object, see fullcalendar docs
-  @Input() options: any; // OptionsInputBase;
+  @Input() options: Options; // OptionsInputBase;
 
   // Various events
   @Output() eventDrop = new EventEmitter<any>();
@@ -132,7 +137,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentChe
   }
   updaterOptions() {
     let elem = document.getElementsByTagName('ng-fullcalendar');
-    this.options.eventDrop = (event: any, duration: any, revertFunc: void) => {
+    this.options.eventDrop = (event: EventObjectInput, duration: any, revertFunc: Function) => {
       let detail: any = { event: event, duration: duration, revertFunc: revertFunc };
       let widgetEvent = new CustomEvent('eventDrop', {
         bubbles: true,
@@ -143,7 +148,7 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentChe
         elem[i].dispatchEvent(widgetEvent);
       }
     };
-    this.options.eventResize = (event: any, duration: any, revertFunc: void) => {
+    this.options.eventResize = (event: EventObjectInput, duration: any, revertFunc: Function) => {
       let detail: UpdateEventModel = { event: event, duration: duration, revertFunc: revertFunc };
       let widgetEvent = new CustomEvent('eventResize', {
         bubbles: true,
@@ -383,10 +388,11 @@ export class CalendarComponent implements OnInit, AfterViewInit, AfterContentChe
   clientEvents(idOrFilter: any): any {
     return this.getElement().fullCalendar('clientEvents', idOrFilter);
   }
-  renderEvents(events: any[]) {
+  renderEvents(events: string | EventObjectInput[] | EventSourceFunction | EventSourceExtendedInput | undefined) {
     this.getElement().fullCalendar('removeEvents');
-    if (events && events.length > 0) {
-      this.getElement().fullCalendar('renderEvents', events, true);
+    const arrayEvents = (<EventObjectInput[]>events);
+    if (arrayEvents && arrayEvents.length > 0) {
+      this.getElement().fullCalendar('renderEvents', arrayEvents, true);
       this.getElement().fullCalendar('rerenderEvents');
     }
   }

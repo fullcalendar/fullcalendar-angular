@@ -32,11 +32,14 @@ var jqueryProxy__default = jqueryProxy['default'];
  * @suppress {checkTypes} checked by tsc
  */
 var $ = jqueryProxy__default || jqueryProxy;
+/**
+ * @record
+ */
+
 var CalendarComponent = /** @class */ (function () {
     function CalendarComponent(element, zone) {
         this.element = element;
         this.zone = zone;
-        this._eventsModel = [];
         this._reRender = true;
         // Notify when things change
         this.eventsModelChange = new _angular_core.EventEmitter();
@@ -475,8 +478,9 @@ var CalendarComponent = /** @class */ (function () {
      */
     function (events) {
         this.getElement().fullCalendar('removeEvents');
-        if (events && events.length > 0) {
-            this.getElement().fullCalendar('renderEvents', events, true);
+        var /** @type {?} */ arrayEvents = (/** @type {?} */ (events));
+        if (arrayEvents && arrayEvents.length > 0) {
+            this.getElement().fullCalendar('renderEvents', arrayEvents, true);
             this.getElement().fullCalendar('rerenderEvents');
         }
     };

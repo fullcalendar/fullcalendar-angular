@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { CalendarComponent } from 'ng-fullcalendar';
-import { OptionsInput } from 'fullcalendar';
+import { CalendarComponent, Options } from 'ng-fullcalendar';
 import { EventService } from '../event.service';
 
 @Component({
@@ -18,7 +17,7 @@ import { EventService } from '../event.service';
 })
 
 export class HomeComponent implements OnInit {
-    calendarOptions: OptionsInput;
+    calendarOptions: Options;
     displayEvent: any;
     logger: any[] = [];
     events: any[] = [];
