@@ -6,7 +6,7 @@
   "module": "./ng-fullcalendar.es5.js",
   "es2015": "./ng-fullcalendar.js",
   "typings": "./ng-fullcalendar.d.ts",
-  "author": "Jamaks",
+  "author": "irustm",
   "license": "MIT",
   "keywords": [
     "angular",
