@@ -1,6 +1,6 @@
 {
   "name": "ng-fullcalendar",
-  "version": "1.7.3",
+  "version": "1.7.5",
   "description": "Angular 2.x.x , 4.x.x fullcalendar",
   "main": "./bundles/ng-fullcalendar.umd.js",
   "module": "./ng-fullcalendar.es5.js",
@@ -18,11 +18,11 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/irustm/ng-fullcalendar.git"
+    "url": "https://github.com/ng-fullcalendar/ng-fullcalendar.git"
   },
-  "homepage": "https://github.com/irustm/ng-fullcalendar",
+  "homepage": "https://github.com/ng-fullcalendar/ng-fullcalendar",
   "bugs": {
-    "url": "https://github.com/irustm/ng-fullcalendar/issues"
+    "url": "https://github.com/ng-fullcalendar/ng-fullcalendar/issues"
   },
   "engines": {
     "node": ">= 6.9.0",
