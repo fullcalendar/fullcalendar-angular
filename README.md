@@ -6,14 +6,12 @@ This package wraps the fullcalendar module for Angular.
 [![latest](https://img.shields.io/npm/v/ng-fullcalendar/latest.svg)](http://www.npmjs.com/package/ng-fullcalendar) 
 [![Npm Downloads](https://img.shields.io/npm/dt/ng-fullcalendar.svg?maxAge=2592000)](https://www.npmjs.com/package/ng-fullcalendar)
 
-Demo project in Stackblitz [DEMO](https://stackblitz.com/edit/ng-fullcalendar-demo)
+[ng-fullcalendar v1 with JQuery see this](https://github.com/ng-fullcalendar/ng-fullcalendar/tree/v1)
 
-Demo src [Demo](https://github.com/ng-fullcalendar/ng-fullcalendar-demo)
+Demo project in Stackblitz [DEMO v1](https://stackblitz.com/edit/ng-fullcalendar-demo)
 
+Demo src [Demo v1](https://github.com/ng-fullcalendar/ng-fullcalendar-demo)
 
-## TODO
-
- - Upgrate this package to fullcalendar version 4! Stop Jquery!
 
 ## Getting started
 
@@ -44,38 +42,71 @@ export class AppModule {}
 Import CalendarComponent in your component :
 
 ```typescript
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { OptionsInput } from '@fullcalendar/core';
+import dayGridPlugin from '@fullcalendar/daygrid';
+import interactionPlugin from '@fullcalendar/interaction';
 import { CalendarComponent } from 'ng-fullcalendar';
-import { Options } from 'fullcalendar';
 
 @Component({
   selector: 'demo-app',
   templateUrl: './app.component.html'
 })
 export class AppComponent implements OnInit {
-  calendarOptions: Options;
-  @ViewChild(CalendarComponent) ucCalendar: CalendarComponent;
-  constructor() {}
+  options: OptionsInput;
+  eventsModel: any;
+  @ViewChild('fullcalendar') fullcalendar: CalendarComponent;
   ngOnInit() {
-     this.calendarOptions = {
-        editable: true,
-        eventLimit: false,
-        header: {
-          left: 'prev,next today',
-          center: 'title',
-          right: 'month,agendaWeek,agendaDay,listMonth'
-        },
-        events: data
-      };
-  }
+    this.options = {
+      editable: true,
+      events: [{
+        title: 'Long Event',
+        start: this.yearMonth + '-07',
+        end: this.yearMonth + '-10'
+      }],
+      customButtons: {
+        myCustomButton: {
+          text: 'custom!',
+          click: function() {
+            alert('clicked the custom button!');
+          }
+        }
+      },
+      header: {
+        left: 'prev,next today myCustomButton',
+        center: 'title',
+        right: 'dayGridMonth,timeGridWeek,timeGridDay'
+      },
+      plugins: [ dayGridPlugin, interactionPlugin ]
+    };
 
+  }
+  eventClick(model) {
+    console.log(model);
+  }
+  eventDragStop(model) {
+    console.log(model);
+  }
+  dateClick(model) {
+    console.log(model);
+  }
+  updateEvents() {
+    this.eventsModel = [{
+      title: 'Updaten Event',
+      start: this.yearMonth + '-08',
+      end: this.yearMonth + '-10'
+    }];
+  }
+  get yearMonth(): string {
+    const dateObj = new Date();
+    return dateObj.getUTCFullYear() + '-' + (dateObj.getUTCMonth() + 1);
+  }
 }
 ```
 then your app.component.html
 
 ```html
-<div *ngIf="calendarOptions">
-    <ng-fullcalendar #ucCalendar [options]="calendarOptions" (eventClick)="eventClick($event.detail)" (eventDrop)="updateEvent($event.detail)"
+<div *ngIf="options">
+    <ng-fullcalendar #fullcalendar [options]="options" (eventClick)="eventClick($event.detail)" (eventDrop)="updateEvent($event.detail)"
         (eventResize)="updateEvent($event.detail)" (clickButton)="clickButton($event.detail)"></ng-fullcalendar>
 </div>
 ```
@@ -86,7 +117,7 @@ From 1.5.0 version new feature `[(eventsModel)]="events"` two events binding
 
 ```html
 <div *ngIf="calendarOptions">
-    <ng-fullcalendar #ucCalendar [options]="calendarOptions" [(eventsModel)]="events"></ng-fullcalendar>
+    <ng-fullcalendar #fullcalendar [options]="calendarOptions" [(eventsModel)]="events"></ng-fullcalendar>
 </div>
 ```
 
@@ -118,42 +149,9 @@ loadEvents() {
 
 ```
 
-## Callbacks
-Output 27 EventEmitters
-```typescript
-    eventDrop
-    eventResize
-    eventResizeStart
-    eventResizeStop
-    eventClick
-    clickButton
-    windowResize
-    viewRender
-    eventAfterRender
-    eventAfterAllRender
-    viewDestroy
-    eventRender
-    eventDestroy
-    eventMouseOver
-    eventMouseOut
-    initialized
-    select
-    unselect
-    dayClick
-    navLinkDayClick
-    navLinkWeekClick
-    eventDragStart
-    eventDragStop
-    drop
-    eventReceive
-    dayRender
-    resourceRender
-
-```
 ## API
 
 More api docs: [Official fullcalendar docs](https://fullcalendar.io/docs/)
-
 
 
 ## License

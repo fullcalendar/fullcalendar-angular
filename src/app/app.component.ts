@@ -14,7 +14,6 @@ export class AppComponent implements OnInit {
   eventsModel: any;
   @ViewChild('fullcalendar') fullcalendar: CalendarComponent;
   ngOnInit() {
-
     this.options = {
       editable: true,
       events: [{
