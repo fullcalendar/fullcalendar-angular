@@ -16,6 +16,7 @@ Demo project in Stackblitz [DEMO](https://stackblitz.com/edit/ng-fullcalendar2-d
 Install via [npm](http://npmjs.com) :
 
 ```bash
+npm install @fullcalendar/core
 npm install ng-fullcalendar
 ```
 
