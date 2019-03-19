@@ -21,6 +21,9 @@
       "ng-fullcalendar": [
         "projects/ng-fullcalendar/src/public_api.ts"
       ],
+      // "ng-fullcalendar": [
+      //   "dist/ng-fullcalendar"
+      // ],
       "ng-fullcalendar/*": [
         "dist/ng-fullcalendar/*"
       ]
