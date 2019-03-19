@@ -1,6 +1,6 @@
 {
   "name": "ng-fullcalendar",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "peerDependencies": {
     "@angular/common": "^7.0.0",
     "@angular/core": "^7.0.0",
@@ -9,19 +9,18 @@
   "license": "MIT",
   "keywords": [
     "angular",
-    "angular5",
-    "angular 5",
     "fullcalendar",
     "full calendar",
+    "ng fullcalendar",
     "angular calendar"
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/irustm/ng-fullcalendar.git"
+    "url": "https://github.com/ng-fullcalendar/ng-fullcalendar.git"
   },
-  "homepage": "https://github.com/irustm/ng-fullcalendar",
+  "homepage": "https://github.com/ng-fullcalendar/ng-fullcalendar",
   "bugs": {
-    "url": "https://github.com/irustm/ng-fullcalendar/issues"
+    "url": "https://github.com/ng-fullcalendar/ng-fullcalendar/issues"
   },
   "engines": {
     "node": ">= 6.9.0",

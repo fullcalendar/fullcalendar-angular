@@ -8,9 +8,7 @@ This package wraps the fullcalendar module for Angular.
 
 [ng-fullcalendar v1 with JQuery see this](https://github.com/ng-fullcalendar/ng-fullcalendar/tree/v1)
 
-Demo project in Stackblitz [DEMO v1](https://stackblitz.com/edit/ng-fullcalendar-demo)
-
-Demo src [Demo v1](https://github.com/ng-fullcalendar/ng-fullcalendar-demo)
+Demo project in Stackblitz [DEMO](https://stackblitz.com/edit/ng-fullcalendar2-demo)
 
 
 ## Getting started
