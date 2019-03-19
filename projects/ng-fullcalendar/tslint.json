@@ -10,7 +10,7 @@
     "component-selector": [
       true,
       "element",
-      "lib",
+      "ng",
       "kebab-case"
     ]
   }

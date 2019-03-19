@@ -19,7 +19,7 @@
     ],
     "paths": {
       "ng-fullcalendar": [
-        "dist/ng-fullcalendar"
+        "projects/ng-fullcalendar/src/public_api.ts"
       ],
       "ng-fullcalendar/*": [
         "dist/ng-fullcalendar/*"
