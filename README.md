@@ -104,10 +104,17 @@ export class AppComponent implements OnInit {
 then your app.component.html
 
 ```html
-<div *ngIf="options">
-    <ng-fullcalendar #fullcalendar [options]="options" (eventClick)="eventClick($event.detail)" (eventDrop)="updateEvent($event.detail)"
-        (eventResize)="updateEvent($event.detail)" (clickButton)="clickButton($event.detail)"></ng-fullcalendar>
-</div>
+<ng-container *ngIf="options">
+  <ng-fullcalendar
+    #fullcalendar
+    [eventsModel]="eventsModel"
+    [options]="options"
+    (dateClick)="dateClick($event)"
+    (eventDragStop)="eventDragStop($event)"
+    (eventClick)="eventClick($event)"
+    (clickButton)="clickButton($event)"
+  ></ng-fullcalendar>
+</ng-container>
 ```
 
 ## Events binging
@@ -115,9 +122,12 @@ then your app.component.html
 From 1.5.0 version new feature `[(eventsModel)]="events"` two events binding
 
 ```html
-<div *ngIf="calendarOptions">
-    <ng-fullcalendar #fullcalendar [options]="calendarOptions" [(eventsModel)]="events"></ng-fullcalendar>
-</div>
+<ng-container *ngIf="options">
+  <ng-fullcalendar
+    [eventsModel]="eventsModel"
+    [options]="options"
+  ></ng-fullcalendar>
+</ng-container>
 ```
 
 ```ts
