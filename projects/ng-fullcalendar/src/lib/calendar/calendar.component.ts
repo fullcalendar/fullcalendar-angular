@@ -79,6 +79,10 @@ export class CalendarComponent implements OnInit, AfterViewInit {
     this.calendar = new Calendar(this.element.nativeElement, this.options);
     this.calendar.render();
     this.initialized.emit();
+    this.listenButtons();
+  }
+
+  private listenButtons() {
     this.element.nativeElement.addEventListener('click', ev => {
       const closest = ev.target.closest('button');
       if (closest) {
