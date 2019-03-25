@@ -16,11 +16,6 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.options = {
       editable: true,
-      events: [{
-        title: 'Long Event',
-        start: this.yearMonth + '-07',
-        end: this.yearMonth + '-10'
-      }],
       customButtons: {
         myCustomButton: {
           text: 'custom!',
@@ -46,6 +41,13 @@ export class AppComponent implements OnInit {
   }
   dateClick(model) {
     console.log(model);
+  }
+  updateHeader() {
+    this.options.header = {
+      left: 'prev,next myCustomButton',
+      center: 'title',
+      right: 'dayGridMonth,timeGridWeek,timeGridDay'
+    };
   }
   updateEvents() {
     this.eventsModel = [{
