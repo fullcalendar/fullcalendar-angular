@@ -194,83 +194,39 @@ export class CalendarComponent implements OnInit, OnChanges, AfterViewInit {
   @Output() initialized = new EventEmitter<any>();
 
   calendar: Calendar;
-  private _eventsModel: any[];
-  private _reRender = true;
-  @Input('events')
-  set eventsModel(value: any[]) {
-    this._eventsModel = value;
-    if (this._reRender) {
-      setTimeout(() => {
-        this.renderEvents(value);
-      }, 50);
-    } else {
-      this._reRender = true;
-    }
-  }
 
   constructor(private element: ElementRef) {}
   ngOnInit() {}
   ngAfterViewInit() {
-    this.updateOptions();
+    this.updateAllOptions();
     this.calendar = new Calendar(this.element.nativeElement, this.options);
     this.calendar.render();
     this.initialized.emit();
-    this.listenButtons();
   }
 
-  ngOnChanges(changes: SimpleChanges) {
-    // eventsModel changes with renderEvents
-    if (!changes.eventsModel) {
+  ngOnChanges(changes) {
+    const keys = Object.keys(changes);
+    if (keys) {
+      this.updateInputOptions(keys);
       this.rerenderCalendar();
     }
-  }
-
-  private listenButtons() {
-    this.element.nativeElement.addEventListener('click', ev => {
-      const closest = ev.target.closest('button');
-      if (closest) {
-        const classnames = ev.srcElement.className.split(' ');
-        classnames.forEach(name => {
-          if (name.indexOf('button') === name.length - 6) {
-            name = name.replace(/fc|button|-/g, '');
-            if (name != '') {
-              this.buttonEventDispatch(name);
-            }
-          } else if (name.indexOf('chevron')) {
-            name = name.replace(/fc|icon|chevron|-/g, '');
-            switch (name) {
-              case 'right':
-                this.buttonEventDispatch('next');
-                break;
-              case 'left':
-                this.buttonEventDispatch('prev');
-                break;
-              default:
-                break;
-            }
-          }
-        });
-      }
-    });
-  }
-  private buttonEventDispatch(buttonType: string) {
-    const currentDetail: any = {
-      buttonType: buttonType,
-      data: this.calendar.getDate()
-    };
-    this.clickButton.emit(currentDetail);
   }
 
   private rerenderCalendar() {
     if (this.calendar) {
       this.calendar.destroy();
-      this.updateOptions();
       this.calendar = new Calendar(this.element.nativeElement, this.options);
       this.calendar.render();
-      this.renderEvents(this._eventsModel);
     }
   }
-  private updateOptions() {
+  private updateInputOptions(inputs: string[]) {
+    inputs.forEach(element => {
+      if (this[element]) {
+        this.options[element] = this[element];
+      }
+    });
+  }
+  private updateAllOptions() {
     fullcalendarEvents.forEach(element => {
       this.options[element] = info => {
         this[element].emit(info);
@@ -282,17 +238,5 @@ export class CalendarComponent implements OnInit, OnChanges, AfterViewInit {
       }
     });
     this.options.plugins = this.plugins;
-  }
-  private renderEvents(events: any[]) {
-    // https://fullcalendar.io/docs/Calendar-batchRendering
-    if (events && events.length) {
-      this.calendar.batchRendering(() => {
-        this.calendar.removeAllEvents();
-        events.forEach(ev => {
-          this.calendar.addEvent(ev);
-        });
-      });
-      this.calendar.rerenderEvents();
-    }
   }
 }
