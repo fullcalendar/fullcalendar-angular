@@ -189,10 +189,6 @@ export class CalendarComponent implements OnInit, OnChanges, AfterViewInit {
   @Output() allDayMaintainDuration = new EventEmitter<any>();
   @Output() drop = new EventEmitter<any>();
 
-  // custom event
-  @Output() clickButton = new EventEmitter<any>();
-  @Output() initialized = new EventEmitter<any>();
-
   calendar: Calendar;
 
   constructor(private element: ElementRef) {}
@@ -201,7 +197,6 @@ export class CalendarComponent implements OnInit, OnChanges, AfterViewInit {
     this.updateAllOptions();
     this.calendar = new Calendar(this.element.nativeElement, this.options);
     this.calendar.render();
-    this.initialized.emit();
   }
 
   ngOnChanges(changes) {
