@@ -8,7 +8,8 @@
     "build:lib": "ng build ng-fullcalendar && node build.js",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "ci": "npm run e2e"
   },
   "private": true,
   "dependencies": {
