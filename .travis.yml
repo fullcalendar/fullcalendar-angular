@@ -8,8 +8,7 @@ addons:
       - google-chrome-stable
 language: node_js
 node_js:
-  - 6
-  - 7
+  - stable
 before_script:
   - export DISPLAY=:99.0
   - sh -e /etc/init.d/xvfb start
