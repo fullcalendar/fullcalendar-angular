@@ -27,7 +27,7 @@ export class AppComponent implements OnInit {
       header: {
         left: 'prev,next today myCustomButton',
         center: 'title',
-        right: 'dayGridMonth,timeGridWeek,timeGridDay'
+        right: 'dayGridMonth'
       },
       plugins: [ dayGridPlugin, interactionPlugin ]
     };
@@ -46,7 +46,7 @@ export class AppComponent implements OnInit {
     this.options.header = {
       left: 'prev,next myCustomButton',
       center: 'title',
-      right: 'dayGridMonth,timeGridWeek,timeGridDay'
+      right: ''
     };
   }
   updateEvents() {

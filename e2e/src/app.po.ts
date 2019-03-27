@@ -5,7 +5,16 @@ export class AppPage {
     return browser.get('/');
   }
 
-  getParagraphText() {
-    return element(by.css('app-root h1')).getText();
+  getCalendarContainer() {
+    return element(by.className('fc-view-container'));
+  }
+  getCalendarHeader() {
+    return element(by.className('fc-header-toolbar'));
+  }
+  getUpdateHeaderButton() {
+    return element(by.id('updateHeader'));
+  }
+  getMonthButton() {
+    return element(by.className('fc-dayGridMonth-button'));
   }
 }
