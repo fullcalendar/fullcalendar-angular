@@ -35,7 +35,7 @@ import { EventSourceInput } from '@fullcalendar/core/structs/event-source';
 import { fullcalendarEvents, fullcalendarInputs } from './fullcalendar';
 
 @Component({
-  selector: 'ng-fullcalendar',
+  selector: 'full-calendar',
   template: ``
 })
 export class CalendarComponent implements OnInit, OnChanges, AfterViewInit {

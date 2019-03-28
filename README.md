@@ -105,7 +105,7 @@ then your app.component.html
 
 ```html
 <ng-container *ngIf="options">
-  <ng-fullcalendar
+  <full-calendar
     #fullcalendar
     [eventsModel]="eventsModel"
     [options]="options"
@@ -113,7 +113,7 @@ then your app.component.html
     (eventDragStop)="eventDragStop($event)"
     (eventClick)="eventClick($event)"
     (clickButton)="clickButton($event)"
-  ></ng-fullcalendar>
+  ></full-calendar>
 </ng-container>
 ```
 
@@ -123,10 +123,10 @@ From 1.5.0 version new feature `[(eventsModel)]="events"` two events binding
 
 ```html
 <ng-container *ngIf="options">
-  <ng-fullcalendar
+  <full-calendar
     [eventsModel]="eventsModel"
     [options]="options"
-  ></ng-fullcalendar>
+  ></full-calendar>
 </ng-container>
 ```
 

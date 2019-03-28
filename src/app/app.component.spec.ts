@@ -1,7 +1,7 @@
 import { TestBed, async } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
-import { FullCalendarModule } from 'ng-fullcalendar';
+import { FullCalendarModule } from '@fullcalendar/angular';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {

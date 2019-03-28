@@ -1,6 +1,7 @@
 {
   "$schema": "../../node_modules/ng-packagr/ng-package.schema.json",
-  "dest": "../../dist/ng-fullcalendar",
+  "dest": "../../dist/fullcalendar",
+  "whitelistedNonPeerDependencies": ["."],
   "lib": {
     "entryFile": "src/public_api.ts"
   }

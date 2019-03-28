@@ -10,7 +10,7 @@
     "component-selector": [
       true,
       "element",
-      "ng",
+      "full",
       "kebab-case"
     ]
   }

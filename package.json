@@ -1,15 +1,15 @@
 {
-  "name": "ng-fullcalendar",
-  "version": "2.0.3",
+  "name": "fullcalendar-angular-app",
+  "version": "1.0.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "build:lib": "ng build ng-fullcalendar && node build.js",
+    "build:lib": "ng build fullcalendar && node build.js",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "ci": "npm run e2e"
+    "ci": "npm run e2e && npm run build:lib"
   },
   "private": true,
   "dependencies": {

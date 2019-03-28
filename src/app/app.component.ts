@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { OptionsInput } from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
-import { CalendarComponent } from 'ng-fullcalendar';
+import { CalendarComponent } from '@fullcalendar/angular';
 
 @Component({
   selector: 'app-root',

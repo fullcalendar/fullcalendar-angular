@@ -1,0 +1,31 @@
+{
+  "name": "@fullcalendar/angular",
+  "version": "1.0.0-beta.1",
+  "dependencies": {
+    "@fullcalendar/core": "^4.0.0"
+  },
+  "peerDependencies": {
+    "@angular/common": "^7.0.0",
+    "@angular/core": "^7.0.0"
+  },
+  "license": "MIT",
+  "keywords": [
+    "angular",
+    "fullcalendar",
+    "full calendar",
+    "angular calendar",
+    "angular fullcalendar"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/fullcalendar/angular.git"
+  },
+  "homepage": "https://github.com/fullcalendar/angular",
+  "bugs": {
+    "url": "https://github.com/fullcalendar/angular/issues"
+  },
+  "engines": {
+    "node": ">= 6.9.0",
+    "npm": ">= 3.0.0"
+  }
+}

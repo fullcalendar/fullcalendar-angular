@@ -18,14 +18,11 @@
       "dom"
     ],
     "paths": {
-      "ng-fullcalendar": [
-        "projects/ng-fullcalendar/src/public_api.ts"
+      "@fullcalendar/angular": [
+        "projects/fullcalendar/src/public_api.ts"
       ],
-      // "ng-fullcalendar": [
-      //   "dist/ng-fullcalendar"
-      // ],
-      "ng-fullcalendar/*": [
-        "dist/ng-fullcalendar/*"
+      "@fullcalendar/angular/*": [
+        "dist/fullcalendar/*"
       ]
     }
   }
