@@ -16,14 +16,13 @@ Demo project in Stackblitz [DEMO](https://stackblitz.com/edit/ng-fullcalendar2-d
 Install via [npm](http://npmjs.com) :
 
 ```bash
-npm install @fullcalendar/core
-npm install ng-fullcalendar
+npm install @fullcalendar/angular
 ```
 
 Then include the `FullCalendarModule` module in your module.
 
 ```typescript
-import { FullCalendarModule } from 'ng-fullcalendar';
+import { FullCalendarModule } from '@fullcalendar/angular';
 
 @NgModule({
   imports: [
@@ -44,7 +43,7 @@ Import CalendarComponent in your component :
 import { OptionsInput } from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
-import { CalendarComponent } from 'ng-fullcalendar';
+import { CalendarComponent } from '@fullcalendar/angular';
 
 @Component({
   selector: 'demo-app',
