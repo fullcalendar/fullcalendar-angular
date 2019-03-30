@@ -150,9 +150,9 @@ export class CalendarComponent implements OnInit, OnChanges, AfterViewInit {
   @Input() eventOrder?:
     | string
     | Array<
-        | ((a: EventApi, b: EventApi) => number)
-        | (string | ((a: EventApi, b: EventApi) => number))
-      >;
+    | ((a: EventApi, b: EventApi) => number)
+    | (string | ((a: EventApi, b: EventApi) => number))
+    >;
   @Input() rerenderDelay?: number | null;
   @Input() dragRevertDuration?: number;
   @Input() dragScroll?: boolean;
@@ -191,8 +191,8 @@ export class CalendarComponent implements OnInit, OnChanges, AfterViewInit {
 
   calendar: Calendar;
 
-  constructor(private element: ElementRef) {}
-  ngOnInit() {}
+  constructor(private element: ElementRef) { }
+  ngOnInit() { }
   ngAfterViewInit() {
     this.updateAllOptions();
     this.calendar = new Calendar(this.element.nativeElement, this.options);

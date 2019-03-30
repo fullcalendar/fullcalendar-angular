@@ -19,7 +19,7 @@ export class AppComponent implements OnInit {
       customButtons: {
         myCustomButton: {
           text: 'custom!',
-          click: function() {
+          click: function () {
             alert('clicked the custom button!');
           }
         }
@@ -29,7 +29,7 @@ export class AppComponent implements OnInit {
         center: 'title',
         right: 'dayGridMonth'
       },
-      plugins: [ dayGridPlugin, interactionPlugin ]
+      plugins: [dayGridPlugin, interactionPlugin]
     };
 
   }
