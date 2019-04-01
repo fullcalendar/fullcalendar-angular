@@ -4,12 +4,14 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
+    "build": "npm run build:demo && npm run build:lib",
+    "build:demo": "ng build fullcalendar-demo",
     "build:lib": "ng build fullcalendar && node build.js",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "ci": "npm run e2e && npm run build:lib"
+    "ci": "npm run e2e && npm run build",
+    "clean": "rm -rf dist"
   },
   "private": true,
   "dependencies": {
