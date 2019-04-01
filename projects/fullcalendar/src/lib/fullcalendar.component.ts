@@ -32,13 +32,13 @@ import {
 } from '@fullcalendar/core/datelib/locale';
 import { OverlapFunc, AllowFunc } from '@fullcalendar/core/validation';
 import { EventSourceInput } from '@fullcalendar/core/structs/event-source';
-import { fullcalendarEvents, fullcalendarInputs } from './fullcalendar';
+import { fullcalendarEvents, fullcalendarInputs } from './fullcalendar-options';
 
 @Component({
   selector: 'full-calendar',
   template: ``
 })
-export class CalendarComponent implements OnInit, OnChanges, AfterViewInit {
+export class FullCalendarComponent implements OnInit, OnChanges, AfterViewInit {
   // Options object, see fullcalendar docs
   private options: OptionsInput = {};
 
