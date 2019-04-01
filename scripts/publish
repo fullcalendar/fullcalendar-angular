@@ -13,6 +13,7 @@
 
 set -e # always immediately exit upon error
 
+LIB_DIST_DIR='dist/fullcalendar'
 scripts_dir=`dirname $0`
 version_num=$1
 production_arg=$2
@@ -40,12 +41,12 @@ fi
 version_tag="v$version_num"
 
 echo 'Checking out dist files...'
-rm -rf dist # clear what's already there
+rm -rf "$LIB_DIST_DIR" # clear what's already there
 git checkout --quiet "$version_tag" -- dist
 git reset --quiet # unstage dist files, but keep in working tree
 
 echo 'Publishing dist files...'
-cd dist
+cd "$LIB_DIST_DIR"
 npm publish $publish_args "$@"
 cd - # go back to root
 
