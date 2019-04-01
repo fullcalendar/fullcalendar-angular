@@ -160,8 +160,6 @@ export class CalendarComponent implements OnInit, OnChanges, AfterViewInit {
   @Input() eventLongPressDelay?: number;
   @Input() droppable?: boolean;
   @Input() dropAccept?: string | ((draggable: any) => boolean);
-
-  // Custom
   @Input() plugins?: any;
 
   @Output() datesRender = new EventEmitter<any>();
@@ -232,6 +230,5 @@ export class CalendarComponent implements OnInit, OnChanges, AfterViewInit {
         this.options[element] = this[element];
       }
     });
-    this.options.plugins = this.plugins;
   }
 }
