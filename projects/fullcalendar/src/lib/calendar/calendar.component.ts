@@ -187,7 +187,7 @@ export class CalendarComponent implements OnInit, OnChanges, AfterViewInit {
   @Output() allDayMaintainDuration = new EventEmitter<any>();
   @Output() drop = new EventEmitter<any>();
 
-  calendar: Calendar;
+  private calendar: Calendar;
 
   constructor(private element: ElementRef) { }
   ngOnInit() { }
@@ -231,4 +231,9 @@ export class CalendarComponent implements OnInit, OnChanges, AfterViewInit {
       }
     });
   }
+
+  public getApi(): Calendar {
+    return this.calendar;
+  }
+
 }
