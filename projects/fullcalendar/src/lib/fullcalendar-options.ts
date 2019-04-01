@@ -1,4 +1,5 @@
 export const fullcalendarInputs = [
+  'plugins',
   'header',
   'footer',
   'customButtons',

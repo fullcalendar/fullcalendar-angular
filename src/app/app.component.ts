@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { OptionsInput } from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
-import { CalendarComponent } from '@fullcalendar/angular';
+import { FullCalendarComponent } from '@fullcalendar/angular';
 
 @Component({
   selector: 'app-root',
@@ -12,7 +12,7 @@ import { CalendarComponent } from '@fullcalendar/angular';
 export class AppComponent implements OnInit {
   options: OptionsInput;
   eventsModel: any;
-  @ViewChild('fullcalendar') fullcalendar: CalendarComponent;
+  @ViewChild('fullcalendar') fullcalendar: FullCalendarComponent;
   ngOnInit() {
     this.options = {
       editable: true,

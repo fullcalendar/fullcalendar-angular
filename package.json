@@ -4,12 +4,17 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
-    "build:lib": "ng build fullcalendar && node build.js",
+    "build": "npm run build:demo && npm run build:lib",
+    "build:demo": "ng build fullcalendar-demo",
+    "build:lib": "ng build fullcalendar && npm run build:lib:meta",
+    "build:lib:meta": "cp LICENSE.* README.* dist/fullcalendar",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "ci": "npm run e2e && npm run build:lib"
+    "ci": "npm run e2e && npm run build",
+    "clean": "rm -rf dist",
+    "preversion": "npm run clean",
+    "version": "npm run e2e && npm run build:lib && git add -f dist/fullcalendar"
   },
   "private": true,
   "dependencies": {

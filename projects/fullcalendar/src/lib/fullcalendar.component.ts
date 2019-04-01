@@ -32,13 +32,13 @@ import {
 } from '@fullcalendar/core/datelib/locale';
 import { OverlapFunc, AllowFunc } from '@fullcalendar/core/validation';
 import { EventSourceInput } from '@fullcalendar/core/structs/event-source';
-import { fullcalendarEvents, fullcalendarInputs } from './fullcalendar';
+import { fullcalendarEvents, fullcalendarInputs } from './fullcalendar-options';
 
 @Component({
   selector: 'full-calendar',
   template: ``
 })
-export class CalendarComponent implements OnInit, OnChanges, AfterViewInit {
+export class FullCalendarComponent implements OnInit, OnChanges, AfterViewInit {
   // Options object, see fullcalendar docs
   private options: OptionsInput = {};
 
@@ -160,8 +160,6 @@ export class CalendarComponent implements OnInit, OnChanges, AfterViewInit {
   @Input() eventLongPressDelay?: number;
   @Input() droppable?: boolean;
   @Input() dropAccept?: string | ((draggable: any) => boolean);
-
-  // Custom
   @Input() plugins?: any;
 
   @Output() datesRender = new EventEmitter<any>();
@@ -189,7 +187,7 @@ export class CalendarComponent implements OnInit, OnChanges, AfterViewInit {
   @Output() allDayMaintainDuration = new EventEmitter<any>();
   @Output() drop = new EventEmitter<any>();
 
-  calendar: Calendar;
+  private calendar: Calendar;
 
   constructor(private element: ElementRef) { }
   ngOnInit() { }
@@ -216,7 +214,7 @@ export class CalendarComponent implements OnInit, OnChanges, AfterViewInit {
   }
   private updateInputOptions(inputs: string[]) {
     inputs.forEach(element => {
-      if (this[element]) {
+      if (this[element] !== undefined) {
         this.options[element] = this[element];
       }
     });
@@ -228,10 +226,14 @@ export class CalendarComponent implements OnInit, OnChanges, AfterViewInit {
       };
     });
     fullcalendarInputs.forEach(element => {
-      if (this[element]) {
+      if (this[element] !== undefined) {
         this.options[element] = this[element];
       }
     });
-    this.options.plugins = this.plugins;
   }
+
+  public getApi(): Calendar {
+    return this.calendar;
+  }
+
 }

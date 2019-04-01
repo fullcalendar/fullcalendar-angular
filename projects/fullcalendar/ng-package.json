@@ -3,6 +3,9 @@
   "dest": "../../dist/fullcalendar",
   "whitelistedNonPeerDependencies": ["."],
   "lib": {
-    "entryFile": "src/public_api.ts"
+    "entryFile": "src/public_api.ts",
+    "umdModuleIds": {
+      "@fullcalendar/core": "FullCalendar"
+    }
   }
 }
