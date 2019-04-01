@@ -214,7 +214,7 @@ export class CalendarComponent implements OnInit, OnChanges, AfterViewInit {
   }
   private updateInputOptions(inputs: string[]) {
     inputs.forEach(element => {
-      if (this[element]) {
+      if (this[element] !== undefined) {
         this.options[element] = this[element];
       }
     });
@@ -226,7 +226,7 @@ export class CalendarComponent implements OnInit, OnChanges, AfterViewInit {
       };
     });
     fullcalendarInputs.forEach(element => {
-      if (this[element]) {
+      if (this[element] !== undefined) {
         this.options[element] = this[element];
       }
     });
