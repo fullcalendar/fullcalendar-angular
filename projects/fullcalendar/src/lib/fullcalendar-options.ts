@@ -1,4 +1,5 @@
-export const fullcalendarInputs = [
+
+export const INPUT_NAMES = [
   'plugins',
   'header',
   'footer',
@@ -102,7 +103,8 @@ export const fullcalendarInputs = [
   'droppable',
   'dropAccept'
 ];
-export const fullcalendarEvents = [
+
+export const EVENT_NAMES = [
   'datesRender',
   'datesDestroy',
   'dayRender',
