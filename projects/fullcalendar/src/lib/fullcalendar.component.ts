@@ -45,7 +45,7 @@ export class FullCalendarComponent implements AfterViewInit, OnChanges, OnDestro
     });
 
     INPUT_NAMES.forEach(element => {
-      if (this[element] !== undefined) {
+      if (this[element] !== undefined) { // unfortunately FC chokes when some props are set to undefined
         options[element] = this[element];
       }
     });
