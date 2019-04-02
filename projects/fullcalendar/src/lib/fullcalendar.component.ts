@@ -1,6 +1,5 @@
 import {
   Component,
-  OnInit,
   ElementRef,
   Input,
   AfterViewInit,
@@ -11,7 +10,6 @@ import {
 } from '@angular/core';
 import {
   Calendar,
-  OptionsInput,
   BusinessHoursInput,
   ConstraintInput,
   EventApi
