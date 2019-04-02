@@ -27,7 +27,7 @@ import { DurationInput } from '@fullcalendar/core/datelib/duration';
 import { FormatterInput } from '@fullcalendar/core/datelib/formatting';
 import { DateRangeInput } from '@fullcalendar/core/datelib/date-range';
 import {
-  LocalePluralArg,
+  RawLocale,
   LocaleSingularArg
 } from '@fullcalendar/core/datelib/locale';
 import { OverlapFunc, AllowFunc } from '@fullcalendar/core/validation';
@@ -38,9 +38,7 @@ import { fullcalendarEvents, fullcalendarInputs } from './fullcalendar-options';
   selector: 'full-calendar',
   template: ``
 })
-export class FullCalendarComponent implements OnInit, OnChanges, AfterViewInit {
-  // Options object, see fullcalendar docs
-  private options: OptionsInput = {};
+export class FullCalendarComponent implements OnChanges, AfterViewInit {
 
   // Fullcalendar Inputs
   @Input() header?: boolean | ToolbarInput;
@@ -99,7 +97,7 @@ export class FullCalendarComponent implements OnInit, OnChanges, AfterViewInit {
   @Input() dateAlignment?: string;
   @Input() duration?: DurationInput;
   @Input() dayCount?: number;
-  @Input() locales?: LocalePluralArg;
+  @Input() locales?: RawLocale[];
   @Input() locale?: LocaleSingularArg;
   @Input() eventTimeFormat?: FormatterInput;
   @Input() columnHeader?: boolean;
@@ -189,47 +187,45 @@ export class FullCalendarComponent implements OnInit, OnChanges, AfterViewInit {
 
   private calendar: Calendar;
 
-  constructor(private element: ElementRef) { }
-  ngOnInit() { }
+  constructor(private element: ElementRef) {}
+
   ngAfterViewInit() {
-    this.updateAllOptions();
-    this.calendar = new Calendar(this.element.nativeElement, this.options);
+    this.calendar = new Calendar(this.element.nativeElement, this.buildOptions());
     this.calendar.render();
   }
 
-  ngOnChanges(changes) {
-    const keys = Object.keys(changes);
-    if (keys) {
-      this.updateInputOptions(keys);
-      this.rerenderCalendar();
-    }
-  }
+  buildOptions() {
+    let options = {};
 
-  private rerenderCalendar() {
-    if (this.calendar) {
-      this.calendar.destroy();
-      this.calendar = new Calendar(this.element.nativeElement, this.options);
-      this.calendar.render();
-    }
-  }
-  private updateInputOptions(inputs: string[]) {
-    inputs.forEach(element => {
-      if (this[element] !== undefined) {
-        this.options[element] = this[element];
-      }
-    });
-  }
-  private updateAllOptions() {
     fullcalendarEvents.forEach(element => {
-      this.options[element] = info => {
+      options[element] = info => {
         this[element].emit(info);
       };
     });
+
     fullcalendarInputs.forEach(element => {
       if (this[element] !== undefined) {
-        this.options[element] = this[element];
+        options[element] = this[element];
       }
     });
+
+    return options;
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (this.calendar) { // not the initial render
+      let updatedInputs = {};
+
+      for (let inputName in changes) {
+        updatedInputs[inputName] = changes[inputName].currentValue;
+      }
+
+      this.calendar.setOptions(updatedInputs);
+    }
+  }
+
+  ngOnDestroy() {
+    this.calendar.destroy();
   }
 
   public getApi(): Calendar {
