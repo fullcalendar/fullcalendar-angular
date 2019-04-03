@@ -1,48 +1,89 @@
 import {
   Component,
-  OnInit,
   ElementRef,
   Input,
-  AfterViewInit,
-  EventEmitter,
   Output,
+  EventEmitter,
+  SimpleChanges,
+  AfterViewInit,
   OnChanges,
-  SimpleChanges
+  OnDestroy
 } from '@angular/core';
-import {
-  Calendar,
-  OptionsInput,
-  BusinessHoursInput,
-  ConstraintInput,
-  EventApi
-} from '@fullcalendar/core';
-import {
-  ToolbarInput,
-  CustomButtonInput,
-  ButtonIconsInput,
-  CellInfo
-} from '@fullcalendar/core/types/input-types';
+import { Calendar, BusinessHoursInput, ConstraintInput, EventApi } from '@fullcalendar/core';
+import { ToolbarInput, CustomButtonInput, ButtonIconsInput, CellInfo } from '@fullcalendar/core/types/input-types';
 import { DateInput } from '@fullcalendar/core/datelib/env';
 import { DurationInput } from '@fullcalendar/core/datelib/duration';
 import { FormatterInput } from '@fullcalendar/core/datelib/formatting';
 import { DateRangeInput } from '@fullcalendar/core/datelib/date-range';
-import {
-  LocalePluralArg,
-  LocaleSingularArg
-} from '@fullcalendar/core/datelib/locale';
+import { RawLocale, LocaleSingularArg } from '@fullcalendar/core/datelib/locale';
 import { OverlapFunc, AllowFunc } from '@fullcalendar/core/validation';
 import { EventSourceInput } from '@fullcalendar/core/structs/event-source';
-import { fullcalendarEvents, fullcalendarInputs } from './fullcalendar-options';
+import { INPUT_NAMES, EVENT_NAMES } from './fullcalendar-options';
 
 @Component({
   selector: 'full-calendar',
-  template: ``
+  template: ''
 })
-export class FullCalendarComponent implements OnInit, OnChanges, AfterViewInit {
-  // Options object, see fullcalendar docs
-  private options: OptionsInput = {};
+export class FullCalendarComponent implements AfterViewInit, OnChanges, OnDestroy {
 
-  // Fullcalendar Inputs
+  private calendar: Calendar;
+
+  constructor(private element: ElementRef) {}
+
+  ngAfterViewInit() {
+    this.calendar = new Calendar(this.element.nativeElement, this.buildOptions());
+    this.calendar.render();
+  }
+
+  buildOptions() {
+    const options = {};
+
+    EVENT_NAMES.forEach(element => {
+      options[element] = info => {
+        this[element].emit(info);
+      };
+    });
+
+    INPUT_NAMES.forEach(element => {
+      if (this[element] !== undefined) { // unfortunately FC chokes when some props are set to undefined
+        options[element] = this[element];
+      }
+    });
+
+    return options;
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (this.calendar) { // not the initial render
+      const updatedInputs = {};
+
+      for (const inputName in changes) {
+        if (changes.hasOwnProperty(inputName)) {
+          updatedInputs[inputName] = changes[inputName].currentValue;
+        }
+      }
+
+      this.calendar.setOptions(updatedInputs);
+    }
+  }
+
+  ngOnDestroy() {
+    this.calendar.destroy();
+    this.calendar = null;
+  }
+
+  public getApi(): Calendar {
+    return this.calendar;
+  }
+
+
+  /*
+  TODO: the following Inputs/Outputs should be automatically rewritten for each version bump
+  of the core project. A script will be written to overwrite the actualy source code here.
+  It is usually good to put a class's property declarations BEFORE the methods, but in this case,
+  since the properties will be programmatically generated, better to put them after.
+  */
+
   @Input() header?: boolean | ToolbarInput;
   @Input() footer?: boolean | ToolbarInput;
   @Input() customButtons?: {
@@ -99,7 +140,7 @@ export class FullCalendarComponent implements OnInit, OnChanges, AfterViewInit {
   @Input() dateAlignment?: string;
   @Input() duration?: DurationInput;
   @Input() dayCount?: number;
-  @Input() locales?: LocalePluralArg;
+  @Input() locales?: RawLocale[];
   @Input() locale?: LocaleSingularArg;
   @Input() eventTimeFormat?: FormatterInput;
   @Input() columnHeader?: boolean;
@@ -186,54 +227,5 @@ export class FullCalendarComponent implements OnInit, OnChanges, AfterViewInit {
   @Output() eventResizableFromStart = new EventEmitter<any>();
   @Output() allDayMaintainDuration = new EventEmitter<any>();
   @Output() drop = new EventEmitter<any>();
-
-  private calendar: Calendar;
-
-  constructor(private element: ElementRef) { }
-  ngOnInit() { }
-  ngAfterViewInit() {
-    this.updateAllOptions();
-    this.calendar = new Calendar(this.element.nativeElement, this.options);
-    this.calendar.render();
-  }
-
-  ngOnChanges(changes) {
-    const keys = Object.keys(changes);
-    if (keys) {
-      this.updateInputOptions(keys);
-      this.rerenderCalendar();
-    }
-  }
-
-  private rerenderCalendar() {
-    if (this.calendar) {
-      this.calendar.destroy();
-      this.calendar = new Calendar(this.element.nativeElement, this.options);
-      this.calendar.render();
-    }
-  }
-  private updateInputOptions(inputs: string[]) {
-    inputs.forEach(element => {
-      if (this[element] !== undefined) {
-        this.options[element] = this[element];
-      }
-    });
-  }
-  private updateAllOptions() {
-    fullcalendarEvents.forEach(element => {
-      this.options[element] = info => {
-        this[element].emit(info);
-      };
-    });
-    fullcalendarInputs.forEach(element => {
-      if (this[element] !== undefined) {
-        this.options[element] = this[element];
-      }
-    });
-  }
-
-  public getApi(): Calendar {
-    return this.calendar;
-  }
 
 }
