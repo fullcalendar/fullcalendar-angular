@@ -1,6 +1,7 @@
 {
-  "name": "fullcalendar",
-  "version": "1.0.0",
+  "name": "fullcalendar-angular",
+  "version": "0.0.0",
+  "private": true,
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -16,7 +17,6 @@
     "preversion": "npm run clean",
     "version": "npm run e2e && npm run build:lib && git add -f dist/fullcalendar"
   },
-  "private": true,
   "dependencies": {
     "@angular/animations": "~7.0.0",
     "@angular/common": "~7.0.0",
