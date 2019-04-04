@@ -142,7 +142,6 @@ export const EVENT_NAMES = [
   'loading',
   'eventRender',
   'eventPositioned',
-  '_eventsPositioned',
   'eventDestroy',
   'eventDragStart',
   'eventDragStop',

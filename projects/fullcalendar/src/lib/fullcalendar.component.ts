@@ -44,15 +44,15 @@ export class FullCalendarComponent implements AfterViewInit, OnChanges, OnDestro
   buildOptions() {
     const options = {};
 
-    EVENT_NAMES.forEach(element => {
-      options[element] = info => {
-        this[element].emit(info);
+    EVENT_NAMES.forEach(eventName => {
+      options[eventName] = info => {
+        this[eventName].emit(info); // TODO: handle more than one arg?
       };
     });
 
-    INPUT_NAMES.forEach(element => {
-      if (this[element] !== undefined) { // unfortunately FC chokes when some props are set to undefined
-        options[element] = this[element];
+    INPUT_NAMES.forEach(inputName => {
+      if (this[inputName] !== undefined) { // unfortunately FC chokes when some props are set to undefined
+        options[inputName] = this[inputName];
       }
     });
 
