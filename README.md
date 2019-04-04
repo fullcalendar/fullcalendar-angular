@@ -1,14 +1,8 @@
 
 # FullCalendar Angular Component
 
-For developers of this module, important directories:
+This project provides an official Angular component for FullCalendar, with all the same setting.
 
-- `projects/fullcalendar/src/lib/` - code for the FullCalendar component
-- `src/` - a demo application, for manual testing while developing
-
-
-TODO: instructions how to build/watch/run
-TODO: link to docs
-TODO: link to example repo
-TODO: revive travis ci badge
-TODO: test for true/false options
+- [FullCalendar Angular Component Docs](https://fullcalendar.io/docs/angular)
+- [Example Project](https://github.com/fullcalendar/fullcalendar-example-projects/tree/master/angular)
+- [Contributor Guide](CONTRIBUTORS.md)
