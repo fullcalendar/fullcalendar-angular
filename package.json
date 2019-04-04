@@ -1,6 +1,6 @@
 {
   "name": "fullcalendar-angular",
-  "version": "0.0.0",
+  "version": "4.0.2-beta",
   "private": true,
   "scripts": {
     "ng": "ng",
