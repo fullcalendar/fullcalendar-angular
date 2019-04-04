@@ -2,6 +2,7 @@
 
 #
 # sends the `version` fields in package.json to projects/fullcalendar/package.json
+# leaves the modifications as staged changes, but does not commit.
 #
 
 set -e # always immediately exit upon error
@@ -20,10 +21,4 @@ cd "$dest_dir"
 npm version --no-git-tag-version --allow-same-version "$version"
 cd -
 
-if ! "$scripts_dir/require-clean-working-tree"
-then
-  git add "$dest_dir/package.json"
-  git commit -m 'sync package.json version'
-else
-  echo 'Versions already synced.'
-fi
+git add "$dest_dir/package.json"
