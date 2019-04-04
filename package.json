@@ -15,7 +15,7 @@
     "ci": "npm run e2e && npm run build",
     "clean": "rm -rf dist",
     "preversion": "npm run clean",
-    "version": "./scripts/sync-version-fields && npm run e2e && npm run build:lib && git add -f dist/fullcalendar"
+    "version": "./scripts/sync-version-fields && npm run e2e && npm run build:lib && git add -f package-lock.json dist/fullcalendar"
   },
   "dependencies": {
     "@angular/animations": "~7.0.0",
