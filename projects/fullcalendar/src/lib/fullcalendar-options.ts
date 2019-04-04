@@ -1,6 +1,9 @@
+/*
+the docs point to this file as an index of options.
+when this files is moved, update the docs.
+*/
 
 export const INPUT_NAMES = [
-  'plugins',
   'header',
   'footer',
   'customButtons',
@@ -101,7 +104,28 @@ export const INPUT_NAMES = [
   'longPressDelay',
   'eventLongPressDelay',
   'droppable',
-  'dropAccept'
+  'dropAccept',
+  'eventDataTransform',
+  'allDayMaintainDuration',
+  'eventResizableFromStart',
+  // compound OptionsInput...
+  'buttonText',
+  'views',
+  'plugins',
+  // scheduler...
+  'schedulerLicenseKey',
+  'resources',
+  'resourceLabelText',
+  'resourceOrder',
+  'filterResourcesWithEvents',
+  'resourceText',
+  'resourceGroupField',
+  'resourceGroupText',
+  'resourceAreaWidth',
+  'resourceColumns',
+  'resourcesInitiallyExpanded',
+  'slotWidth',
+  'datesAboveResources'
 ];
 
 export const EVENT_NAMES = [
@@ -115,18 +139,23 @@ export const EVENT_NAMES = [
   'eventMouseLeave',
   'select',
   'unselect',
+  'loading',
   'eventRender',
   'eventPositioned',
+  '_eventsPositioned',
   'eventDestroy',
   'eventDragStart',
   'eventDragStop',
   'eventDrop',
   'eventResizeStart',
   'eventResizeStop',
-  'eventReceive',
   'eventResize',
+  'drop',
+  'eventReceive',
   'eventLeave',
-  'eventResizableFromStart',
-  'allDayMaintainDuration',
-  'drop'
+  'viewSkeletonRender',
+  'viewSkeletonDestroy',
+  '_destroyed',
+  // scheduler...
+  'resourceRender'
 ];

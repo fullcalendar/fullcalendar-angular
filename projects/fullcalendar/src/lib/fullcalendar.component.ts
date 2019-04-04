@@ -9,15 +9,21 @@ import {
   OnChanges,
   OnDestroy
 } from '@angular/core';
-import { Calendar, BusinessHoursInput, ConstraintInput, EventApi } from '@fullcalendar/core';
-import { ToolbarInput, CustomButtonInput, ButtonIconsInput, CellInfo } from '@fullcalendar/core/types/input-types';
+import { Calendar, BusinessHoursInput, ConstraintInput, EventApi, PluginDef } from '@fullcalendar/core';
+import {
+  ToolbarInput,
+  CustomButtonInput,
+  ButtonIconsInput, CellInfo,
+  ButtonTextCompoundInput,
+  ViewOptionsInput
+} from '@fullcalendar/core/types/input-types';
 import { DateInput } from '@fullcalendar/core/datelib/env';
 import { DurationInput } from '@fullcalendar/core/datelib/duration';
 import { FormatterInput } from '@fullcalendar/core/datelib/formatting';
 import { DateRangeInput } from '@fullcalendar/core/datelib/date-range';
 import { RawLocale, LocaleSingularArg } from '@fullcalendar/core/datelib/locale';
 import { OverlapFunc, AllowFunc } from '@fullcalendar/core/validation';
-import { EventSourceInput } from '@fullcalendar/core/structs/event-source';
+import { EventSourceInput, EventInputTransformer } from '@fullcalendar/core/structs/event-source';
 import { INPUT_NAMES, EVENT_NAMES } from './fullcalendar-options';
 
 @Component({
@@ -86,9 +92,7 @@ export class FullCalendarComponent implements AfterViewInit, OnChanges, OnDestro
 
   @Input() header?: boolean | ToolbarInput;
   @Input() footer?: boolean | ToolbarInput;
-  @Input() customButtons?: {
-    [name: string]: CustomButtonInput;
-  };
+  @Input() customButtons?: { [name: string]: CustomButtonInput };
   @Input() buttonIcons?: boolean | ButtonIconsInput;
   @Input() themeSystem?: 'standard' | string;
   @Input() bootstrapFontAwesome?: boolean | ButtonIconsInput;
@@ -108,12 +112,7 @@ export class FullCalendarComponent implements AfterViewInit, OnChanges, OnDestro
   @Input() handleWindowResize?: boolean;
   @Input() windowResizeDelay?: number;
   @Input() eventLimit?: boolean | number;
-  @Input() eventLimitClick?:
-    | 'popover'
-    | 'week'
-    | 'day'
-    | string
-    | ((cellinfo: CellInfo, jsevent: Event) => void);
+  @Input() eventLimitClick?: 'popover' | 'week' | 'day' | string | ((cellinfo: CellInfo, jsevent: Event) => void);
   @Input() timeZone?: string | boolean;
   @Input() now?: DateInput | (() => DateInput);
   @Input() defaultView?: string;
@@ -132,9 +131,7 @@ export class FullCalendarComponent implements AfterViewInit, OnChanges, OnDestro
   @Input() noEventsMessage?: string;
   @Input() defaultDate?: DateInput;
   @Input() nowIndicator?: boolean;
-  @Input() visibleRange?:
-    | ((currentDate: Date) => DateRangeInput)
-    | DateRangeInput;
+  @Input() visibleRange?: ((currentDate: Date) => DateRangeInput) | DateRangeInput;
   @Input() validRange?: DateRangeInput;
   @Input() dateIncrement?: DurationInput;
   @Input() dateAlignment?: string;
@@ -155,9 +152,7 @@ export class FullCalendarComponent implements AfterViewInit, OnChanges, OnDestro
   @Input() dayPopoverFormat?: FormatterInput;
   @Input() navLinks?: boolean;
   @Input() navLinkDayClick?: string | ((date: Date, jsEvent: Event) => void);
-  @Input() navLinkWeekClick?:
-    | string
-    | ((weekStart: any, jsEvent: Event) => void);
+  @Input() navLinkWeekClick?: string | ((weekStart: any, jsEvent: Event) => void);
   @Input() selectable?: boolean;
   @Input() selectMirror?: boolean;
   @Input() unselectAuto?: boolean;
@@ -188,12 +183,7 @@ export class FullCalendarComponent implements AfterViewInit, OnChanges, OnDestro
   @Input() endParam?: string;
   @Input() lazyFetching?: boolean;
   @Input() nextDayThreshold?: DurationInput;
-  @Input() eventOrder?:
-    | string
-    | Array<
-    | ((a: EventApi, b: EventApi) => number)
-    | (string | ((a: EventApi, b: EventApi) => number))
-    >;
+  @Input() eventOrder?: string | Array<((a: EventApi, b: EventApi) => number) | (string | ((a: EventApi, b: EventApi) => number))>;
   @Input() rerenderDelay?: number | null;
   @Input() dragRevertDuration?: number;
   @Input() dragScroll?: boolean;
@@ -201,7 +191,27 @@ export class FullCalendarComponent implements AfterViewInit, OnChanges, OnDestro
   @Input() eventLongPressDelay?: number;
   @Input() droppable?: boolean;
   @Input() dropAccept?: string | ((draggable: any) => boolean);
-  @Input() plugins?: any;
+  @Input() eventDataTransform?: EventInputTransformer;
+  @Input() allDayMaintainDuration?: Boolean;
+  @Input() eventResizableFromStart?: Boolean;
+  // compound OptionsInput...
+  @Input() buttonText?: ButtonTextCompoundInput;
+  @Input() views?: { [viewId: string]: ViewOptionsInput };
+  @Input() plugins?: (PluginDef | string)[];
+  // scheduler...
+  @Input() schedulerLicenseKey?: string;
+  @Input() resources?: any;
+  @Input() resourceLabelText?: string;
+  @Input() resourceOrder?: any;
+  @Input() filterResourcesWithEvents?: any;
+  @Input() resourceText?: any;
+  @Input() resourceGroupField?: any;
+  @Input() resourceGroupText?: any;
+  @Input() resourceAreaWidth?: any;
+  @Input() resourceColumns?: any;
+  @Input() resourcesInitiallyExpanded?: any;
+  @Input() slotWidth?: any;
+  @Input() datesAboveResources?: any;
 
   @Output() datesRender = new EventEmitter<any>();
   @Output() datesDestroy = new EventEmitter<any>();
@@ -221,11 +231,13 @@ export class FullCalendarComponent implements AfterViewInit, OnChanges, OnDestro
   @Output() eventDrop = new EventEmitter<any>();
   @Output() eventResizeStart = new EventEmitter<any>();
   @Output() eventResizeStop = new EventEmitter<any>();
-  @Output() eventReceive = new EventEmitter<any>();
   @Output() eventResize = new EventEmitter<any>();
-  @Output() eventLeave = new EventEmitter<any>();
-  @Output() eventResizableFromStart = new EventEmitter<any>();
-  @Output() allDayMaintainDuration = new EventEmitter<any>();
   @Output() drop = new EventEmitter<any>();
-
+  @Output() eventReceive = new EventEmitter<any>();
+  @Output() eventLeave = new EventEmitter<any>();
+  @Output() viewSkeletonRender = new EventEmitter<any>();
+  @Output() viewSkeletonDestroy = new EventEmitter<any>();
+  @Output() _destroyed = new EventEmitter<any>();
+  // scheduler...
+  @Output() resourceRender = new EventEmitter<any>();
 }
