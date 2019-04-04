@@ -6,14 +6,13 @@ addons:
       - google-chrome
     packages:
       - google-chrome-stable
-language: node_js
-node_js:
-  - stable
 before_script:
   - export DISPLAY=:99.0
   - sh -e /etc/init.d/xvfb start
-# cache: npm # don't reinstall node_modules from scratch each time
-install:
-  - npm install
-script:
-  - npm run ci
+
+# TODO: document what all the above commands do
+
+language: node_js
+node_js: stable
+cache: npm # don't reinstall packages from scratch every time
+script: npm run ci
