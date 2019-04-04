@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+
+#
+# sends the `version` fields in package.json to projects/fullcalendar/package.json
+#
+
+set -e # always immediately exit upon error
+
+scripts_dir=`dirname $0`
+root_dir="$scripts_dir/.."
+dest_dir="$scripts_dir/../projects/fullcalendar"
+
+"$scripts_dir/require-clean-working-tree"
+
+cd "$root_dir"
+version=$(node -e 'console.log(require("./package").version)')
+cd -
+
+cd "$dest_dir"
+npm version --no-git-tag-version --allow-same-version "$version"
+cd -
+
+if ! "$scripts_dir/require-clean-working-tree"
+then
+  git add "$dest_dir/package.json"
+  git commit -m 'sync package.json version'
+else
+  echo 'Versions already synced.'
+fi

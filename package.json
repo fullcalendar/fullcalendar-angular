@@ -14,7 +14,7 @@
     "e2e": "ng e2e",
     "ci": "npm run e2e && npm run build",
     "clean": "rm -rf dist",
-    "preversion": "npm run clean",
+    "preversion": "npm run clean && ./scripts/sync-version-fields",
     "version": "npm run e2e && npm run build:lib && git add -f dist/fullcalendar"
   },
   "dependencies": {
