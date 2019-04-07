@@ -10,9 +10,10 @@
     "build:lib": "ng build fullcalendar && npm run build:lib:meta",
     "build:lib:meta": "cp LICENSE.* README.* dist/fullcalendar",
     "test": "ng test",
+    "test:lib": "ng test fullcalendar --browsers ChromeHeadless --watch=false",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "ci": "npm run e2e && npm run build",
+    "ci": "npm run e2e && npm run test:lib && npm run build",
     "clean": "rm -rf dist",
     "preversion": "npm run clean",
     "version": "./scripts/sync-version-fields && npm run e2e && npm run build:lib && git add -f package-lock.json dist/fullcalendar"
