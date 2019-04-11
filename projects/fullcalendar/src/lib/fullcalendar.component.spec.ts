@@ -10,23 +10,23 @@ import dayGridPlugin from '@fullcalendar/daygrid';
   [plugins]="plugins"
   [header]="header"
   [weekends]="weekends"
-  (viewSkeletonRender)="viewSkeletonRenderEvent($event)"
+  (viewSkeletonRender)="handleViewSkeletonRender($event)"
   ></full-calendar>`
 })
-class TestHostComponent {
+class HostComponent {
   plugins = [dayGridPlugin];
   header: {
     left: 'prev,next today myCustomButton',
     center: 'title',
     right: 'dayGridMonth'
   };
-  weekends = true;
-  viewSkeletonRender = false;
-  updateWeekendsView() {
-    this.weekends = false;
+  weekendsEnabled = true;
+  viewSkeletonRendered = false;
+  disableWeekends() {
+    this.weekendsEnabled = false;
   }
-  viewSkeletonRenderEvent(event) {
-    this.viewSkeletonRender = true;
+  handleViewSkeletonRender(event) {
+    this.viewSkeletonRendered = true;
   }
 }
 
@@ -34,12 +34,12 @@ describe('FullCalendarComponent', () => {
   let component: FullCalendarComponent;
   let fixture: ComponentFixture<FullCalendarComponent>;
 
-  let testComponent: TestHostComponent;
-  let testFixture: ComponentFixture<TestHostComponent>;
+  let hostComponent: HostComponent;
+  let hostFixture: ComponentFixture<HostComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [FullCalendarComponent, TestHostComponent]
+      declarations: [FullCalendarComponent, HostComponent]
     })
       .compileComponents();
   }));
@@ -52,9 +52,9 @@ describe('FullCalendarComponent', () => {
   });
   // for test host
   beforeEach(() => {
-    testFixture = TestBed.createComponent(TestHostComponent);
-    testComponent = testFixture.componentInstance;
-    testFixture.detectChanges();
+    hostFixture = TestBed.createComponent(HostComponent);
+    hostComponent = hostFixture.componentInstance;
+    hostFixture.detectChanges();
   });
 
   it('should create', () => {
@@ -66,13 +66,13 @@ describe('FullCalendarComponent', () => {
     expect(fixture.nativeElement.querySelector('.fc-toolbar')).toBeFalsy();
   });
   it('should handle prop changes', () => {
-    expect(testFixture.nativeElement.querySelector('.fc-sat')).toBeTruthy();
-    testComponent.updateWeekendsView();
-    testFixture.detectChanges();
-    expect(testFixture.nativeElement.querySelector('.fc-sat')).toBeFalsy();
+    expect(hostFixture.nativeElement.querySelector('.fc-sat')).toBeTruthy();
+    hostComponent.disableWeekends();
+    hostFixture.detectChanges();
+    expect(hostFixture.nativeElement.querySelector('.fc-sat')).toBeFalsy();
   });
   it('should emit an event', () => {
-    expect(testComponent.viewSkeletonRender).toBe(true);
+    expect(hostComponent.viewSkeletonRendered).toBe(true);
   });
   it('should expose an API', () => {
     const calendarApi = component.getApi();

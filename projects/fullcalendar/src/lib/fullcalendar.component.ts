@@ -46,7 +46,7 @@ export class FullCalendarComponent implements AfterViewInit, OnChanges, OnDestro
 
     EVENT_NAMES.forEach(eventName => {
       options[eventName] = (...args) => {
-        this[eventName].emit(...args); // TODO: handle more than one arg?
+        this[eventName].emit(...args);
       };
     });
 
