@@ -6,10 +6,10 @@ addons:
       - google-chrome
     packages:
       - google-chrome-stable
-after_script:
-  - sudo apt-get update
-  - sudo apt autoremove
+
 before_script:
+  - sudo apt-get update
+  - sudo apt-get install -y libxml2-dev
   - export DISPLAY=:99.0
   - sh -e /etc/init.d/xvfb start
 
