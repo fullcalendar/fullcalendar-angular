@@ -9,7 +9,7 @@ import dayGridPlugin from '@fullcalendar/daygrid';
   template: `<full-calendar
   [plugins]="plugins"
   [header]="header"
-  [weekends]="weekends"
+  [weekends]="weekendsEnabled"
   (viewSkeletonRender)="handleViewSkeletonRender($event)"
   ></full-calendar>`
 })
