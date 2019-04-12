@@ -9,6 +9,8 @@ addons:
 before_script:
   - export DISPLAY=:99.0
   - sh -e /etc/init.d/xvfb start
+  - sudo apt-get update
+  - sudo apt autoremove
 
 # TODO: document what all the above commands do
 
