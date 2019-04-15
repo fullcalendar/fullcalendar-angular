@@ -223,6 +223,7 @@ export class FullCalendarComponent implements AfterViewInit, OnChanges, OnDestro
   @Output() eventMouseLeave = new EventEmitter<any>();
   @Output() select = new EventEmitter<any>();
   @Output() unselect = new EventEmitter<any>();
+  @Output() loading = new EventEmitter<any>();
   @Output() eventRender = new EventEmitter<any>();
   @Output() eventPositioned = new EventEmitter<any>();
   @Output() eventDestroy = new EventEmitter<any>();
