@@ -194,6 +194,7 @@ export class FullCalendarComponent implements AfterViewInit, OnChanges, OnDestro
   @Input() eventDataTransform?: EventInputTransformer;
   @Input() allDayMaintainDuration?: Boolean;
   @Input() eventResizableFromStart?: Boolean;
+  @Input() timeGridEventMinHeight?: number;
   // compound OptionsInput...
   @Input() buttonText?: ButtonTextCompoundInput;
   @Input() views?: { [viewId: string]: ViewOptionsInput };
