@@ -11,9 +11,7 @@ scripts_dir=`dirname $0`
 root_dir="$scripts_dir/.."
 dest_dir="$scripts_dir/../projects/fullcalendar"
 
-echo "11111"
-"$scripts_dir/require-clean-working-tree"
-echo "22222"
+"$scripts_dir/require-clean-working-tree" "$dest_dir"
 
 cd "$root_dir"
 version=$(node -e 'console.log(require("./package").version)')
