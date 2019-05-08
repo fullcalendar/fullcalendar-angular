@@ -126,7 +126,8 @@ export const INPUT_NAMES = [
   'resourceColumns',
   'resourcesInitiallyExpanded',
   'slotWidth',
-  'datesAboveResources'
+  'datesAboveResources',
+  'googleCalendarApiKey'
 ];
 
 export const EVENT_NAMES = [

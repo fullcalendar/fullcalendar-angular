@@ -214,6 +214,8 @@ export class FullCalendarComponent implements AfterViewInit, OnChanges, OnDestro
   @Input() slotWidth?: any;
   @Input() datesAboveResources?: any;
 
+  @Input() googleCalendarApiKey?: string;
+
   @Output() datesRender = new EventEmitter<any>();
   @Output() datesDestroy = new EventEmitter<any>();
   @Output() dayRender = new EventEmitter<any>();
