@@ -164,6 +164,7 @@ export class FullCalendarComponent implements AfterViewInit, OnChanges, OnDestro
   @Input() selectConstraint?: ConstraintInput;
   @Input() selectOverlap?: boolean | OverlapFunc;
   @Input() selectAllow?: AllowFunc;
+  @Input() selectMinDistance?: number;
   @Input() editable?: boolean;
   @Input() eventStartEditable?: boolean;
   @Input() eventDurationEditable?: boolean;

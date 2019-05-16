@@ -69,6 +69,7 @@ export const INPUT_NAMES = [
   'navLinkWeekClick',
   'selectable',
   'selectMirror',
+  'selectMinDistance',
   'unselectAuto',
   'unselectCancel',
   'defaultAllDayEventDuration',
