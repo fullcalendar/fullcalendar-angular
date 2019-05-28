@@ -195,6 +195,16 @@ export class FullCalendarComponent implements AfterViewInit, OnChanges, OnDestro
   @Input() allDayMaintainDuration?: Boolean;
   @Input() eventResizableFromStart?: Boolean;
   @Input() timeGridEventMinHeight?: number;
+  @Input() allDayHtml?: string
+  @Input() eventDragMinDistance?: number
+  @Input() eventSourceFailure?: any
+  @Input() eventSourceSuccess?: any
+  @Input() forceEventDuration?: boolean
+  @Input() progressiveEventRendering?: boolean
+  @Input() selectLongPressDelay?: number
+  @Input() selectMinDistance?: number
+  @Input() timeZoneParam?: string
+  @Input() titleRangeSeparator?: string
   // compound OptionsInput...
   @Input() buttonText?: ButtonTextCompoundInput;
   @Input() views?: { [viewId: string]: ViewOptionsInput };
@@ -214,6 +224,8 @@ export class FullCalendarComponent implements AfterViewInit, OnChanges, OnDestro
   @Input() slotWidth?: any;
   @Input() datesAboveResources?: any;
   @Input() googleCalendarApiKey?: string;
+  @Input() refetchResourcesOnNavigate?: boolean
+  @Input() eventResourceEditable?: boolean
 
   @Output() datesRender = new EventEmitter<any>();
   @Output() datesDestroy = new EventEmitter<any>();
