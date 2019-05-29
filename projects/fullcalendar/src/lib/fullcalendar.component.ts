@@ -23,7 +23,12 @@ import { FormatterInput } from '@fullcalendar/core/datelib/formatting';
 import { DateRangeInput } from '@fullcalendar/core/datelib/date-range';
 import { RawLocale, LocaleSingularArg } from '@fullcalendar/core/datelib/locale';
 import { OverlapFunc, AllowFunc } from '@fullcalendar/core/validation';
-import { EventSourceInput, EventInputTransformer } from '@fullcalendar/core/structs/event-source';
+import {
+  EventSourceInput,
+  EventInputTransformer,
+  EventSourceErrorResponseHandler,
+  EventSourceSuccessResponseHandler
+} from '@fullcalendar/core/structs/event-source';
 import { INPUT_NAMES, EVENT_NAMES } from './fullcalendar-options';
 
 @Component({
@@ -196,6 +201,16 @@ export class FullCalendarComponent implements AfterViewInit, OnChanges, OnDestro
   @Input() allDayMaintainDuration?: Boolean;
   @Input() eventResizableFromStart?: Boolean;
   @Input() timeGridEventMinHeight?: number;
+  @Input() googleCalendarApiKey?: string;
+  @Input() eventDragMinDistance?: number;
+  @Input() eventResourceEditable?: boolean;
+  @Input() eventSourceFailure?: EventSourceErrorResponseHandler;
+  @Input() eventSourceSuccess?: EventSourceSuccessResponseHandler;
+  @Input() forceEventDuration?: boolean;
+  @Input() progressiveEventRendering?: boolean;
+  @Input() selectLongPressDelay?: number;
+  @Input() timeZoneParam?: string;
+  @Input() titleRangeSeparator?: string;
   // compound OptionsInput...
   @Input() buttonText?: ButtonTextCompoundInput;
   @Input() views?: { [viewId: string]: ViewOptionsInput };
@@ -214,7 +229,7 @@ export class FullCalendarComponent implements AfterViewInit, OnChanges, OnDestro
   @Input() resourcesInitiallyExpanded?: any;
   @Input() slotWidth?: any;
   @Input() datesAboveResources?: any;
-  @Input() googleCalendarApiKey?: string;
+  @Input() refetchResourcesOnNavigate?: boolean;
 
   @Output() datesRender = new EventEmitter<any>();
   @Output() datesDestroy = new EventEmitter<any>();

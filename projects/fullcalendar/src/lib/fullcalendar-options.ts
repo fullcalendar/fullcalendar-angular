@@ -110,6 +110,16 @@ export const INPUT_NAMES = [
   'allDayMaintainDuration',
   'eventResizableFromStart',
   'timeGridEventMinHeight',
+  'googleCalendarApiKey',
+  'eventDragMinDistance',
+  'eventResourceEditable',
+  'eventSourceFailure',
+  'eventSourceSuccess',
+  'forceEventDuration',
+  'progressiveEventRendering',
+  'selectLongPressDelay',
+  'timeZoneParam',
+  'titleRangeSeparator',
   // compound OptionsInput...
   'buttonText',
   'views',
@@ -128,7 +138,7 @@ export const INPUT_NAMES = [
   'resourcesInitiallyExpanded',
   'slotWidth',
   'datesAboveResources',
-  'googleCalendarApiKey'
+  'refetchResourcesOnNavigate'
 ];
 
 export const EVENT_NAMES = [
