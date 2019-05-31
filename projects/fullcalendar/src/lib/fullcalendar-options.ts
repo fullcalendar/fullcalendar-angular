@@ -142,6 +142,14 @@ export const INPUT_NAMES = [
   'eventResourceEditable'
 ];
 
+export const INPUT_IS_DEEP = {
+  header: true,
+  footer: true,
+  events: true,
+  eventSources: true,
+  resources: true
+};
+
 export const EVENT_NAMES = [
   'datesRender',
   'datesDestroy',

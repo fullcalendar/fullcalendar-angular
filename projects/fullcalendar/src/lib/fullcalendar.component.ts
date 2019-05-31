@@ -6,6 +6,7 @@ import {
   EventEmitter,
   SimpleChanges,
   AfterViewInit,
+  DoCheck,
   OnChanges,
   OnDestroy
 } from '@angular/core';
@@ -24,15 +25,19 @@ import { DateRangeInput } from '@fullcalendar/core/datelib/date-range';
 import { RawLocale, LocaleSingularArg } from '@fullcalendar/core/datelib/locale';
 import { OverlapFunc, AllowFunc } from '@fullcalendar/core/validation';
 import { EventSourceInput, EventInputTransformer } from '@fullcalendar/core/structs/event-source';
-import { INPUT_NAMES, EVENT_NAMES } from './fullcalendar-options';
+import { INPUT_NAMES, INPUT_IS_DEEP, EVENT_NAMES } from './fullcalendar-options';
 
 @Component({
   selector: 'full-calendar',
   template: ''
 })
-export class FullCalendarComponent implements AfterViewInit, OnChanges, OnDestroy {
+export class FullCalendarComponent implements AfterViewInit, DoCheck, OnChanges, OnDestroy {
+
+  @Input() deepMutations?: boolean;
 
   private calendar: Calendar;
+  private dirtyProps: any = {};
+  private dirtyPropRemovals: string[] = [];
 
   constructor(private element: ElementRef) {}
 
@@ -59,17 +64,45 @@ export class FullCalendarComponent implements AfterViewInit, OnChanges, OnDestro
     return options;
   }
 
+  /*
+  called much more often than ngOnChanges
+  */
+  ngDoCheck() {
+    if (this.calendar) { // not the initial render
+      console.log('docheck', this.deepMutations);
+    }
+  }
+
   ngOnChanges(changes: SimpleChanges) {
     if (this.calendar) { // not the initial render
-      const updatedInputs = {};
+      console.log('onchanges');
 
       for (const inputName in changes) {
         if (changes.hasOwnProperty(inputName)) {
-          updatedInputs[inputName] = changes[inputName].currentValue;
+          if (!(inputName in this.dirtyProps)) { // not already marked as dirty in ngDoCheck
+            let currentValue = changes[inputName].currentValue;
+
+            if (currentValue === undefined) {
+              this.dirtyPropRemovals.push(inputName);
+            } else {
+              this.dirtyProps[inputName] = currentValue;
+            }
+          }
         }
       }
+    }
+  }
 
-      this.calendar.setOptions(updatedInputs);
+  ngAfterContentChecked() {
+    let { dirtyProps, dirtyPropRemovals } = this; // hold on to reference before clearing
+
+    if (dirtyPropRemovals.length || Object.keys(dirtyProps).length > 0) {
+
+      // clear first, in case the rerender causes new dirtiness
+      this.dirtyProps = {};
+      this.dirtyPropRemovals = [];
+
+      this.calendar.setOptions(dirtyProps);
     }
   }
 
@@ -81,7 +114,6 @@ export class FullCalendarComponent implements AfterViewInit, OnChanges, OnDestro
   public getApi(): Calendar {
     return this.calendar;
   }
-
 
   /*
   TODO: the following Inputs/Outputs should be automatically rewritten for each version bump

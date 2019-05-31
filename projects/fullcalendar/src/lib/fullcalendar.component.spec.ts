@@ -56,6 +56,7 @@ describe('FullCalendarComponent', () => {
         right: 'dayGridMonth'
       }"
       [weekends]="weekendsEnabled"
+      [events]="events"
       (viewSkeletonRender)="handleViewSkeletonRender()"
       (eventRender)="handleEventRender()"
     ></full-calendar>
@@ -63,10 +64,11 @@ describe('FullCalendarComponent', () => {
 })
 class HostComponent {
   plugins = [dayGridPlugin];
-  events = [buildEvent()];
   weekendsEnabled = true;
   height = 400;
   viewSkeletonRenderCnt = 0;
+  events = [buildEvent()];
+  eventRenderCnt = 0;
 
   disableWeekends() {
     this.weekendsEnabled = false;
@@ -76,8 +78,16 @@ class HostComponent {
     this.height = 500;
   }
 
-  handleViewSkeletonRender(event) {
+  addEventReset() {
+    this.events = this.events.concat([ buildEvent() ]);
+  }
+
+  handleViewSkeletonRender() {
     this.viewSkeletonRenderCnt++;
+  }
+
+  handleEventRender() {
+    this.eventRenderCnt++;
   }
 }
 
@@ -115,6 +125,13 @@ describe('HostComponent', () => {
     expect(component.viewSkeletonRenderCnt).toBeGreaterThan(0);
   });
 
+  it('should render new events with prop change', () => {
+    expect(component.eventRenderCnt).toBe(1);
+    component.addEventReset();
+    fixture.detectChanges();
+    expect(component.eventRenderCnt).toBe(3); // +2 (the two events were freshly rendered)
+  });
+
 });
 
 
@@ -124,6 +141,7 @@ describe('HostComponent', () => {
   selector: 'full-calendar-test',
   template: `
     <full-calendar
+      deepMutations="true"
       [plugins]="plugins"
       [events]="events"
       (viewSkeletonRender)="handleViewSkeletonRender()"
@@ -135,10 +153,6 @@ class DeepHostComponent {
   plugins = [dayGridPlugin];
   events = [buildEvent()];
   eventRenderCnt = 0;
-
-  addEventReset() {
-    this.events = this.events.concat([ buildEvent() ]);
-  }
 
   addEventAppend() {
     this.events.push(buildEvent());
@@ -166,13 +180,6 @@ describe('DeepHostComponent', () => {
     component = fixture.componentInstance;
     fixture.detectChanges(); // necessary for initializing change detection system
   }));
-
-  it('should render new events with prop change', () => {
-    expect(component.eventRenderCnt).toBe(1);
-    component.addEventReset();
-    fixture.detectChanges();
-    expect(component.eventRenderCnt).toBe(3); // +2 (the two events were freshly rendered)
-  });
 
   it('should render new appended event', () => {
     expect(component.eventRenderCnt).toBe(1);
