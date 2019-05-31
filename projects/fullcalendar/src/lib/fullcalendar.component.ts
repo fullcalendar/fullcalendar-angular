@@ -119,7 +119,7 @@ export class FullCalendarComponent implements AfterViewInit, DoCheck, OnChanges,
 
     if (Object.keys(dirtyProps).length > 0) {
       this.dirtyProps = {}; // clear first, in case the rerender causes new dirtiness
-      this.calendar.setOptions(dirtyProps);
+      this.calendar.mutateOptions(dirtyProps, [], false, deepEquals);
     }
   }
 
