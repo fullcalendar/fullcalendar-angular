@@ -3,6 +3,8 @@ import { Component } from '@angular/core';
 import { FullCalendarComponent } from './fullcalendar.component';
 import dayGridPlugin from '@fullcalendar/daygrid';
 
+// TODO: eventRender should now be an input
+
 
 describe('FullCalendarComponent', () => {
   let component: FullCalendarComponent;
@@ -40,10 +42,8 @@ describe('FullCalendarComponent', () => {
 
 });
 
-// TODO: eventRender mods
 
-
-// Test a wrapper component
+// some tests need a wrapper component
 
 @Component({
   selector: 'full-calendar-test',
@@ -63,10 +63,10 @@ describe('FullCalendarComponent', () => {
 })
 class HostComponent {
   plugins = [dayGridPlugin];
+  events = [buildEvent()];
   weekendsEnabled = true;
   height = 400;
   viewSkeletonRenderCnt = 0;
-  eventRenderCnt = 0;
 
   disableWeekends() {
     this.weekendsEnabled = false;
@@ -79,45 +79,120 @@ class HostComponent {
   handleViewSkeletonRender(event) {
     this.viewSkeletonRenderCnt++;
   }
-
-  handleEventRender(arg) {
-    this.eventRenderCnt++;
-  }
 }
 
 describe('HostComponent', () => {
-  let hostComponent: HostComponent;
-  let hostFixture: ComponentFixture<HostComponent>;
+  let component: HostComponent;
+  let fixture: ComponentFixture<HostComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [FullCalendarComponent, HostComponent]
     }).compileComponents();
 
-    hostFixture = TestBed.createComponent(HostComponent);
-    hostComponent = hostFixture.componentInstance;
-    hostFixture.detectChanges(); // necessary for initializing change detection system
+    fixture = TestBed.createComponent(HostComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges(); // necessary for initializing change detection system
   }));
 
   it('should handle prop changes', () => {
-    expect(isWeekendsRendered(hostFixture)).toBe(true);
-    hostComponent.disableWeekends();
-    hostFixture.detectChanges();
-    expect(isWeekendsRendered(hostFixture)).toBe(false);
+    expect(isWeekendsRendered(fixture)).toBe(true);
+    component.disableWeekends();
+    fixture.detectChanges();
+    expect(isWeekendsRendered(fixture)).toBe(false);
   });
 
-  it('should handle prop changes that don\'t rerender whole skeleton', function() {
-    expect(hostComponent.viewSkeletonRenderCnt).toBe(1);
-    hostComponent.changeHeight();
-    hostFixture.detectChanges();
-    expect(hostComponent.viewSkeletonRenderCnt).toBe(1);
+  it('should handle prop changes that don\'t rerender whole skeleton', () => {
+    expect(component.viewSkeletonRenderCnt).toBe(1);
+    component.changeHeight();
+    fixture.detectChanges();
+    expect(component.viewSkeletonRenderCnt).toBe(1);
   });
 
   it('should emit an event', () => {
-    expect(hostComponent.viewSkeletonRenderCnt).toBeGreaterThan(0);
+    expect(component.viewSkeletonRenderCnt).toBeGreaterThan(0);
   });
 
 });
+
+
+// some tests need a wrapper component with DEEP COMPARISON
+
+@Component({
+  selector: 'full-calendar-test',
+  template: `
+    <full-calendar
+      [plugins]="plugins"
+      [events]="events"
+      (viewSkeletonRender)="handleViewSkeletonRender()"
+      (eventRender)="handleEventRender()"
+    ></full-calendar>
+  `
+})
+class DeepHostComponent {
+  plugins = [dayGridPlugin];
+  events = [buildEvent()];
+  eventRenderCnt = 0;
+
+  addEventReset() {
+    this.events = this.events.concat([ buildEvent() ]);
+  }
+
+  addEventAppend() {
+    this.events.push(buildEvent());
+  }
+
+  updateEventTitle(title) {
+    this.events[0].title = title
+  }
+
+  handleEventRender(arg) {
+    this.eventRenderCnt++;
+  }
+}
+
+describe('DeepHostComponent', () => {
+  let component: DeepHostComponent;
+  let fixture: ComponentFixture<DeepHostComponent>;
+
+  beforeEach(async(() => {
+    TestBed.configureTestingModule({
+      declarations: [FullCalendarComponent, DeepHostComponent]
+    }).compileComponents();
+
+    fixture = TestBed.createComponent(DeepHostComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges(); // necessary for initializing change detection system
+  }));
+
+  it('should render new events with prop change', () => {
+    expect(component.eventRenderCnt).toBe(1);
+    component.addEventReset();
+    fixture.detectChanges();
+    expect(component.eventRenderCnt).toBe(3); // +2 (the two events were freshly rendered)
+  });
+
+  it('should render new appended event', () => {
+    expect(component.eventRenderCnt).toBe(1);
+    component.addEventAppend();
+    fixture.detectChanges();
+    expect(component.eventRenderCnt).toBe(3); // +2 (the two events were freshly rendered)
+  });
+
+  it('should render event mutation', () => {
+    component.updateEventTitle('another title');
+    fixture.detectChanges();
+    expect(getFirstEventTitle(fixture)).toBe('another title');
+  });
+
+});
+
+
+// FullCalendar data utils
+
+function buildEvent() {
+  return  { title: 'event', start: new Date() };
+}
 
 
 // DOM utils
@@ -128,4 +203,8 @@ function isToolbarRendered(fixture) {
 
 function isWeekendsRendered(fixture) {
   return Boolean(fixture.nativeElement.querySelector('.fc-sat'));
+}
+
+function getFirstEventTitle(fixture) {
+  return fixture.nativeElement.querySelector('.fc-event .fc-title').innerText;
 }
