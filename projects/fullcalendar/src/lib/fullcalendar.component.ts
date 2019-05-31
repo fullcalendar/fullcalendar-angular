@@ -1,3 +1,5 @@
+import * as deepEquals from 'fast-deep-equal';
+import { default as deepCopy } from 'deep-copy';
 import {
   Component,
   ElementRef,
@@ -37,9 +39,10 @@ export class FullCalendarComponent implements AfterViewInit, DoCheck, OnChanges,
 
   private calendar: Calendar;
   private dirtyProps: any = {};
-  private dirtyPropRemovals: string[] = [];
+  private deepCopies: any = {}; // holds frozen states
 
-  constructor(private element: ElementRef) {}
+  constructor(private element: ElementRef) {
+  }
 
   ngAfterViewInit() {
     this.calendar = new Calendar(this.element.nativeElement, this.buildOptions());
@@ -56,8 +59,16 @@ export class FullCalendarComponent implements AfterViewInit, DoCheck, OnChanges,
     });
 
     INPUT_NAMES.forEach(inputName => {
-      if (this[inputName] !== undefined) { // unfortunately FC chokes when some props are set to undefined
-        options[inputName] = this[inputName];
+      let inputVal = this[inputName];
+
+      if (inputVal !== undefined) { // unfortunately FC chokes when some props are set to undefined
+
+        if (this.deepMutations && INPUT_IS_DEEP[inputName]) {
+          inputVal = deepCopy(inputVal);
+          this.deepCopies[inputName] = inputVal; // side effect!
+        }
+
+        options[inputName] = inputVal;
       }
     });
 
@@ -68,24 +79,18 @@ export class FullCalendarComponent implements AfterViewInit, DoCheck, OnChanges,
   called much more often than ngOnChanges
   */
   ngDoCheck() {
-    if (this.calendar) { // not the initial render
-      console.log('docheck', this.deepMutations);
-    }
-  }
+    if (this.calendar && this.deepMutations) { // not the initial render AND we do deep-mutation checks
+      let { deepCopies } = this;
 
-  ngOnChanges(changes: SimpleChanges) {
-    if (this.calendar) { // not the initial render
-      console.log('onchanges');
+      for (let inputName in INPUT_IS_DEEP) {
+        if (INPUT_IS_DEEP.hasOwnProperty(inputName)) {
+          let inputVal = this[inputName];
 
-      for (const inputName in changes) {
-        if (changes.hasOwnProperty(inputName)) {
-          if (!(inputName in this.dirtyProps)) { // not already marked as dirty in ngDoCheck
-            let currentValue = changes[inputName].currentValue;
-
-            if (currentValue === undefined) {
-              this.dirtyPropRemovals.push(inputName);
-            } else {
-              this.dirtyProps[inputName] = currentValue;
+          if (inputVal !== undefined) { // unfortunately FC chokes when some props are set to undefined
+            if (!deepEquals(inputVal, deepCopies[inputName])) {
+              let copy = deepCopy(inputVal);
+              deepCopies[inputName] = copy;
+              this.dirtyProps[inputName] = copy;
             }
           }
         }
@@ -93,15 +98,27 @@ export class FullCalendarComponent implements AfterViewInit, DoCheck, OnChanges,
     }
   }
 
+  /*
+  call with confirmed changes to input references
+  */
+  ngOnChanges(changes: SimpleChanges) {
+    if (this.calendar) { // not the initial render
+
+      for (const inputName in changes) {
+        if (changes.hasOwnProperty(inputName)) {
+          if (this.deepCopies[inputName] === undefined) { // not already handled in ngDoCheck
+            this.dirtyProps[inputName] = changes[inputName].currentValue;
+          }
+        }
+      }
+    }
+  }
+
   ngAfterContentChecked() {
-    let { dirtyProps, dirtyPropRemovals } = this; // hold on to reference before clearing
+    let { dirtyProps } = this; // hold on to reference before clearing
 
-    if (dirtyPropRemovals.length || Object.keys(dirtyProps).length > 0) {
-
-      // clear first, in case the rerender causes new dirtiness
-      this.dirtyProps = {};
-      this.dirtyPropRemovals = [];
-
+    if (Object.keys(dirtyProps).length > 0) {
+      this.dirtyProps = {}; // clear first, in case the rerender causes new dirtiness
       this.calendar.setOptions(dirtyProps);
     }
   }

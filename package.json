@@ -32,6 +32,8 @@
     "@fullcalendar/daygrid": "^4.1.0",
     "@fullcalendar/interaction": "^4.1.0",
     "core-js": "^2.5.4",
+    "deep-copy": "^1.4.2",
+    "fast-deep-equal": "^2.0.1",
     "rxjs": "~6.3.3",
     "zone.js": "~0.8.26"
   },

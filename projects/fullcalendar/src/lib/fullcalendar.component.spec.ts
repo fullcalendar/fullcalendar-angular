@@ -144,7 +144,6 @@ describe('HostComponent', () => {
       deepMutations="true"
       [plugins]="plugins"
       [events]="events"
-      (viewSkeletonRender)="handleViewSkeletonRender()"
       (eventRender)="handleEventRender()"
     ></full-calendar>
   `
@@ -189,9 +188,17 @@ describe('DeepHostComponent', () => {
   });
 
   it('should render event mutation', () => {
+    expect(component.eventRenderCnt).toBe(1);
+
     component.updateEventTitle('another title');
     fixture.detectChanges();
     expect(getFirstEventTitle(fixture)).toBe('another title');
+    expect(component.eventRenderCnt).toBe(2); // +1
+
+    component.updateEventTitle('another title');
+    fixture.detectChanges();
+    expect(getFirstEventTitle(fixture)).toBe('another title');
+    expect(component.eventRenderCnt).toBe(2); // +0 (didn't rerender anything)
   });
 
 });
