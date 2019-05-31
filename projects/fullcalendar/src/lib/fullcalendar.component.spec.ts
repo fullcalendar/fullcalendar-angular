@@ -3,8 +3,6 @@ import { Component } from '@angular/core';
 import { FullCalendarComponent } from './fullcalendar.component';
 import dayGridPlugin from '@fullcalendar/daygrid';
 
-// TODO: eventRender should now be an input
-
 
 describe('FullCalendarComponent', () => {
   let component: FullCalendarComponent;

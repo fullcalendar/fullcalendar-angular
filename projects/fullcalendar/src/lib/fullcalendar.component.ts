@@ -27,7 +27,7 @@ import { DateRangeInput } from '@fullcalendar/core/datelib/date-range';
 import { RawLocale, LocaleSingularArg } from '@fullcalendar/core/datelib/locale';
 import { OverlapFunc, AllowFunc } from '@fullcalendar/core/validation';
 import { EventSourceInput, EventInputTransformer } from '@fullcalendar/core/structs/event-source';
-import { INPUT_NAMES, INPUT_IS_DEEP, EVENT_NAMES } from './fullcalendar-options';
+import { INPUT_NAMES, INPUT_IS_DEEP, OUTPUT_NAMES } from './fullcalendar-options';
 
 @Component({
   selector: 'full-calendar',
@@ -52,12 +52,13 @@ export class FullCalendarComponent implements AfterViewInit, DoCheck, OnChanges,
   buildOptions() {
     const options = {};
 
-    EVENT_NAMES.forEach(eventName => {
-      options[eventName] = (...args) => {
-        this[eventName].emit(...args);
+    OUTPUT_NAMES.forEach(outputName => {
+      options[outputName] = (...args) => {
+        this[outputName].emit(...args);
       };
     });
 
+    // do after outputs, so that inputs with same name override
     INPUT_NAMES.forEach(inputName => {
       let inputVal = this[inputName];
 
@@ -273,12 +274,9 @@ export class FullCalendarComponent implements AfterViewInit, DoCheck, OnChanges,
   @Input() slotWidth?: any;
   @Input() datesAboveResources?: any;
   @Input() googleCalendarApiKey?: string;
-  @Input() refetchResourcesOnNavigate?: boolean
-  @Input() eventResourceEditable?: boolean
+  @Input() refetchResourcesOnNavigate?: boolean;
+  @Input() eventResourceEditable?: boolean;
 
-  @Output() datesRender = new EventEmitter<any>();
-  @Output() datesDestroy = new EventEmitter<any>();
-  @Output() dayRender = new EventEmitter<any>();
   @Output() windowResize = new EventEmitter<any>();
   @Output() dateClick = new EventEmitter<any>();
   @Output() eventClick = new EventEmitter<any>();
@@ -287,9 +285,7 @@ export class FullCalendarComponent implements AfterViewInit, DoCheck, OnChanges,
   @Output() select = new EventEmitter<any>();
   @Output() unselect = new EventEmitter<any>();
   @Output() loading = new EventEmitter<any>();
-  @Output() eventRender = new EventEmitter<any>();
   @Output() eventPositioned = new EventEmitter<any>();
-  @Output() eventDestroy = new EventEmitter<any>();
   @Output() eventDragStart = new EventEmitter<any>();
   @Output() eventDragStop = new EventEmitter<any>();
   @Output() eventDrop = new EventEmitter<any>();
@@ -299,9 +295,14 @@ export class FullCalendarComponent implements AfterViewInit, DoCheck, OnChanges,
   @Output() drop = new EventEmitter<any>();
   @Output() eventReceive = new EventEmitter<any>();
   @Output() eventLeave = new EventEmitter<any>();
+  @Output() _destroyed = new EventEmitter<any>();
+  // TODO: make these inputs...
   @Output() viewSkeletonRender = new EventEmitter<any>();
   @Output() viewSkeletonDestroy = new EventEmitter<any>();
-  @Output() _destroyed = new EventEmitter<any>();
-  // scheduler...
+  @Output() datesRender = new EventEmitter<any>();
+  @Output() datesDestroy = new EventEmitter<any>();
+  @Output() dayRender = new EventEmitter<any>();
+  @Output() eventRender = new EventEmitter<any>();
+  @Output() eventDestroy = new EventEmitter<any>();
   @Output() resourceRender = new EventEmitter<any>();
 }

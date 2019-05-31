@@ -150,10 +150,7 @@ export const INPUT_IS_DEEP = {
   resources: true
 };
 
-export const EVENT_NAMES = [
-  'datesRender',
-  'datesDestroy',
-  'dayRender',
+export const OUTPUT_NAMES = [
   'windowResize',
   'dateClick',
   'eventClick',
@@ -162,9 +159,7 @@ export const EVENT_NAMES = [
   'select',
   'unselect',
   'loading',
-  'eventRender',
   'eventPositioned',
-  'eventDestroy',
   'eventDragStart',
   'eventDragStop',
   'eventDrop',
@@ -174,9 +169,14 @@ export const EVENT_NAMES = [
   'drop',
   'eventReceive',
   'eventLeave',
+  '_destroyed',
+  // TODO: make these inputs...
   'viewSkeletonRender',
   'viewSkeletonDestroy',
-  '_destroyed',
-  // scheduler...
+  'datesRender',
+  'datesDestroy',
+  'dayRender',
+  'eventRender',
+  'eventDestroy',
   'resourceRender'
 ];
