@@ -43,6 +43,7 @@ describe('FullCalendarComponent', () => {
     })
       .compileComponents();
   }));
+
   // for test private methods
   beforeEach(() => {
     fixture = TestBed.createComponent(FullCalendarComponent);
@@ -50,6 +51,7 @@ describe('FullCalendarComponent', () => {
     component.plugins = [dayGridPlugin];
     fixture.detectChanges();
   });
+
   // for test host
   beforeEach(() => {
     hostFixture = TestBed.createComponent(HostComponent);
@@ -61,19 +63,23 @@ describe('FullCalendarComponent', () => {
     expect(component).toBeTruthy();
     expect(fixture.nativeElement.querySelector('.fc-toolbar')).toBeTruthy();
   });
+
   it('should unmount and call destroy', () => {
     fixture.destroy();
     expect(fixture.nativeElement.querySelector('.fc-toolbar')).toBeFalsy();
   });
+
   it('should handle prop changes', () => {
     expect(hostFixture.nativeElement.querySelector('.fc-sat')).toBeTruthy();
     hostComponent.disableWeekends();
     hostFixture.detectChanges();
     expect(hostFixture.nativeElement.querySelector('.fc-sat')).toBeFalsy();
   });
+
   it('should emit an event', () => {
     expect(hostComponent.viewSkeletonRendered).toBe(true);
   });
+
   it('should expose an API', () => {
     const calendarApi = component.getApi();
     expect(calendarApi).toBeTruthy();
@@ -82,4 +88,5 @@ describe('FullCalendarComponent', () => {
     calendarApi.gotoDate(newDate);
     expect(calendarApi.getDate().valueOf()).toBe(newDate.valueOf());
   });
+
 });
