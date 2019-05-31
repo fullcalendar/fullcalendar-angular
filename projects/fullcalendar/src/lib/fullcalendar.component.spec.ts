@@ -106,6 +106,13 @@ describe('HostComponent', () => {
     expect(isWeekendsRendered(hostFixture)).toBe(false);
   });
 
+  it('should handle prop changes that don\'t rerender whole skeleton', function() {
+    expect(hostComponent.viewSkeletonRenderCnt).toBe(1);
+    hostComponent.changeHeight();
+    hostFixture.detectChanges();
+    expect(hostComponent.viewSkeletonRenderCnt).toBe(1);
+  });
+
   it('should emit an event', () => {
     expect(hostComponent.viewSkeletonRenderCnt).toBeGreaterThan(0);
   });
