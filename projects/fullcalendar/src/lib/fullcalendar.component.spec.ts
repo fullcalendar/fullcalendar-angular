@@ -23,12 +23,12 @@ describe('FullCalendarComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
-    expect(isToolbarRendered(fixture)).toBe(true);
+    expect(isHeaderToolbarRendered(fixture)).toBe(true);
   });
 
   it('should unmount and call destroy', () => {
     fixture.destroy();
-    expect(isToolbarRendered(fixture)).toBe(false);
+    expect(isHeaderToolbarRendered(fixture)).toBe(false);
   });
 
   it('should expose an API', () => {
@@ -102,10 +102,12 @@ describe('HostComponent', () => {
     expect(isWeekendsRendered(fixture)).toBe(false);
   });
 
-  it('should handle prop changes that don\'t rerender whole skeleton', () => {
+  it('should handle prop changes that don\'t rerender any DOM', () => {
+    let headerEl = getHeaderToolbarEl(fixture);
     expect(component.viewSkeletonRenderCnt).toBe(1);
     component.changeHeight();
     fixture.detectChanges();
+    expect(getHeaderToolbarEl(fixture)).toBe(headerEl);
     expect(component.viewSkeletonRenderCnt).toBe(1);
   });
 
@@ -197,8 +199,12 @@ function buildEvent() {
 
 // DOM utils
 
-function isToolbarRendered(fixture) {
-  return Boolean(fixture.nativeElement.querySelector('.fc-toolbar'));
+function isHeaderToolbarRendered(fixture) {
+  return Boolean(getHeaderToolbarEl(fixture));
+}
+
+function getHeaderToolbarEl(fixture) {
+  return fixture.nativeElement.querySelector('.fc-header-toolbar');
 }
 
 function isWeekendsRendered(fixture) {
