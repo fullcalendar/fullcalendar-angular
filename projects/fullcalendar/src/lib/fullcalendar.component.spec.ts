@@ -40,34 +40,48 @@ describe('FullCalendarComponent', () => {
 
 });
 
+// TODO: eventRender mods
+
 
 // Test a wrapper component
 
 @Component({
-  selector: `full-calendar-test`,
+  selector: 'full-calendar-test',
   template: `
     <full-calendar
       [plugins]="plugins"
-      [header]="header"
+      [header]="{
+        left: 'prev,next today myCustomButton',
+        center: 'title',
+        right: 'dayGridMonth'
+      }"
       [weekends]="weekendsEnabled"
-      (viewSkeletonRender)="handleViewSkeletonRender($event)"
+      (viewSkeletonRender)="handleViewSkeletonRender()"
+      (eventRender)="handleEventRender()"
     ></full-calendar>
   `
 })
 class HostComponent {
   plugins = [dayGridPlugin];
-  header: {
-    left: 'prev,next today myCustomButton',
-    center: 'title',
-    right: 'dayGridMonth'
-  };
   weekendsEnabled = true;
-  viewSkeletonRendered = false;
+  height = 400;
+  viewSkeletonRenderCnt = 0;
+  eventRenderCnt = 0;
+
   disableWeekends() {
     this.weekendsEnabled = false;
   }
+
+  changeHeight() {
+    this.height = 500;
+  }
+
   handleViewSkeletonRender(event) {
-    this.viewSkeletonRendered = true;
+    this.viewSkeletonRenderCnt++;
+  }
+
+  handleEventRender(arg) {
+    this.eventRenderCnt++;
   }
 }
 
@@ -93,7 +107,7 @@ describe('HostComponent', () => {
   });
 
   it('should emit an event', () => {
-    expect(hostComponent.viewSkeletonRendered).toBe(true);
+    expect(hostComponent.viewSkeletonRenderCnt).toBeGreaterThan(0);
   });
 
 });
@@ -102,9 +116,9 @@ describe('HostComponent', () => {
 // DOM utils
 
 function isToolbarRendered(fixture) {
-  return Boolean(fixture.nativeElement.querySelector('.fc-toolbar'))
+  return Boolean(fixture.nativeElement.querySelector('.fc-toolbar'));
 }
 
 function isWeekendsRendered(fixture) {
-  return Boolean(fixture.nativeElement.querySelector('.fc-sat'))
+  return Boolean(fixture.nativeElement.querySelector('.fc-sat'));
 }
