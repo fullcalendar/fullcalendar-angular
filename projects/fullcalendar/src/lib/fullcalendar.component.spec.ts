@@ -111,7 +111,7 @@ describe('HostComponent', () => {
   });
 
   it('should handle prop changes that don\'t rerender any DOM', () => {
-    let headerEl = getHeaderToolbarEl(fixture);
+    const headerEl = getHeaderToolbarEl(fixture);
     expect(component.viewSkeletonRenderCnt).toBe(1);
     component.changeHeight();
     fixture.detectChanges();
@@ -156,10 +156,10 @@ class DeepHostComponent {
   }
 
   updateEventTitle(title) {
-    this.events[0].title = title
+    this.events[0].title = title;
   }
 
-  handleEventRender(arg) {
+  handleEventRender() {
     this.eventRenderCnt++;
   }
 }

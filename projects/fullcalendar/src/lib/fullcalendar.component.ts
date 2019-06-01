@@ -10,6 +10,7 @@ import {
   AfterViewInit,
   DoCheck,
   OnChanges,
+  AfterContentChecked,
   OnDestroy
 } from '@angular/core';
 import { Calendar, BusinessHoursInput, ConstraintInput, EventApi, PluginDef } from '@fullcalendar/core';
@@ -33,7 +34,7 @@ import { INPUT_NAMES, INPUT_IS_DEEP, OUTPUT_NAMES } from './fullcalendar-options
   selector: 'full-calendar',
   template: ''
 })
-export class FullCalendarComponent implements AfterViewInit, DoCheck, OnChanges, OnDestroy {
+export class FullCalendarComponent implements AfterViewInit, DoCheck, OnChanges, AfterContentChecked, OnDestroy {
 
   @Input() deepMutations?: boolean;
 
@@ -82,15 +83,15 @@ export class FullCalendarComponent implements AfterViewInit, DoCheck, OnChanges,
   */
   ngDoCheck() {
     if (this.calendar && this.deepMutations) { // not the initial render AND we do deep-mutation checks
-      let { deepCopies } = this;
+      const { deepCopies } = this;
 
-      for (let inputName in INPUT_IS_DEEP) {
+      for (const inputName in INPUT_IS_DEEP) {
         if (INPUT_IS_DEEP.hasOwnProperty(inputName)) {
-          let inputVal = this[inputName];
+          const inputVal = this[inputName];
 
           if (inputVal !== undefined) { // unfortunately FC chokes when some props are set to undefined
             if (!deepEqual(inputVal, deepCopies[inputName])) {
-              let copy = deepCopy(inputVal);
+              const copy = deepCopy(inputVal);
               deepCopies[inputName] = copy;
               this.dirtyProps[inputName] = copy;
             }
@@ -117,7 +118,7 @@ export class FullCalendarComponent implements AfterViewInit, DoCheck, OnChanges,
   }
 
   ngAfterContentChecked() {
-    let { dirtyProps } = this; // hold on to reference before clearing
+    const { dirtyProps } = this; // hold on to reference before clearing
 
     if (Object.keys(dirtyProps).length > 0) {
       this.dirtyProps = {}; // clear first, in case the rerender causes new dirtiness
@@ -246,16 +247,16 @@ export class FullCalendarComponent implements AfterViewInit, DoCheck, OnChanges,
   @Input() allDayMaintainDuration?: Boolean;
   @Input() eventResizableFromStart?: Boolean;
   @Input() timeGridEventMinHeight?: number;
-  @Input() allDayHtml?: string
-  @Input() eventDragMinDistance?: number
-  @Input() eventSourceFailure?: any
-  @Input() eventSourceSuccess?: any
-  @Input() forceEventDuration?: boolean
-  @Input() progressiveEventRendering?: boolean
-  @Input() selectLongPressDelay?: number
-  @Input() selectMinDistance?: number
-  @Input() timeZoneParam?: string
-  @Input() titleRangeSeparator?: string
+  @Input() allDayHtml?: string;
+  @Input() eventDragMinDistance?: number;
+  @Input() eventSourceFailure?: any;
+  @Input() eventSourceSuccess?: any;
+  @Input() forceEventDuration?: boolean;
+  @Input() progressiveEventRendering?: boolean;
+  @Input() selectLongPressDelay?: number;
+  @Input() selectMinDistance?: number;
+  @Input() timeZoneParam?: string;
+  @Input() titleRangeSeparator?: string;
   // compound OptionsInput...
   @Input() buttonText?: ButtonTextCompoundInput;
   @Input() views?: { [viewId: string]: ViewOptionsInput };
