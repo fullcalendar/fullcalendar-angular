@@ -1,4 +1,4 @@
-import * as deepEquals from 'fast-deep-equal';
+import deepEqual from 'fast-deep-equal';
 import { default as deepCopy } from 'deep-copy';
 import {
   Component,
@@ -49,7 +49,7 @@ export class FullCalendarComponent implements AfterViewInit, DoCheck, OnChanges,
     this.calendar.render();
   }
 
-  buildOptions() {
+  private buildOptions() {
     const options = {};
 
     OUTPUT_NAMES.forEach(outputName => {
@@ -77,7 +77,8 @@ export class FullCalendarComponent implements AfterViewInit, DoCheck, OnChanges,
   }
 
   /*
-  called much more often than ngOnChanges
+  called before ngOnChanges, allows us to manually detect input changes.
+  called much more often than ngOnChanges.
   */
   ngDoCheck() {
     if (this.calendar && this.deepMutations) { // not the initial render AND we do deep-mutation checks
@@ -88,7 +89,7 @@ export class FullCalendarComponent implements AfterViewInit, DoCheck, OnChanges,
           let inputVal = this[inputName];
 
           if (inputVal !== undefined) { // unfortunately FC chokes when some props are set to undefined
-            if (!deepEquals(inputVal, deepCopies[inputName])) {
+            if (!deepEqual(inputVal, deepCopies[inputName])) {
               let copy = deepCopy(inputVal);
               deepCopies[inputName] = copy;
               this.dirtyProps[inputName] = copy;
@@ -100,7 +101,7 @@ export class FullCalendarComponent implements AfterViewInit, DoCheck, OnChanges,
   }
 
   /*
-  call with confirmed changes to input references
+  called with confirmed changes to input references
   */
   ngOnChanges(changes: SimpleChanges) {
     if (this.calendar) { // not the initial render
@@ -120,7 +121,7 @@ export class FullCalendarComponent implements AfterViewInit, DoCheck, OnChanges,
 
     if (Object.keys(dirtyProps).length > 0) {
       this.dirtyProps = {}; // clear first, in case the rerender causes new dirtiness
-      this.calendar.mutateOptions(dirtyProps, [], false, deepEquals);
+      this.calendar.mutateOptions(dirtyProps, [], false, deepEqual);
     }
   }
 
