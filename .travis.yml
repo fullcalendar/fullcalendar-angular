@@ -13,6 +13,6 @@ before_script:
 # TODO: document what all the above commands do
 
 language: node_js
-node_js: stable
+node_js: 10.13.0
 cache: npm # don't reinstall packages from scratch every time
 script: npm run ci
