@@ -260,7 +260,6 @@ export class FullCalendarComponent implements AfterViewInit, DoCheck, OnChanges,
   @Input() forceEventDuration?: boolean;
   @Input() progressiveEventRendering?: boolean;
   @Input() selectLongPressDelay?: number;
-  @Input() selectMinDistance?: number;
   @Input() timeZoneParam?: string;
   @Input() titleRangeSeparator?: string;
   // compound OptionsInput...
