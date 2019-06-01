@@ -27,7 +27,12 @@ import { FormatterInput } from '@fullcalendar/core/datelib/formatting';
 import { DateRangeInput } from '@fullcalendar/core/datelib/date-range';
 import { RawLocale, LocaleSingularArg } from '@fullcalendar/core/datelib/locale';
 import { OverlapFunc, AllowFunc } from '@fullcalendar/core/validation';
-import { EventSourceInput, EventInputTransformer } from '@fullcalendar/core/structs/event-source';
+import {
+  EventSourceInput,
+  EventInputTransformer,
+  EventSourceErrorResponseHandler,
+  EventSourceSuccessResponseHandler
+} from '@fullcalendar/core/structs/event-source';
 import { INPUT_NAMES, INPUT_IS_DEEP, OUTPUT_NAMES } from './fullcalendar-options';
 
 @Component({
@@ -249,8 +254,8 @@ export class FullCalendarComponent implements AfterViewInit, DoCheck, OnChanges,
   @Input() timeGridEventMinHeight?: number;
   @Input() allDayHtml?: string;
   @Input() eventDragMinDistance?: number;
-  @Input() eventSourceFailure?: any;
-  @Input() eventSourceSuccess?: any;
+  @Input() eventSourceFailure?: EventSourceErrorResponseHandler;
+  @Input() eventSourceSuccess?: EventSourceSuccessResponseHandler;
   @Input() forceEventDuration?: boolean;
   @Input() progressiveEventRendering?: boolean;
   @Input() selectLongPressDelay?: number;
