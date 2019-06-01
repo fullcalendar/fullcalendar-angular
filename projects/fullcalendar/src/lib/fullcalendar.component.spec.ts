@@ -139,7 +139,7 @@ describe('HostComponent', () => {
   selector: 'full-calendar-test',
   template: `
     <full-calendar
-      deepMutations="true"
+      deepChangeDetection="true"
       [plugins]="plugins"
       [events]="events"
       (eventRender)="handleEventRender()"

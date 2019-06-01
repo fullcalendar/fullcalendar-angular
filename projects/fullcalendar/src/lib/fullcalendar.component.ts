@@ -36,7 +36,7 @@ import { INPUT_NAMES, INPUT_IS_DEEP, OUTPUT_NAMES } from './fullcalendar-options
 })
 export class FullCalendarComponent implements AfterViewInit, DoCheck, OnChanges, AfterContentChecked, OnDestroy {
 
-  @Input() deepMutations?: boolean;
+  @Input() deepChangeDetection?: boolean;
 
   private calendar: Calendar;
   private dirtyProps: any = {};
@@ -65,7 +65,7 @@ export class FullCalendarComponent implements AfterViewInit, DoCheck, OnChanges,
 
       if (inputVal !== undefined) { // unfortunately FC chokes when some props are set to undefined
 
-        if (this.deepMutations && INPUT_IS_DEEP[inputName]) {
+        if (this.deepChangeDetection && INPUT_IS_DEEP[inputName]) {
           inputVal = deepCopy(inputVal);
           this.deepCopies[inputName] = inputVal; // side effect!
         }
@@ -82,7 +82,7 @@ export class FullCalendarComponent implements AfterViewInit, DoCheck, OnChanges,
   called much more often than ngOnChanges.
   */
   ngDoCheck() {
-    if (this.calendar && this.deepMutations) { // not the initial render AND we do deep-mutation checks
+    if (this.calendar && this.deepChangeDetection) { // not the initial render AND we do deep-mutation checks
       const { deepCopies } = this;
 
       for (const inputName in INPUT_IS_DEEP) {
