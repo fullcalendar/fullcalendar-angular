@@ -1,6 +1,6 @@
 
-4.2.0
------
+4.2.0 (2019-06-02)
+------------------
 - added missing properties (#197)
 - responds to changes nested within input data structures
   when `deepChangeDetection` is enabled (#171)
