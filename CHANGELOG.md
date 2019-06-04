@@ -1,4 +1,10 @@
 
+4.2.1 (2019-06-04)
+------------------
+- fixed bug with event/resource-fetching *functions* not working
+- removed `deep-copy` as a dependency
+
+
 4.2.0 (2019-06-02)
 ------------------
 - added missing properties (#197)
