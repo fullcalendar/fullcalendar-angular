@@ -16,7 +16,8 @@
   },
   "dependencies": {
     "@fullcalendar/core": "~4.2.0",
-    "fast-deep-equal": "^2.0.1"
+    "fast-deep-equal": "^2.0.1",
+    "tslib": "^1.9.0"
   },
   "peerDependencies": {
     "@angular/common": "^7.0.0",
@@ -25,5 +26,15 @@
   "engines": {
     "node": ">= 6.9.0",
     "npm": ">= 3.0.0"
-  }
+  },
+  "main": "bundles/fullcalendar-angular.umd.js",
+  "module": "fesm5/fullcalendar-angular.js",
+  "es2015": "fesm2015/fullcalendar-angular.js",
+  "esm5": "esm5/fullcalendar-angular.js",
+  "esm2015": "esm2015/fullcalendar-angular.js",
+  "fesm5": "fesm5/fullcalendar-angular.js",
+  "fesm2015": "fesm2015/fullcalendar-angular.js",
+  "typings": "fullcalendar-angular.d.ts",
+  "metadata": "fullcalendar-angular.metadata.json",
+  "sideEffects": false
 }
