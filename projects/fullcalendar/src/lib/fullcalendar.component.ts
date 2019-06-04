@@ -1,5 +1,5 @@
 import deepEqual from 'fast-deep-equal';
-import { default as deepCopy } from 'deep-copy';
+import { deepCopy } from './utils';
 import {
   Component,
   ElementRef,

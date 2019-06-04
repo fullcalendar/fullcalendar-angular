@@ -65,7 +65,7 @@ class HostComponent {
   weekendsEnabled = true;
   height = 400;
   viewSkeletonRenderCnt = 0;
-  events = [buildEvent()];
+  events: any = [buildEvent()];
   eventRenderCnt = 0;
 
   disableWeekends() {
@@ -78,6 +78,14 @@ class HostComponent {
 
   addEventReset() {
     this.events = this.events.concat([ buildEvent() ]);
+  }
+
+  setEventFunc(timeout) {
+    this.events = function(info, successCallback) {
+      setTimeout(function() {
+        successCallback([ buildEvent() ]);
+      }, timeout);
+    };
   }
 
   handleViewSkeletonRender() {
@@ -130,6 +138,16 @@ describe('HostComponent', () => {
     expect(component.eventRenderCnt).toBe(3); // +2 (the two events were freshly rendered)
   });
 
+  it('should handle new events async function', (done) => {
+    expect(component.eventRenderCnt).toBe(1);
+    component.setEventFunc(100);
+    fixture.detectChanges();
+    setTimeout(function() {
+      expect(component.eventRenderCnt).toBe(3); // +2 (the two events were freshly rendered)
+      done();
+    }, 200);
+  });
+
 });
 
 
@@ -148,7 +166,7 @@ describe('HostComponent', () => {
 })
 class DeepHostComponent {
   plugins = [dayGridPlugin];
-  events = [buildEvent()];
+  events: any = [buildEvent()];
   eventRenderCnt = 0;
 
   addEventAppend() {
@@ -157,6 +175,14 @@ class DeepHostComponent {
 
   updateEventTitle(title) {
     this.events[0].title = title;
+  }
+
+  setEventFunc(timeout) {
+    this.events = function(info, successCallback) {
+      setTimeout(function() {
+        successCallback([ buildEvent() ]);
+      }, timeout);
+    };
   }
 
   handleEventRender() {
@@ -197,6 +223,16 @@ describe('DeepHostComponent', () => {
     fixture.detectChanges();
     expect(getFirstEventTitle(fixture)).toBe('another title');
     expect(component.eventRenderCnt).toBe(2); // +0 (didn't rerender anything)
+  });
+
+  it('should handle new events async function', (done) => {
+    expect(component.eventRenderCnt).toBe(1);
+    component.setEventFunc(100);
+    fixture.detectChanges();
+    setTimeout(function() {
+      expect(component.eventRenderCnt).toBe(3); // +2 (the two events were freshly rendered)
+      done();
+    }, 200);
   });
 
 });
