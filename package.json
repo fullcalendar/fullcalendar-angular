@@ -1,7 +1,7 @@
 {
-  "name": "fullcalendar-angular",
-  "version": "4.1.0",
   "private": true,
+  "name": "@fullcalendar/angular",
+  "version": "4.2.1",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
