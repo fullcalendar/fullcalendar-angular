@@ -132,7 +132,9 @@ export class FullCalendarComponent implements AfterViewInit, DoCheck, OnChanges,
   }
 
   ngOnDestroy() {
-    this.calendar.destroy();
+    if (this.calendar) {
+      this.calendar.destroy();
+    }
     this.calendar = null;
   }
 
