@@ -16,7 +16,7 @@
     "e2e": "ng e2e",
     "clean": "rm -rf dist",
     "ci": "./scripts/ci.sh",
-    "version": "./scripts/sync-version-fields && npm run ci"
+    "version": "./scripts/sync-version-fields.sh"
   },
   "dependencies": {
     "@angular/animations": "~7.0.0",
