@@ -1,4 +1,9 @@
 
+4.3.0 (2019-08-09)
+------------------
+- fix ngOnDestroy undefined calendar (#212)
+
+
 4.2.1 (2019-06-04)
 ------------------
 - fixed bug with event/resource-fetching *functions* not working
