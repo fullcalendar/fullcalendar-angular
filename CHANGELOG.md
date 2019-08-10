@@ -1,4 +1,9 @@
 
+4.3.1 (2019-08-10)
+------------------
+- had references to wrong version of @fullcalendar/core
+
+
 4.3.0 (2019-08-09)
 ------------------
 - fix ngOnDestroy undefined calendar (#212)
