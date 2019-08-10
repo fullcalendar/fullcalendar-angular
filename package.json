@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "@fullcalendar/angular",
-  "version": "4.2.1",
+  "version": "4.3.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -28,9 +28,9 @@
     "@angular/platform-browser": "~7.0.0",
     "@angular/platform-browser-dynamic": "~7.0.0",
     "@angular/router": "~7.0.0",
-    "@fullcalendar/core": "~4.2.0",
-    "@fullcalendar/daygrid": "~4.2.0",
-    "@fullcalendar/interaction": "~4.2.0",
+    "@fullcalendar/core": "~4.3.0",
+    "@fullcalendar/daygrid": "~4.3.0",
+    "@fullcalendar/interaction": "~4.3.0",
     "core-js": "^2.5.4",
     "fast-deep-equal": "^2.0.1",
     "rxjs": "~6.3.3",
