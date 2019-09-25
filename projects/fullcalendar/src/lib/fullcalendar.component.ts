@@ -210,6 +210,7 @@ export class FullCalendarComponent implements AfterViewInit, DoCheck, OnChanges,
   @Input() eventLimitText?: string | ((eventCnt: number) => string);
   @Input() dayPopoverFormat?: FormatterInput;
   @Input() navLinks?: boolean;
+  @Input() navLinkDayClick?: string | ((date: Date, jsEvent: Event) => void);
   @Input() navLinkWeekClick?: string | ((weekStart: any, jsEvent: Event) => void);
   @Input() selectable?: boolean;
   @Input() selectMirror?: boolean;
@@ -304,7 +305,6 @@ export class FullCalendarComponent implements AfterViewInit, DoCheck, OnChanges,
   @Output() eventReceive = new EventEmitter<any>();
   @Output() eventLeave = new EventEmitter<any>();
   @Output() _destroyed = new EventEmitter<any>();
-  @Output() navLinkDayClick = new EventEmitter<any>();
   // TODO: make these inputs...
   @Output() viewSkeletonRender = new EventEmitter<any>();
   @Output() viewSkeletonDestroy = new EventEmitter<any>();
