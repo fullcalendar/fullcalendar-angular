@@ -12,7 +12,7 @@ import { FullCalendarComponent } from '@fullcalendar/angular';
 export class AppComponent implements OnInit {
   options: OptionsInput;
   eventsModel: any;
-  @ViewChild('fullcalendar', { static: false }) fullcalendar: FullCalendarComponent;
+  @ViewChild('fullcalendar') fullcalendar: FullCalendarComponent;
   ngOnInit() {
     this.options = {
       editable: true,
