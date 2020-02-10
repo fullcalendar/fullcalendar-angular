@@ -14,25 +14,50 @@ import {
   OnDestroy
 } from '@angular/core';
 import { Calendar, BusinessHoursInput, ConstraintInput, EventApi, PluginDef } from '@fullcalendar/core';
-import {
-  ToolbarInput,
-  CustomButtonInput,
-  ButtonIconsInput, CellInfo,
-  ButtonTextCompoundInput,
-  ViewOptionsInput
-} from '@fullcalendar/core/types/input-types';
-import { DateInput } from '@fullcalendar/core/datelib/env';
-import { DurationInput } from '@fullcalendar/core/datelib/duration';
-import { FormatterInput } from '@fullcalendar/core/datelib/formatting';
-import { DateRangeInput } from '@fullcalendar/core/datelib/date-range';
-import { RawLocale, LocaleSingularArg } from '@fullcalendar/core/datelib/locale';
-import { OverlapFunc, AllowFunc } from '@fullcalendar/core/validation';
-import {
-  EventSourceInput,
-  EventInputTransformer,
-  EventSourceErrorResponseHandler,
-  EventSourceSuccessResponseHandler
-} from '@fullcalendar/core/structs/event-source';
+
+// import {
+//   ToolbarInput,
+//   CustomButtonInput,
+//   ButtonIconsInput, CellInfo,
+//   ButtonTextCompoundInput,
+//   ViewOptionsInput
+// } from '@fullcalendar/core/types/input-types';
+// import { DateInput } from '@fullcalendar/core/datelib/env';
+// import { DurationInput } from '@fullcalendar/core/datelib/duration';
+// import { FormatterInput } from '@fullcalendar/core/datelib/formatting';
+// import { DateRangeInput } from '@fullcalendar/core/datelib/date-range';
+// import { RawLocale, LocaleSingularArg } from '@fullcalendar/core/datelib/locale';
+// import { OverlapFunc, AllowFunc } from '@fullcalendar/core/validation';
+// import {
+//   EventSourceInput,
+//   EventInputTransformer,
+//   EventSourceErrorResponseHandler,
+//   EventSourceSuccessResponseHandler
+// } from '@fullcalendar/core/structs/event-source';
+
+// need type any, because ngcc wrong build in AOT,
+// https://github.com/angular/angular/issues/34027
+// https://github.com/fullcalendar/fullcalendar-angular/pull/275
+
+type DateInput = any;
+type DurationInput = any;
+type FormatterInput = any;
+type DateRangeInput = any;
+type RawLocale = any;
+type LocaleSingularArg = any;
+type OverlapFunc = any;
+type AllowFunc = any;
+type CustomButtonInput = any;
+type ButtonIconsInput = any;
+type CellInfo = any;
+type ButtonTextCompoundInput = any;
+type ToolbarInput = any;
+type ViewOptionsInput = any;
+type EventSourceInput = any;
+type EventInputTransformer = any;
+type EventSourceErrorResponseHandler = any;
+type EventSourceSuccessResponseHandler = any;
+
 import { INPUT_NAMES, INPUT_IS_DEEP, OUTPUT_NAMES } from './fullcalendar-options';
 
 @Component({
