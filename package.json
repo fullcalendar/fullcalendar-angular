@@ -7,7 +7,7 @@
     "start": "ng serve",
     "build": "npm run build:demo && npm run build:lib && npm run build:meta",
     "build:demo": "ng build fullcalendar-demo --configuration='production'",
-    "build:lib": "ng build fullcalendar",
+    "build:lib": "ng build fullcalendar --prod",
     "build:meta": "mkdir -p dist/fullcalendar && cp LICENSE.* README.* dist/fullcalendar",
     "test": "ng test",
     "test:lib": "ng test fullcalendar --browsers ChromeHeadless --watch=false",
