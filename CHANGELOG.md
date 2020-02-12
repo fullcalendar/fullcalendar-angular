@@ -1,7 +1,9 @@
-next-release
+
+4.3.2 (2020-02-11)
 ------------------
-- fix peer dependencies #209
-- fix #229
+- compatible with angular 8 (#209)
+- navLinks throws Cannot read property 'emit' of undefined (#229, #241)
+
 
 4.3.1 (2019-08-10)
 ------------------
