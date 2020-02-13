@@ -1,4 +1,9 @@
 
+4.4.1 (2020-02-12)
+------------------
+- fixed wrong @fullcalendar/core dependency version num
+
+
 4.3.2 (2020-02-11)
 ------------------
 - compatible with angular 8 (#209)
