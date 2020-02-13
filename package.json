@@ -31,7 +31,7 @@
     "@fullcalendar/core": "~4.4.0",
     "@fullcalendar/daygrid": "~4.4.0",
     "@fullcalendar/interaction": "~4.4.0",
-    "@fullcalendar/timegrid": "^4.3.0",
+    "@fullcalendar/timegrid": "~4.4.0",
     "core-js": "^3.6.2",
     "fast-deep-equal": "^3.1.1",
     "rxjs": "~6.5.4",
