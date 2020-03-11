@@ -186,7 +186,6 @@ export class FullCalendarComponent implements AfterViewInit, DoCheck, OnChanges,
   @Input() hiddenDays?: number[];
   @Input() fixedWeekCount?: boolean;
   @Input() weekNumbers?: boolean;
-  @Input() weekNumbersWithinDays?: boolean;
   @Input() weekNumberCalculation?: 'local' | 'ISO' | ((m: Date) => number);
   @Input() businessHours?: BusinessHoursInput;
   @Input() showNonCurrentDates?: boolean;

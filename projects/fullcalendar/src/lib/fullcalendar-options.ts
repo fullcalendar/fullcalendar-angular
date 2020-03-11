@@ -16,7 +16,6 @@ export const INPUT_NAMES = [
   'hiddenDays',
   'fixedWeekCount',
   'weekNumbers',
-  'weekNumbersWithinDays',
   'weekNumberCalculation',
   'businessHours',
   'showNonCurrentDates',
