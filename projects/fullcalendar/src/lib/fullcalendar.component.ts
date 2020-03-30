@@ -53,7 +53,7 @@ export class FullCalendarComponent implements AfterViewInit, DoCheck, AfterConte
             if (!deepEqual(optionVal, frozenOptions[optionName])) {
               frozenOptions[optionName] = deepCopy(optionVal);
 
-              // the only reason we shallow-copy is to trick FC into knowing there's a change when nested values change but the reference doesn't.
+              // trick FC into knowing about a nested change.
               // TODO: future versions of FC will more gracefully handle event option-changes that are same-reference.
               optionUpdates[optionName] = shallowCopy(optionVal);
             }
