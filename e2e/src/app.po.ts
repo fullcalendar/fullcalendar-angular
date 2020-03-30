@@ -6,7 +6,7 @@ export class AppPage {
   }
 
   getCalendarContainer() {
-    return element(by.className('fc-view-container'));
+    return element(by.className('fc-view-harness'));
   }
   getCalendarHeader() {
     return element(by.className('fc-header-toolbar'));

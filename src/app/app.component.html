@@ -1,15 +1,8 @@
-<button (click)="updateEvents()" id="updateEvents">Update events</button>
 <button (click)="updateHeader()" id="updateHeader">Update header</button>
+<button (click)="updateEvents()" id="updateEvents">Update events</button>
 <full-calendar
-  *ngIf="options"
+  *ngIf="calendarOptions"
   #fullcalendar
-  [editable]="true"
-  [events]="eventsModel"
-  [header]="options.header"
-  [customButtons]="options.customButtons"
-  (dateClick)="dateClick($event)"
-  (eventDragStop)="eventDragStop($event)"
-  [plugins]="options.plugins"
-  (eventClick)="eventClick($event)"
+  [options]="calendarOptions"
 ></full-calendar>
 <router-outlet></router-outlet>

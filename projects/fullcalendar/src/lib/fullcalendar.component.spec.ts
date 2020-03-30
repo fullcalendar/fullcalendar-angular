@@ -1,23 +1,26 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Component } from '@angular/core';
 import { FullCalendarComponent } from './fullcalendar.component';
 import dayGridPlugin from '@fullcalendar/daygrid';
 
+const DEFAULT_OPTIONS = {
+  plugins: [dayGridPlugin]
+};
 
 describe('FullCalendarComponent', () => {
   let component: FullCalendarComponent;
   let fixture: ComponentFixture<FullCalendarComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [FullCalendarComponent]
     }).compileComponents();
 
     fixture = TestBed.createComponent(FullCalendarComponent);
     component = fixture.componentInstance;
-    component.plugins = [dayGridPlugin];
+    component.options = DEFAULT_OPTIONS;
     fixture.detectChanges(); // necessary for initializing change detection system
-  }));
+  });
 
   it('should create', () => {
     expect(component).toBeTruthy();
@@ -46,49 +49,42 @@ describe('FullCalendarComponent', () => {
 @Component({
   selector: 'full-calendar-test',
   template: `
-    <full-calendar
-      [plugins]="plugins"
-      [header]="{
-        left: 'prev,next today myCustomButton',
-        center: 'title',
-        right: 'dayGridMonth'
-      }"
-      [weekends]="weekendsEnabled"
-      [events]="events"
-      (viewSkeletonRender)="handleViewSkeletonRender()"
-      (eventRender)="handleEventRender()"
-    ></full-calendar>
+    <full-calendar [options]="calendarOptions"></full-calendar>
   `
 })
 class HostComponent {
-  plugins = [dayGridPlugin];
-  weekendsEnabled = true;
-  height = 400;
+  calendarOptions = {
+    ...DEFAULT_OPTIONS,
+    weekends: true,
+    events: [buildEvent()] as any,
+    viewDidMount: this.handleViewDidMount.bind(this),
+    eventContent: this.handleEventRender.bind(this)
+  };
   viewSkeletonRenderCnt = 0;
-  events: any = [buildEvent()];
   eventRenderCnt = 0;
+  something = 999;
 
   disableWeekends() {
-    this.weekendsEnabled = false;
+    this.calendarOptions.weekends = false;
   }
 
-  changeHeight() {
-    this.height = 500;
+  changeSomething() {
+    this.something++;
   }
 
   addEventReset() {
-    this.events = this.events.concat([ buildEvent() ]);
+    this.calendarOptions.events = this.calendarOptions.events.concat([ buildEvent() ]);
   }
 
   setEventFunc(timeout) {
-    this.events = function(info, successCallback) {
+    this.calendarOptions.events = function(info, successCallback) {
       setTimeout(function() {
         successCallback([ buildEvent() ]);
       }, timeout);
     };
   }
 
-  handleViewSkeletonRender() {
+  handleViewDidMount() {
     this.viewSkeletonRenderCnt++;
   }
 
@@ -101,7 +97,7 @@ describe('HostComponent', () => {
   let component: HostComponent;
   let fixture: ComponentFixture<HostComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [FullCalendarComponent, HostComponent]
     }).compileComponents();
@@ -109,7 +105,7 @@ describe('HostComponent', () => {
     fixture = TestBed.createComponent(HostComponent);
     component = fixture.componentInstance;
     fixture.detectChanges(); // necessary for initializing change detection system
-  }));
+  });
 
   it('should handle prop changes', () => {
     expect(isWeekendsRendered(fixture)).toBe(true);
@@ -121,7 +117,7 @@ describe('HostComponent', () => {
   it('should handle prop changes that don\'t rerender any DOM', () => {
     const headerEl = getHeaderToolbarEl(fixture);
     expect(component.viewSkeletonRenderCnt).toBe(1);
-    component.changeHeight();
+    component.changeSomething();
     fixture.detectChanges();
     expect(getHeaderToolbarEl(fixture)).toBe(headerEl);
     expect(component.viewSkeletonRenderCnt).toBe(1);
@@ -158,27 +154,29 @@ describe('HostComponent', () => {
   template: `
     <full-calendar
       deepChangeDetection="true"
-      [plugins]="plugins"
-      [events]="events"
-      (eventRender)="handleEventRender()"
+      [options]="calendarOptions"
     ></full-calendar>
   `
 })
 class DeepHostComponent {
-  plugins = [dayGridPlugin];
-  events: any = [buildEvent()];
+
+  calendarOptions = {
+    ...DEFAULT_OPTIONS,
+    events: [buildEvent()] as any,
+    eventContent: this.handleEventRender.bind(this)
+  };
   eventRenderCnt = 0;
 
   addEventAppend() {
-    this.events.push(buildEvent());
+    this.calendarOptions.events.push(buildEvent());
   }
 
   updateEventTitle(title) {
-    this.events[0].title = title;
+    this.calendarOptions.events[0].title = title;
   }
 
   setEventFunc(timeout) {
-    this.events = function(info, successCallback) {
+    this.calendarOptions.events = function(info, successCallback) {
       setTimeout(function() {
         successCallback([ buildEvent() ]);
       }, timeout);
@@ -194,7 +192,7 @@ describe('DeepHostComponent', () => {
   let component: DeepHostComponent;
   let fixture: ComponentFixture<DeepHostComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [FullCalendarComponent, DeepHostComponent]
     }).compileComponents();
@@ -202,7 +200,7 @@ describe('DeepHostComponent', () => {
     fixture = TestBed.createComponent(DeepHostComponent);
     component = fixture.componentInstance;
     fixture.detectChanges(); // necessary for initializing change detection system
-  }));
+  });
 
   it('should render new appended event', () => {
     expect(component.eventRenderCnt).toBe(1);
@@ -256,9 +254,9 @@ function getHeaderToolbarEl(fixture) {
 }
 
 function isWeekendsRendered(fixture) {
-  return Boolean(fixture.nativeElement.querySelector('.fc-sat'));
+  return Boolean(fixture.nativeElement.querySelector('.fc-day-sat'));
 }
 
 function getFirstEventTitle(fixture) {
-  return fixture.nativeElement.querySelector('.fc-event .fc-title').innerText;
+  return fixture.nativeElement.querySelector('.fc-event-title').innerText;
 }

@@ -10,11 +10,14 @@ import { FullCalendarComponent } from '@fullcalendar/angular';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  options: OptionsInput;
+
+  calendarOptions: OptionsInput;
   eventsModel: any;
   @ViewChild('fullcalendar') fullcalendar: FullCalendarComponent;
+
   ngOnInit() {
-    this.options = {
+    this.calendarOptions = {
+      plugins: [dayGridPlugin, interactionPlugin],
       editable: true,
       customButtons: {
         myCustomButton: {
@@ -29,35 +32,41 @@ export class AppComponent implements OnInit {
         center: 'title',
         right: 'dayGridMonth'
       },
-      plugins: [dayGridPlugin, interactionPlugin]
+      dateClick: this.handleDateClick.bind(this),
+      eventClick: this.handleEventClick.bind(this),
+      eventDragStop: this.handleEventDragStop.bind(this)
     };
+  }
 
+  handleDateClick(arg) {
+    console.log(arg);
   }
-  eventClick(model) {
-    console.log(model);
+
+  handleEventClick(arg) {
+    console.log(arg);
   }
-  eventDragStop(model) {
-    console.log(model);
+
+  handleEventDragStop(arg) {
+    console.log(arg);
   }
-  dateClick(model) {
-    console.log(model);
-  }
+
   updateHeader() {
-    this.options.header = {
+    this.calendarOptions.header = {
       left: 'prev,next myCustomButton',
       center: 'title',
       right: ''
     };
   }
+
   updateEvents() {
-    this.eventsModel = [{
+    const nowDate = new Date();
+    const yearMonth = nowDate.getUTCFullYear() + '-' + (nowDate.getUTCMonth() + 1);
+
+    this.calendarOptions.events = [{
       title: 'Updaten Event',
-      start: this.yearMonth + '-08',
-      end: this.yearMonth + '-10'
+      start: yearMonth + '-08',
+      end: yearMonth + '-10'
     }];
   }
-  get yearMonth(): string {
-    const dateObj = new Date();
-    return dateObj.getUTCFullYear() + '-' + (dateObj.getUTCMonth() + 1);
-  }
+
 }
