@@ -3,7 +3,7 @@
 set -e # always immediately exit upon error
 
 npm run clean
-npm run e2e
+# npm run e2e
 npm run test:lib
 npm run build
 npm run lint
