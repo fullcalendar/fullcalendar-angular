@@ -9,7 +9,7 @@ import {
   OnDestroy
 } from '@angular/core';
 import { Calendar, OptionsInput } from '@fullcalendar/core';
-import { deepCopy, shallowCopy } from './utils';
+import { deepCopy, shallowCopy, mapHash } from './utils';
 import { OPTION_IS_DEEP } from './fullcalendar-options';
 
 @Component({
@@ -22,16 +22,22 @@ export class FullCalendarComponent implements AfterViewInit, DoCheck, AfterConte
   @Input() deepChangeDetection?: boolean;
 
   private calendar: Calendar;
-  private frozenOptions: object = {}; // for diffing only
-  private optionUpdates: object = {};
-  private optionDeletes: string[] = [];
+  private optionSnapshot: object = {}; // for diffing only
 
   constructor(private element: ElementRef) {
   }
 
   ngAfterViewInit() {
+    const { deepChangeDetection } = this;
     const options = this.options || {};
-    this.frozenOptions = this.deepChangeDetection ? deepCopy(options) : { ...options };
+
+    // initialize snapshot
+    this.optionSnapshot = mapHash(options, (optionVal, optionName) => (
+      (deepChangeDetection && OPTION_IS_DEEP[optionName])
+        ? deepCopy(optionVal)
+        : optionVal
+    ));
+
     this.calendar = new Calendar(this.element.nativeElement, options);
     this.calendar.render();
   }
@@ -42,54 +48,59 @@ export class FullCalendarComponent implements AfterViewInit, DoCheck, AfterConte
   */
   ngDoCheck() {
     if (this.calendar) { // not the initial render
-      const { deepChangeDetection, frozenOptions, optionUpdates, optionDeletes } = this;
+      const { deepChangeDetection, optionSnapshot } = this;
       const options = this.options || {};
+      const updates = {};
+      const removals = [];
+      let anyChanges = false;
 
+      // detect adds and updates (and update snapshot)
       for (const optionName in options) {
         if (options.hasOwnProperty(optionName)) {
           const optionVal = options[optionName];
 
           if (deepChangeDetection && OPTION_IS_DEEP[optionName]) {
-            if (!deepEqual(optionVal, frozenOptions[optionName])) {
-              frozenOptions[optionName] = deepCopy(optionVal);
+            if (!deepEqual(optionSnapshot[optionName], optionVal)) {
+
+              optionSnapshot[optionName] = deepCopy(optionVal);
 
               // trick FC into knowing about a nested change.
-              // TODO: future versions of FC will more gracefully handle event option-changes that are same-reference.
-              optionUpdates[optionName] = shallowCopy(optionVal);
-            }
+              // TODO: future versions won't need this.
+              // can't use the previously-made deep copy because it blows away prototype-association.
+              updates[optionName] = shallowCopy(optionVal);
 
+              anyChanges = true;
+            }
           } else {
-            if (optionVal !== frozenOptions[optionName]) {
-              frozenOptions[optionName] = optionVal;
-              optionUpdates[optionName] = optionVal;
+            if (optionSnapshot[optionName] !== optionVal) {
+              optionSnapshot[optionName] = optionVal;
+              updates[optionName] = optionVal;
+              anyChanges = true;
             }
           }
         }
       }
 
-      const frozenOptionNames = Object.keys(frozenOptions);
+      const oldOptionNames = Object.keys(optionSnapshot);
 
-      for (const optionName of frozenOptionNames) {
-        if (!(optionName in options)) {
-          delete frozenOptions[optionName];
-          optionDeletes.push(optionName);
+      // detect removals (and update snapshot)
+      for (const optionName of oldOptionNames) {
+        if (!(optionName in options)) { // doesn't exist in new options?
+          delete optionSnapshot[optionName];
+          removals.push(optionName);
         }
+      }
+
+      if (anyChanges) {
+        this.calendar.pauseRendering();
+        this.calendar.mutateOptions(updates, removals);
       }
     }
   }
 
   ngAfterContentChecked() {
-    const { optionUpdates, optionDeletes } = this; // hold on to reference before clearing
-
-    if (
-      Object.keys(optionUpdates).length > 0 ||
-      optionDeletes.length
-    ) {
-      // clear first, in case the rerender causes new dirtiness
-      this.optionUpdates = {};
-      this.optionDeletes = [];
-
-      this.calendar.mutateOptions(optionUpdates, optionDeletes);
+    if (this.calendar) { // too defensive?
+      this.calendar.resumeRendering();
     }
   }
 
