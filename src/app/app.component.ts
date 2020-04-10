@@ -27,7 +27,7 @@ export class AppComponent implements OnInit {
           }
         }
       },
-      header: {
+      headerToolbar: {
         left: 'prev,next today myCustomButton',
         center: 'title',
         right: 'dayGridMonth'
@@ -51,7 +51,7 @@ export class AppComponent implements OnInit {
   }
 
   updateHeader() {
-    this.calendarOptions.header = {
+    this.calendarOptions.headerToolbar = {
       left: 'prev,next myCustomButton',
       center: 'title',
       right: ''
