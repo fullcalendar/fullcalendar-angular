@@ -6,7 +6,8 @@ import {
   AfterViewInit,
   DoCheck,
   AfterContentChecked,
-  OnDestroy
+  OnDestroy,
+  ViewEncapsulation
 } from '@angular/core';
 import { Calendar, OptionsInput } from '@fullcalendar/core';
 import { deepCopy, shallowCopy, mapHash } from './utils';
@@ -14,7 +15,9 @@ import { OPTION_IS_DEEP } from './fullcalendar-options';
 
 @Component({
   selector: 'full-calendar',
-  template: ''
+  template: '',
+  styleUrls: ['./fullcalendar-scheduler.css'], // see <root>/scripts/scheduler-symlink.sh for more info
+  encapsulation: ViewEncapsulation.None // the styles are root-level, not scoped within the component
 })
 export class FullCalendarComponent implements AfterViewInit, DoCheck, AfterContentChecked, OnDestroy {
 
