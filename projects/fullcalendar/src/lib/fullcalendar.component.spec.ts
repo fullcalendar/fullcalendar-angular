@@ -139,7 +139,7 @@ describe('HostComponent', () => {
     component.setEventFunc(100);
     fixture.detectChanges();
     setTimeout(function() {
-      expect(component.eventRenderCnt).toBe(3); // +2 (the two events were freshly rendered)
+      expect(component.eventRenderCnt).toBe(2); // +1
       done();
     }, 200);
   });
@@ -228,7 +228,7 @@ describe('DeepHostComponent', () => {
     component.setEventFunc(100);
     fixture.detectChanges();
     setTimeout(function() {
-      expect(component.eventRenderCnt).toBe(3); // +2 (the two events were freshly rendered)
+      expect(component.eventRenderCnt).toBe(2); // +1
       done();
     }, 200);
   });
