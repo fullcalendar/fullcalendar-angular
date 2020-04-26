@@ -26,7 +26,7 @@
     "@angular/platform-browser": "~9.0.0",
     "@angular/platform-browser-dynamic": "~9.0.0",
     "@angular/router": "~9.0.0",
-    "@fullcalendar/preact": "5.0.0-beta.2",
+    "@fullcalendar/core": "5.0.0-beta.2",
     "@fullcalendar/daygrid": "5.0.0-beta.2",
     "@fullcalendar/interaction": "5.0.0-beta.2",
     "@fullcalendar/timegrid": "5.0.0-beta.2",
