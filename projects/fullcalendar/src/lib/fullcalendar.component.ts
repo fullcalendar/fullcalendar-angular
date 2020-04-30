@@ -52,35 +52,34 @@ export class FullCalendarComponent implements AfterViewInit, DoCheck, AfterConte
   ngDoCheck() {
     if (this.calendar) { // not the initial render
       const { deepChangeDetection, optionSnapshot } = this;
-      const options = this.options || {};
-      const updates = {};
-      const removals = [];
+      const newOptions = this.options || {};
+      const newProcessedOptions = {};
       let anyChanges = false;
 
       // detect adds and updates (and update snapshot)
-      for (const optionName in options) {
-        if (options.hasOwnProperty(optionName)) {
-          const optionVal = options[optionName];
+      for (const optionName in newOptions) {
+        if (newOptions.hasOwnProperty(optionName)) {
+          let optionVal = newOptions[optionName];
 
           if (deepChangeDetection && OPTION_IS_DEEP[optionName]) {
             if (!deepEqual(optionSnapshot[optionName], optionVal)) {
-
               optionSnapshot[optionName] = deepCopy(optionVal);
+              anyChanges = true;
 
               // trick FC into knowing about a nested change.
               // TODO: future versions won't need this.
               // can't use the previously-made deep copy because it blows away prototype-association.
-              updates[optionName] = shallowCopy(optionVal);
-
-              anyChanges = true;
+              optionVal = shallowCopy(optionVal);
             }
+
           } else {
             if (optionSnapshot[optionName] !== optionVal) {
               optionSnapshot[optionName] = optionVal;
-              updates[optionName] = optionVal;
               anyChanges = true;
             }
           }
+
+          newProcessedOptions[optionName] = optionVal;
         }
       }
 
@@ -88,15 +87,15 @@ export class FullCalendarComponent implements AfterViewInit, DoCheck, AfterConte
 
       // detect removals (and update snapshot)
       for (const optionName of oldOptionNames) {
-        if (!(optionName in options)) { // doesn't exist in new options?
+        if (!(optionName in newOptions)) { // doesn't exist in new options?
           delete optionSnapshot[optionName];
-          removals.push(optionName);
+          anyChanges = true;
         }
       }
 
       if (anyChanges) {
         this.calendar.pauseRendering();
-        this.calendar.mutateOptions(updates, removals);
+        this.calendar.resetOptions(newProcessedOptions);
       }
     }
   }
