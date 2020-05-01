@@ -2,7 +2,7 @@
 
 # symlink to the fullcalendar-scheduler bundled css
 # see scripts/scheduler-symlink.sh for more info
-projects/fullcalendar/src/lib/fullcalendar-scheduler.css
+/projects/fullcalendar/src/lib/fullcalendar-scheduler.css
 
 # compiled output
 /dist
