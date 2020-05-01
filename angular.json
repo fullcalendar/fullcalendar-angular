@@ -145,6 +145,11 @@
       "sourceRoot": "projects/fullcalendar/src",
       "projectType": "library",
       "prefix": "ng",
+      "schematics": {
+        "@schematics/angular:component": {
+          "styleext": "scss"
+        }
+      },
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
