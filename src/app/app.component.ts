@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { OptionsInput } from '@fullcalendar/core';
+import { CalendarOptions } from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import { FullCalendarComponent } from '@fullcalendar/angular';
@@ -11,7 +11,7 @@ import { FullCalendarComponent } from '@fullcalendar/angular';
 })
 export class AppComponent implements OnInit {
 
-  calendarOptions: OptionsInput;
+  calendarOptions: CalendarOptions;
   eventsModel: any;
   @ViewChild('fullcalendar') fullcalendar: FullCalendarComponent;
 

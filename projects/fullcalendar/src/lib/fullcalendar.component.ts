@@ -9,7 +9,7 @@ import {
   OnDestroy,
   ViewEncapsulation
 } from '@angular/core';
-import { Calendar, OptionsInput } from '@fullcalendar/core';
+import { Calendar, CalendarOptions } from '@fullcalendar/core';
 import { deepCopy, shallowCopy, mapHash } from './utils';
 import { OPTION_IS_DEEP } from './fullcalendar-options';
 
@@ -21,7 +21,7 @@ import { OPTION_IS_DEEP } from './fullcalendar-options';
 })
 export class FullCalendarComponent implements AfterViewInit, DoCheck, AfterContentChecked, OnDestroy {
 
-  @Input() options?: OptionsInput;
+  @Input() options?: CalendarOptions;
   @Input() deepChangeDetection?: boolean;
 
   private calendar: Calendar;
