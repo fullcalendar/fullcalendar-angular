@@ -1,6 +1,6 @@
 {
   "name": "@fullcalendar/angular",
-  "version": "5.0.0-beta.3",
+  "version": "5.0.0-beta.4",
   "title": "FullCalendar Angular Component",
   "description": "An official FullCalendar component for Angular",
   "keywords": [
@@ -15,8 +15,8 @@
     "url": "https://github.com/fullcalendar/fullcalendar-angular.git"
   },
   "dependencies": {
-    "@fullcalendar/core": "5.0.0-beta.3",
-    "@fullcalendar/common": "5.0.0-beta.3",
+    "@fullcalendar/core": "5.0.0-beta.4",
+    "@fullcalendar/common": "5.0.0-beta.4",
     "fast-deep-equal": "^3.1.1"
   },
   "peerDependencies": {
