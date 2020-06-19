@@ -12,6 +12,4 @@ This project is built and maintained by [irustm](https://github.com/irustm) in p
 
 ## Supported Angular Versions
 
-`@fullcalendar/angular` version `4.0.0` - `4.4.0` supports Angular 7 & 8.
-
-<!-- `@fullcalendar/angular` version `4.4.5-beta` supports Angular 9. [More info &raquo;](https://github.com/fullcalendar/fullcalendar-angular/pull/275) -->
+`@fullcalendar/angular` version 5 supports Angular 9.
