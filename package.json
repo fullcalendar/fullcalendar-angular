@@ -40,7 +40,7 @@
     "@angular-devkit/build-angular": "~0.900.1",
     "@angular-devkit/build-ng-packagr": "~0.900.1",
     "@angular/cli": "~9.0.1",
-    "@angular/compiler-cli": "^9.0.0",
+    "@angular/compiler-cli": "~9.0.0",
     "@angular/language-service": "~9.0.0",
     "@types/jasmine": "~3.5.0",
     "@types/jasminewd2": "~2.0.3",
