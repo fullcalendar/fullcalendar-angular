@@ -20,8 +20,8 @@
   ,    "tslib": "^2.0.0"
 },
   "peerDependencies": {
-    "@angular/common": "*",
-    "@angular/core": "*"
+    "@angular/common": "9 - 10",
+    "@angular/core": "9 - 10"
   },
   "engines": {
     "node": ">= 6.9.0",
