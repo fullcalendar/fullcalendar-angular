@@ -9,6 +9,6 @@ before_script:
 # TODO: document what all the above commands do
 
 language: node_js
-node_js: 14.5.0
+node_js: 12.13.0
 cache: npm # don't reinstall packages from scratch every time
 script: npm run ci
