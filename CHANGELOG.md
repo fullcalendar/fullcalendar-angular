@@ -1,4 +1,9 @@
 
+5.3.1 (2020-09-03)
+------------------
+- add Angular 10 support
+
+
 4.4.1 (2020-02-12)
 ------------------
 - fixed wrong @fullcalendar/core dependency version num
