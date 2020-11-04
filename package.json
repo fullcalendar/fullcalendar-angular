@@ -1,6 +1,6 @@
 {
   "private": true,
-  "name": "@fullcalendar/angular",
+  "name": "fullcalendar-angular-workspace",
   "version": "5.3.1",
   "scripts": {
     "ng": "ng",
