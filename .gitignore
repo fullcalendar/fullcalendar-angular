@@ -5,7 +5,9 @@
 /projects/fullcalendar/src/lib/fullcalendar-scheduler.css
 
 # compiled output
-/dist
+/dist/fullcalendar-demo
+/dist/fullcalendar/*
+!/dist/fullcalendar/package.json
 /tmp
 /out-tsc
 
