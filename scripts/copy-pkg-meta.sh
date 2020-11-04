@@ -7,3 +7,6 @@ mkdir -p "dist/fullcalendar"
 
 cp "projects/fullcalendar/package.json" \
   "dist/fullcalendar/package.json"
+
+# add newline
+echo >> "dist/fullcalendar/package.json"
