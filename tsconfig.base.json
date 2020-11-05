@@ -28,5 +28,8 @@
         "dist/fullcalendar/*"
       ]
     }
+  },
+  "angularCompilerOptions": {
+    "enableIvy": false
   }
 }
