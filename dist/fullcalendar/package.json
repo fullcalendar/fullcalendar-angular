@@ -26,5 +26,13 @@
   "engines": {
     "node": ">= 6.9.0",
     "npm": ">= 3.0.0"
-  }
+  },
+  "main": "bundles/fullcalendar-angular.umd.js",
+  "module": "fesm2015/fullcalendar-angular.js",
+  "es2015": "fesm2015/fullcalendar-angular.js",
+  "esm2015": "esm2015/fullcalendar-angular.js",
+  "fesm2015": "fesm2015/fullcalendar-angular.js",
+  "typings": "fullcalendar-angular.d.ts",
+  "metadata": "fullcalendar-angular.metadata.json",
+  "sideEffects": false
 }
