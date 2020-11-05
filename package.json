@@ -16,7 +16,6 @@
     "clean": "./scripts/clean.sh",
     "ci": "./scripts/ci.sh",
     "sync-version-fields": "./scripts/sync-version-fields.js",
-    "copy-pkg-meta": "./scripts/copy-pkg-meta.sh",
     "version": "npm run sync-version-fields && git add projects/fullcalendar/package.json"
   },
   "dependencies": {

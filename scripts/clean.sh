@@ -11,7 +11,7 @@ cd "`dirname $0`/.." # start in root
 rm -rf dist
 
 # restore because was deleted in dist
-npm run copy-pkg-meta
+git checkout -- dist/fullcalendar/package.json
 
 # remove the fullcalendar-scheduler link
 # see scheduler-symlink.sh for more info
