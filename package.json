@@ -3,7 +3,7 @@
   "name": "fullcalendar-angular-workspace",
   "version": "5.9.0",
   "scripts": {
-    "ng": "node_modules/@angular/cli/bin/ng",
+    "ng": "ng",
     "start": "ng serve",
     "build": "npm run build:meta && ng build fullcalendar --configuration production",
     "build:meta": "mkdir -p dist/fullcalendar && cp LICENSE.* README.* dist/fullcalendar",
