@@ -5,7 +5,7 @@
   "scripts": {
     "ng": "node_modules/@angular/cli/bin/ng",
     "start": "ng serve",
-    "build": "npm run build:meta && ng build fullcalendar --prod",
+    "build": "npm run build:meta && ng build fullcalendar --configuration production",
     "build:meta": "mkdir -p dist/fullcalendar && cp LICENSE.* README.* dist/fullcalendar",
     "build:demo": "ng build fullcalendar-demo --configuration='production'",
     "test": "ng test fullcalendar --watch=false --browsers ChromeHeadless",
