@@ -38,13 +38,13 @@
     "zone.js": "~0.11.4"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "~12.0.5",
+    "@angular-devkit/build-angular": "~12.1.4",
     "@angular-eslint/builder": "12.2.0",
     "@angular-eslint/eslint-plugin": "12.2.0",
     "@angular-eslint/eslint-plugin-template": "12.2.0",
     "@angular-eslint/schematics": "12.2.0",
     "@angular-eslint/template-parser": "12.2.0",
-    "@angular/cli": "~12.0.5",
+    "@angular/cli": "~12.1.4",
     "@angular/compiler-cli": "~12.0.1",
     "@angular/language-service": "~12.0.1",
     "@types/jasmine": "~3.6.0",
