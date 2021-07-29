@@ -1,25 +1,25 @@
-import { browser, by, element } from 'protractor';
+import { browser, by, element } from "protractor";
 
 export class AppPage {
 
-  navigateTo() {
-    return browser.get('/');
-  }
+    navigateTo() {
+        return browser.get("/");
+    }
 
-  getCalendarContainer() {
-    return element(by.className('fc-view-harness'));
-  }
+    getCalendarContainer() {
+        return element(by.className("fc-view-harness"));
+    }
 
-  getCalendarHeader() { // TODO: rename to `headerToolbar`
-    return element(by.className('fc-header-toolbar'));
-  }
+    getCalendarHeader() { // TODO: rename to `headerToolbar`
+        return element(by.className("fc-header-toolbar"));
+    }
 
-  getUpdateHeaderButton() {
-    return element(by.id('updateHeader'));
-  }
+    getUpdateHeaderButton() {
+        return element(by.id("updateHeader"));
+    }
 
-  getMonthButton() {
-    return element(by.className('fc-dayGridMonth-button'));
-  }
+    getMonthButton() {
+        return element(by.className("fc-dayGridMonth-button"));
+    }
 
 }
