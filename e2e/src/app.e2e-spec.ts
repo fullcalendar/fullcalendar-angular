@@ -1,12 +1,14 @@
 import { AppPage } from './app.po';
-import { protractor, browser } from 'protractor';
+import { browser } from 'protractor';
 
 describe('workspace-project App', () => {
   let page: AppPage;
 
-  beforeAll(() => {
+  beforeAll(async () => {
     page = new AppPage();
     page.navigateTo();
+
+    await browser.waitForAngularEnabled(false);
   });
 
   it('should display calendar component', () => {
@@ -25,5 +27,4 @@ describe('workspace-project App', () => {
     page.getUpdateHeaderButton().click();
     expect(page.getMonthButton().isPresent()).toBeFalsy();
   });
-
 });
