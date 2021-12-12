@@ -17,7 +17,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     // need for load calendar bundle first
-  forwardRef(() => Calendar);
+    forwardRef(() => Calendar);
 
     this.calendarOptions = {
       plugins: [dayGridPlugin, interactionPlugin],
@@ -33,7 +33,7 @@ export class AppComponent implements OnInit {
       headerToolbar: {
         left: 'prev,next today myCustomButton',
         center: 'title',
-        right: 'dayGridMonth'
+        right: 'dayGridDay,dayGridWeek,dayGridMonth'
       },
       dateClick: this.handleDateClick.bind(this),
       eventClick: this.handleEventClick.bind(this),
