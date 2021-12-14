@@ -15,24 +15,36 @@
     "url": "https://github.com/fullcalendar/fullcalendar-angular.git"
   },
   "dependencies": {
-    "@fullcalendar/core": "~5.10.1",
-    "fast-deep-equal": "^3.1.1",
     "tslib": "^2.0.0"
   },
   "peerDependencies": {
-    "@angular/common": "9 - 12",
-    "@angular/core": "9 - 12"
+    "@angular/common": "9 - 13",
+    "@angular/core": "9 - 13",
+    "@fullcalendar/core": "~5.10.1",
+    "fast-deep-equal": "^3.1.1"
   },
   "engines": {
     "node": ">= 6.9.0",
     "npm": ">= 3.0.0"
   },
-  "main": "bundles/fullcalendar-angular.umd.js",
-  "module": "fesm2015/fullcalendar-angular.js",
-  "es2015": "fesm2015/fullcalendar-angular.js",
-  "esm2015": "esm2015/fullcalendar-angular.js",
-  "fesm2015": "fesm2015/fullcalendar-angular.js",
+  "module": "fesm2015/fullcalendar-angular.mjs",
+  "es2020": "fesm2020/fullcalendar-angular.mjs",
+  "esm2020": "esm2020/fullcalendar-angular.mjs",
+  "fesm2020": "fesm2020/fullcalendar-angular.mjs",
+  "fesm2015": "fesm2015/fullcalendar-angular.mjs",
   "typings": "fullcalendar-angular.d.ts",
-  "metadata": "fullcalendar-angular.metadata.json",
+  "exports": {
+    "./package.json": {
+      "default": "./package.json"
+    },
+    ".": {
+      "types": "./fullcalendar-angular.d.ts",
+      "esm2020": "./esm2020/fullcalendar-angular.mjs",
+      "es2020": "./fesm2020/fullcalendar-angular.mjs",
+      "es2015": "./fesm2015/fullcalendar-angular.mjs",
+      "node": "./fesm2015/fullcalendar-angular.mjs",
+      "default": "./fesm2020/fullcalendar-angular.mjs"
+    }
+  },
   "sideEffects": false
 }
