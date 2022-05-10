@@ -6,6 +6,7 @@ import {
   AfterViewInit,
   DoCheck,
   AfterContentChecked,
+  NgZone,
   OnDestroy,
   ViewEncapsulation
 } from '@angular/core';
@@ -27,7 +28,7 @@ export class FullCalendarComponent implements AfterViewInit, DoCheck, AfterConte
   private calendar: Calendar;
   private optionSnapshot: object = {}; // for diffing only
 
-  constructor(private element: ElementRef) {
+  constructor(private element: ElementRef, private ngZone: NgZone) {
   }
 
   ngAfterViewInit() {
@@ -41,8 +42,10 @@ export class FullCalendarComponent implements AfterViewInit, DoCheck, AfterConte
         : optionVal
     ));
 
-    this.calendar = new Calendar(this.element.nativeElement, options);
-    this.calendar.render();
+    this.ngZone.runOutsideAngular(() => {
+      this.calendar = new Calendar(this.element.nativeElement, options);
+      this.calendar.render();
+    });
   }
 
   /*
