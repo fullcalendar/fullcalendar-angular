@@ -12,4 +12,8 @@ This project is built and maintained by [irustm](https://github.com/irustm) in p
 
 ## Supported Angular Versions
 
-`@fullcalendar/angular` version 5 supports Angular 9 - 13.
+`@fullcalendar/angular` version 5 supports Angular 9 - 14.
+
+**Angular 14** requires a workaround to ignore FullCalendar's external CSS files.
+[See the example project](https://github.com/fullcalendar/fullcalendar-example-projects/tree/master/angular14#workarounds)
+for an explanation.
