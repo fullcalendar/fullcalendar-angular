@@ -11,12 +11,11 @@ import {
 } from '@angular/core';
 import { Calendar, CalendarOptions } from '@fullcalendar/core';
 import { deepCopy, shallowCopy, mapHash } from './utils';
-import { OPTION_IS_DEEP } from './fullcalendar-options';
+import { OPTION_IS_DEEP } from './options';
 
 @Component({
   selector: 'full-calendar',
   template: '',
-  styleUrls: ['./fullcalendar.component.scss'],
   encapsulation: ViewEncapsulation.None // the styles are root-level, not scoped within the component
 })
 export class FullCalendarComponent implements AfterViewInit, DoCheck, AfterContentChecked, OnDestroy {
@@ -24,8 +23,8 @@ export class FullCalendarComponent implements AfterViewInit, DoCheck, AfterConte
   @Input() options?: CalendarOptions;
   @Input() deepChangeDetection?: boolean;
 
-  private calendar: Calendar;
-  private optionSnapshot: object = {}; // for diffing only
+  private calendar: Calendar | null = null;
+  private optionSnapshot: Record<string, any> = {}; // for diffing only
 
   constructor(private element: ElementRef) {
   }
@@ -35,7 +34,7 @@ export class FullCalendarComponent implements AfterViewInit, DoCheck, AfterConte
     const options = this.options || {};
 
     // initialize snapshot
-    this.optionSnapshot = mapHash(options, (optionVal, optionName) => (
+    this.optionSnapshot = mapHash(options, (optionVal: any, optionName: string) => (
       (deepChangeDetection && OPTION_IS_DEEP[optionName])
         ? deepCopy(optionVal)
         : optionVal
@@ -53,13 +52,13 @@ export class FullCalendarComponent implements AfterViewInit, DoCheck, AfterConte
     if (this.calendar) { // not the initial render
       const { deepChangeDetection, optionSnapshot } = this;
       const newOptions = this.options || {};
-      const newProcessedOptions = {};
+      const newProcessedOptions: Record<string, any> = {};
       let anyChanges = false;
 
       // detect adds and updates (and update snapshot)
       for (const optionName in newOptions) {
         if (newOptions.hasOwnProperty(optionName)) {
-          let optionVal = newOptions[optionName];
+          let optionVal = newOptions[optionName as keyof CalendarOptions];
 
           if (deepChangeDetection && OPTION_IS_DEEP[optionName]) {
             if (!deepEqual(optionSnapshot[optionName], optionVal)) {
@@ -114,7 +113,7 @@ export class FullCalendarComponent implements AfterViewInit, DoCheck, AfterConte
   }
 
   public getApi(): Calendar {
-    return this.calendar;
+    return this.calendar!;
   }
 
 }

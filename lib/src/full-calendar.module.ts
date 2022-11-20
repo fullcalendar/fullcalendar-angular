@@ -1,16 +1,14 @@
 import { NgModule } from '@angular/core';
-import { globalPlugins, PluginDef } from '@fullcalendar/core';
-import { FullCalendarComponent } from './fullcalendar.component';
+import { FullCalendarComponent } from './full-calendar.component';
 
 @NgModule({
-  declarations: [FullCalendarComponent],
-  imports: [],
-  exports: [FullCalendarComponent]
+  declarations: [
+    FullCalendarComponent
+  ],
+  imports: [
+  ],
+  exports: [
+    FullCalendarComponent
+  ]
 })
-export class FullCalendarModule {
-
-  static registerPlugins(plugins: PluginDef[]) {
-    globalPlugins.push(...plugins);
-  }
-
-}
+export class FullCalendarModule { }

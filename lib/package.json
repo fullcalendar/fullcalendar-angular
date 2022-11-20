@@ -1,6 +1,6 @@
 {
   "name": "@fullcalendar/angular",
-  "version": "5.11.3",
+  "version": "6.0.0-beta.1",
   "title": "FullCalendar Angular Component",
   "description": "An official FullCalendar component for Angular",
   "keywords": [
@@ -15,16 +15,12 @@
     "url": "https://github.com/fullcalendar/fullcalendar-angular.git"
   },
   "dependencies": {
-    "@fullcalendar/core": "~5.11.2",
-    "fast-deep-equal": "^3.1.1",
-    "tslib": "^2.0.0"
+    "fast-deep-equal": "^3.1.3",
+    "tslib": "^2.3.0"
   },
   "peerDependencies": {
-    "@angular/common": "9 - 14",
-    "@angular/core": "9 - 14"
-  },
-  "engines": {
-    "node": ">= 6.9.0",
-    "npm": ">= 3.0.0"
+    "@angular/common": "9 - 15",
+    "@angular/core": "9 - 15",
+    "@fullcalendar/core": "6.0.0-beta.1"
   }
 }

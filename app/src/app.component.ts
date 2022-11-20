@@ -1,23 +1,23 @@
 import { Component, OnInit, ViewChild, forwardRef } from '@angular/core';
-import { CalendarOptions, Calendar } from '@fullcalendar/core';
+import { CalendarOptions, Calendar, EventClickArg } from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
-import interactionPlugin from '@fullcalendar/interaction';
+import interactionPlugin, { DateClickArg, EventDragStopArg } from '@fullcalendar/interaction';
 import { FullCalendarComponent } from '@fullcalendar/angular';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
 
-  calendarOptions: CalendarOptions;
+  calendarOptions?: CalendarOptions;
   eventsModel: any;
-  @ViewChild('fullcalendar') fullcalendar: FullCalendarComponent;
+  @ViewChild('fullcalendar') fullcalendar?: FullCalendarComponent;
 
   ngOnInit() {
     // need for load calendar bundle first
-  forwardRef(() => Calendar);
+    forwardRef(() => Calendar);
 
     this.calendarOptions = {
       plugins: [dayGridPlugin, interactionPlugin],
@@ -41,20 +41,20 @@ export class AppComponent implements OnInit {
     };
   }
 
-  handleDateClick(arg) {
+  handleDateClick(arg: DateClickArg) {
     console.log(arg);
   }
 
-  handleEventClick(arg) {
+  handleEventClick(arg: EventClickArg) {
     console.log(arg);
   }
 
-  handleEventDragStop(arg) {
+  handleEventDragStop(arg: EventDragStopArg) {
     console.log(arg);
   }
 
   updateHeader() {
-    this.calendarOptions.headerToolbar = {
+    this.calendarOptions!.headerToolbar = {
       left: 'prev,next myCustomButton',
       center: 'title',
       right: ''
@@ -65,7 +65,7 @@ export class AppComponent implements OnInit {
     const nowDate = new Date();
     const yearMonth = nowDate.getUTCFullYear() + '-' + (nowDate.getUTCMonth() + 1);
 
-    this.calendarOptions.events = [{
+    this.calendarOptions!.events = [{
       title: 'Updaten Event',
       start: yearMonth + '-08',
       end: yearMonth + '-10'

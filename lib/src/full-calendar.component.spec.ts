@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Component } from '@angular/core';
-import { FullCalendarComponent } from './fullcalendar.component';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { FullCalendarComponent } from './full-calendar.component';
 import dayGridPlugin from '@fullcalendar/daygrid';
 
 const DEFAULT_OPTIONS = {
@@ -58,7 +58,7 @@ class HostComponent {
     weekends: true,
     events: [buildEvent()] as any,
     viewDidMount: this.handleViewDidMount.bind(this),
-    eventContent: this.handleEventRender.bind(this)
+    eventDidMount: this.handleEventDidMount.bind(this)
   };
   viewSkeletonRenderCnt = 0;
   eventRenderCnt = 0;
@@ -76,8 +76,8 @@ class HostComponent {
     this.calendarOptions.events = this.calendarOptions.events.concat([ buildEvent() ]);
   }
 
-  setEventFunc(timeout) {
-    this.calendarOptions.events = function(info, successCallback) {
+  setEventFunc(timeout: number) {
+    this.calendarOptions.events = function(info: any, successCallback: any) {
       setTimeout(function() {
         successCallback([ buildEvent() ]);
       }, timeout);
@@ -88,7 +88,7 @@ class HostComponent {
     this.viewSkeletonRenderCnt++;
   }
 
-  handleEventRender() {
+  handleEventDidMount() {
     this.eventRenderCnt++;
   }
 }
@@ -163,7 +163,7 @@ class DeepHostComponent {
   calendarOptions = {
     ...DEFAULT_OPTIONS,
     events: [buildEvent()] as any,
-    eventContent: this.handleEventRender.bind(this)
+    eventDidMount: this.handleEventDidMount.bind(this)
   };
   eventRenderCnt = 0;
 
@@ -171,19 +171,19 @@ class DeepHostComponent {
     this.calendarOptions.events.push(buildEvent());
   }
 
-  updateEventTitle(title) {
+  updateEventTitle(title: string) {
     this.calendarOptions.events[0].title = title;
   }
 
-  setEventFunc(timeout) {
-    this.calendarOptions.events = function(info, successCallback) {
+  setEventFunc(timeout: number) {
+    this.calendarOptions.events = function(info: any, successCallback: any) {
       setTimeout(function() {
         successCallback([ buildEvent() ]);
       }, timeout);
     };
   }
 
-  handleEventRender() {
+  handleEventDidMount() {
     this.eventRenderCnt++;
   }
 }
@@ -245,18 +245,18 @@ function buildEvent() {
 
 // DOM utils
 
-function isHeaderToolbarRendered(fixture) {
+function isHeaderToolbarRendered(fixture: ComponentFixture<any>) {
   return Boolean(getHeaderToolbarEl(fixture));
 }
 
-function getHeaderToolbarEl(fixture) {
+function getHeaderToolbarEl(fixture: ComponentFixture<any>) {
   return fixture.nativeElement.querySelector('.fc-header-toolbar');
 }
 
-function isWeekendsRendered(fixture) {
+function isWeekendsRendered(fixture: ComponentFixture<any>) {
   return Boolean(fixture.nativeElement.querySelector('.fc-day-sat'));
 }
 
-function getFirstEventTitle(fixture) {
+function getFirstEventTitle(fixture: ComponentFixture<any>) {
   return fixture.nativeElement.querySelector('.fc-event-title').innerText;
 }

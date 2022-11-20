@@ -1,9 +1,6 @@
 /*
- * Public API Surface of fullcalendar
+ * Public API Surface of lib
  */
 
-export * from './lib/fullcalendar.component';
-export * from './lib/fullcalendar.module';
-
-// make available all of FC's utils/types
-export * from '@fullcalendar/core';
+export * from './full-calendar.component';
+export * from './full-calendar.module';

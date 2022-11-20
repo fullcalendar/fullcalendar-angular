@@ -1,9 +1,0 @@
-
-// This was the easiest way to deliver FullCalendar's CSS without forcing the dev to
-// include each plugins' stylesheet or write a custom angular builder. The fullcalenedar-scheduler
-// stylesheet includes the CSS for ALL plugins, but it's not that big.
-//
-// The need for this arose out of the fact that angular does not handle arbitrary imports of CSS files
-// from JS files. Unfortunately, this is how FullCalendar's plugin system works.
-//
-@import '~fullcalendar-scheduler/main';

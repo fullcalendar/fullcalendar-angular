@@ -5,7 +5,7 @@ const hasOwnProperty = Object.prototype.hasOwnProperty;
 Really simple clone utility. Only copies plain arrays, objects, and Dates. Transfers everything else as-is.
 Wanted to use a third-party lib, but none did exactly this.
 */
-export function deepCopy(input) {
+export function deepCopy(input: any): any {
 
   if (Array.isArray(input)) {
     return input.map(deepCopy);
@@ -22,7 +22,7 @@ export function deepCopy(input) {
 }
 
 
-export function shallowCopy(val) {
+export function shallowCopy(val: any): any {
   if (typeof val === 'object') {
     if (Array.isArray(val)) {
       val = Array.prototype.slice.call(val);
@@ -34,8 +34,8 @@ export function shallowCopy(val) {
 }
 
 
-export function mapHash(input, func) {
-  const output = {};
+export function mapHash(input: any, func: any): any {
+  const output: { [key: string]: any } = {};
 
   for (const key in input) {
     if (hasOwnProperty.call(input, key)) {

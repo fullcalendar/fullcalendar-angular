@@ -1,5 +1,5 @@
 
-export const OPTION_IS_DEEP = {
+export const OPTION_IS_DEEP: { [optionName: string]: boolean } = {
   headerToolbar: true,
   footerToolbar: true,
   events: true,
