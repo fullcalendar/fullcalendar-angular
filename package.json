@@ -7,11 +7,12 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build lib",
+    "build": "ng build lib && pnpm run meta",
     "watch": "ng build lib --watch --configuration development",
     "test": "ng test lib --watch=false --browsers ChromeHeadless",
     "test:dev": "ng test lib",
     "clean": "rm -rf dist .angular/cache",
+    "meta": "mkdir -p dist/lib && cp README.md LICENSE.txt dist/lib",
     "ci": "pnpm run clean && pnpm run build && pnpm run test"
   },
   "private": true,
