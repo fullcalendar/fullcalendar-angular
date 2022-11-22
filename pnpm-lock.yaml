@@ -15,9 +15,9 @@ importers:
       '@angular/platform-browser': ^15.0.0
       '@angular/platform-browser-dynamic': ^15.0.0
       '@angular/router': ^15.0.0
-      '@fullcalendar/core': 6.0.0-beta.1
-      '@fullcalendar/daygrid': 6.0.0-beta.1
-      '@fullcalendar/interaction': 6.0.0-beta.1
+      '@fullcalendar/core': 6.0.0-beta.2
+      '@fullcalendar/daygrid': 6.0.0-beta.2
+      '@fullcalendar/interaction': 6.0.0-beta.2
       '@types/jasmine': ~4.3.0
       fast-deep-equal: ^3.1.3
       jasmine-core: ~4.5.0
@@ -40,9 +40,9 @@ importers:
       '@angular/platform-browser': 15.0.0_qbiqfif4udibgvsmhnccc7le2y
       '@angular/platform-browser-dynamic': 15.0.0_pulbxwlpifslvvthxw6am5bday
       '@angular/router': 15.0.0_l57367eq3wdw5lfv4fnbnmcfu4
-      '@fullcalendar/core': 6.0.0-beta.1
-      '@fullcalendar/daygrid': 6.0.0-beta.1
-      '@fullcalendar/interaction': 6.0.0-beta.1
+      '@fullcalendar/core': link:../../standard/packages/core/dist
+      '@fullcalendar/daygrid': link:../../standard/packages/daygrid/dist
+      '@fullcalendar/interaction': link:../../standard/packages/interaction/dist
       fast-deep-equal: 3.1.3
       rxjs: 7.5.7
       tslib: 2.4.1
@@ -1629,34 +1629,6 @@ packages:
     requiresBuild: true
     dev: true
     optional: true
-
-  /@fullcalendar/common/6.0.0-beta.1:
-    resolution: {integrity: sha512-1TQ/+s8XJzfUqmMH1v86Dh51Xf5xZu9lhdnpdxTNAaoD7f+BCYZb4z1X7n9JEXbToqEBrzMIbGoppn87vc5dGw==}
-    dependencies:
-      tslib: 2.4.1
-    dev: false
-
-  /@fullcalendar/core/6.0.0-beta.1:
-    resolution: {integrity: sha512-PWopCMDJ/s5KHdxAhu5nKGjX0uaxdixf5HGmpLDH3HAs1L24Qx3yJ4GVwnBGb9IqTUeetbwRXQDGO+dDjql/qw==}
-    dependencies:
-      '@fullcalendar/common': 6.0.0-beta.1
-      preact: 10.11.3
-      tslib: 2.4.1
-    dev: false
-
-  /@fullcalendar/daygrid/6.0.0-beta.1:
-    resolution: {integrity: sha512-0/iiWIydCBJDORKAwDded9UHxwVTy6PB2MQZO/AiF7d/stN5i2LrWFDzPgWWovNYZxljrnQ4DTAo/FAnYgBMaw==}
-    dependencies:
-      '@fullcalendar/common': 6.0.0-beta.1
-      tslib: 2.4.1
-    dev: false
-
-  /@fullcalendar/interaction/6.0.0-beta.1:
-    resolution: {integrity: sha512-j3ImYMEJ4AXAozwCY9I0jL9VJdZf36qDaa+widzpVFkXH+mKGiTAcRgoItpBJdximvgx30wHOSyFu48oFicdbQ==}
-    dependencies:
-      '@fullcalendar/common': 6.0.0-beta.1
-      tslib: 2.4.1
-    dev: false
 
   /@gar/promisify/1.1.3:
     resolution: {integrity: sha512-k2Ty1JcVojjJFwrg/ThKi2ujJ7XNLYaFGNB/bWT9wGR+oSMJHMa5w+CUq6p/pVrKeNNgA7pCqEcjSnHVoqJQFw==}
@@ -5699,10 +5671,6 @@ packages:
       picocolors: 1.0.0
       source-map-js: 1.0.2
     dev: true
-
-  /preact/10.11.3:
-    resolution: {integrity: sha512-eY93IVpod/zG3uMF22Unl8h9KkrcKIRs2EGar8hwLZZDU1lkjph303V9HZBwufh2s736U6VXuhD109LYqPoffg==}
-    dev: false
 
   /pretty-bytes/5.6.0:
     resolution: {integrity: sha512-FFw039TmrBqFK8ma/7OL3sDz/VytdtJr044/QUJtH0wK9lb9jLq9tJyIxUwtQJHwar2BqtiA4iCWSwo9JLkzFg==}
