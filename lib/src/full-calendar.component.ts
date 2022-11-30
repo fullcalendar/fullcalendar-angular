@@ -13,6 +13,10 @@ import { deepEqual } from './fast-deep-equal';
 import { deepCopy, shallowCopy, mapHash } from './utils';
 import { OPTION_IS_DEEP } from './options';
 
+type CalendarOptionsLookup<OptionName> = OptionName extends keyof CalendarOptions
+  ? CalendarOptions[OptionName]
+  : unknown
+
 @Component({
   selector: 'full-calendar',
   template: '',
@@ -21,6 +25,9 @@ import { OPTION_IS_DEEP } from './options';
 export class FullCalendarComponent implements AfterViewInit, DoCheck, AfterContentChecked, OnDestroy {
 
   @Input() options?: CalendarOptions;
+  @Input() events?: CalendarOptionsLookup<'events'>;
+  @Input() eventSources?: CalendarOptionsLookup<'eventSources'>;
+  @Input() resources?: CalendarOptionsLookup<'resources'>;
   @Input() deepChangeDetection?: boolean;
 
   private calendar: Calendar | null = null;
@@ -31,7 +38,7 @@ export class FullCalendarComponent implements AfterViewInit, DoCheck, AfterConte
 
   ngAfterViewInit() {
     const { deepChangeDetection } = this;
-    const options = this.options || {};
+    const options = this.buildOptions();
 
     // initialize snapshot
     this.optionSnapshot = mapHash(options, (optionVal: any, optionName: string) => (
@@ -51,7 +58,7 @@ export class FullCalendarComponent implements AfterViewInit, DoCheck, AfterConte
   ngDoCheck() {
     if (this.calendar) { // not the initial render
       const { deepChangeDetection, optionSnapshot } = this;
-      const newOptions = this.options || {};
+      const newOptions = this.buildOptions();
       const newProcessedOptions: Record<string, any> = {};
       let anyChanges = false;
 
@@ -114,6 +121,22 @@ export class FullCalendarComponent implements AfterViewInit, DoCheck, AfterConte
 
   public getApi(): Calendar {
     return this.calendar!;
+  }
+
+  private buildOptions(): CalendarOptions {
+    const options = { ...this.options };
+
+    if (this.events !== undefined) {
+      (options as any).events = this.events;
+    }
+    if (this.eventSources !== undefined) {
+      (options as any).eventSources = this.eventSources;
+    }
+    if (this.resources !== undefined) {
+      (options as any).resources = this.resources;
+    }
+
+    return options;
   }
 
 }

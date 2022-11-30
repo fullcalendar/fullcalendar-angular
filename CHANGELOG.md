@@ -1,6 +1,7 @@
 
 v6.0.0-beta.3
 -------------
+- FEATURE: expose event/eventSources/resources as top-level component inputs (#303)
 - FIX: remove fast-deep-equals because Angular prefers ESM for tree shaking (#421)
 
 

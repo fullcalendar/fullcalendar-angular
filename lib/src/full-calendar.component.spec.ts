@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FullCalendarComponent } from './full-calendar.component';
+import { CalendarOptions } from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
 
 const DEFAULT_OPTIONS = {
@@ -145,6 +146,57 @@ describe('HostComponent', () => {
   });
 
 });
+
+
+// uses the separate `events` input
+
+@Component({
+  selector: 'full-calendar-test',
+  template: `
+    <full-calendar
+      [options]="calendarOptions"
+      [events]="events"
+    ></full-calendar>
+  `
+})
+class HostComponent2 {
+  calendarOptions: CalendarOptions = {
+    ...DEFAULT_OPTIONS,
+    eventDidMount: this.handleEventDidMount.bind(this)
+  };
+  events = [buildEvent()];
+  eventRenderCnt = 0;
+
+  handleEventDidMount() {
+    this.eventRenderCnt++;
+  }
+
+  addEventReset() {
+    this.events = this.events.concat([buildEvent()]);
+  }
+}
+
+describe('HostComponent2', () => {
+  let component: HostComponent2;
+  let fixture: ComponentFixture<HostComponent2>;
+
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      declarations: [FullCalendarComponent, HostComponent2]
+    }).compileComponents();
+
+    fixture = TestBed.createComponent(HostComponent2);
+    component = fixture.componentInstance;
+    fixture.detectChanges(); // necessary for initializing change detection system
+  });
+
+  it('should render events', () => {
+    expect(component.eventRenderCnt).toBe(1);
+    component.addEventReset();
+    fixture.detectChanges();
+    expect(component.eventRenderCnt).toBe(3); // +2 (the two events were freshly rendered)
+  });
+})
 
 
 // some tests need a wrapper component with DEEP COMPARISON
