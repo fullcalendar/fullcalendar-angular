@@ -1,4 +1,9 @@
 
+v6.0.0-beta.3
+-------------
+- FIX: remove fast-deep-equals because Angular prefers ESM for tree shaking (#421)
+
+
 5.10.2 (2022-02-09)
 -------------------
 - add Angular 13 support (#387)

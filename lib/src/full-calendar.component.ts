@@ -1,4 +1,3 @@
-import deepEqual from 'fast-deep-equal';
 import {
   Component,
   ElementRef,
@@ -10,6 +9,7 @@ import {
   ViewEncapsulation
 } from '@angular/core';
 import { Calendar, CalendarOptions } from '@fullcalendar/core';
+import { deepEqual } from './fast-deep-equal';
 import { deepCopy, shallowCopy, mapHash } from './utils';
 import { OPTION_IS_DEEP } from './options';
 
