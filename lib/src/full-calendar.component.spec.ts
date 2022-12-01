@@ -200,6 +200,60 @@ describe('HostComponentWithEventAttr', () => {
 })
 
 
+// has content-injection template
+
+@Component({
+  template: `
+    <full-calendar [options]="calendarOptions">
+      <ng-template #eventContent let-arg>
+        <b *ngIf="isBold">{{ arg.event.title }}</b>
+        <i *ngIf="!isBold">{{ arg.event.title }}</i>
+      </ng-template>
+    </full-calendar>
+  `
+})
+class HostComponentWithTemplate {
+  calendarOptions = {
+    ...DEFAULT_OPTIONS,
+    events: [buildEvent()]
+  };
+  isBold = false;
+
+  turnBold() {
+    this.isBold = true;
+  }
+}
+
+describe('HostComponentWithTemplate', () => {
+  let component: HostComponentWithTemplate;
+  let fixture: ComponentFixture<HostComponentWithTemplate>;
+
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      imports: [FullCalendarModule],
+      declarations: [HostComponentWithTemplate]
+    }).compileComponents();
+
+    fixture = TestBed.createComponent(HostComponentWithTemplate);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should render event with custom template', () => {
+    const eventEl = getFirstEventEl(fixture);
+    expect(eventEl.querySelectorAll('i').length).toBe(1);
+    expect(eventEl.querySelectorAll('b').length).toBe(0);
+
+    component.turnBold();
+    fixture.detectChanges();
+
+    expect(eventEl).toBe(getFirstEventEl(fixture));
+    expect(eventEl.querySelectorAll('i').length).toBe(0);
+    expect(eventEl.querySelectorAll('b').length).toBe(1);
+  });
+})
+
+
 // some tests need a wrapper component with DEEP COMPARISON
 
 @Component({
@@ -308,6 +362,10 @@ function getHeaderToolbarEl(fixture: ComponentFixture<any>) {
 
 function isWeekendsRendered(fixture: ComponentFixture<any>) {
   return Boolean(fixture.nativeElement.querySelector('.fc-day-sat'));
+}
+
+function getFirstEventEl(fixture: ComponentFixture<any>) {
+  return fixture.nativeElement.querySelector('.fc-event');
 }
 
 function getFirstEventTitle(fixture: ComponentFixture<any>) {

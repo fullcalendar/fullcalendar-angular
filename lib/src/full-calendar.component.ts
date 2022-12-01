@@ -9,6 +9,7 @@ import {
   AfterContentChecked,
   OnDestroy,
   ViewEncapsulation,
+  ChangeDetectorRef,
 } from '@angular/core';
 import { Calendar, CalendarOptions } from '@fullcalendar/core';
 import { CustomRendering, CustomRenderingStore } from '@fullcalendar/core/internal';
@@ -48,12 +49,16 @@ export class FullCalendarComponent implements AfterViewInit, DoCheck, AfterConte
   private customRenderingArray?: CustomRendering<any>[]
   public templateMap: { [templateName: string]: TemplateRef<any> } = {}
 
-  constructor(private element: ElementRef) {
+  constructor(
+    private element: ElementRef,
+    changeDetector: ChangeDetectorRef
+  ) {
     const customRenderingStore = new CustomRenderingStore();
 
     customRenderingStore.subscribe((customRenderingMap) => {
-      this.customRenderingMap = customRenderingMap
-      this.customRenderingArray = undefined // clear cache
+      this.customRenderingMap = customRenderingMap;
+      this.customRenderingArray = undefined; // clear cache
+      changeDetector.detectChanges();
     });
 
     this.handleCustomRendering = customRenderingStore.handle.bind(customRenderingStore);
