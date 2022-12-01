@@ -1,0 +1,48 @@
+<ng-template [ngIf]="elTag == 'div'">
+  <div #rootEl [ngClass]="elClasses || []" [ngStyle]="elStyle || {}">
+    <ng-container
+      [ngTemplateOutlet]="template"
+      [ngTemplateOutletContext]="{ $implicit: renderProps }"
+    ></ng-container>
+  </div>
+</ng-template>
+<ng-template [ngIf]="elTag == 'span'">
+  <span #rootEl [ngClass]="elClasses || []" [ngStyle]="elStyle || {}">
+    <ng-container
+      [ngTemplateOutlet]="template"
+      [ngTemplateOutletContext]="{ $implicit: renderProps }"
+    ></ng-container>
+  </span>
+</ng-template>
+<ng-template [ngIf]="elTag == 'a'">
+  <a #rootEl [ngClass]="elClasses || []" [ngStyle]="elStyle || {}">
+    <ng-container
+      [ngTemplateOutlet]="template"
+      [ngTemplateOutletContext]="{ $implicit: renderProps }"
+    ></ng-container>
+  </a>
+</ng-template>
+<ng-template [ngIf]="elTag == 'tr'">
+  <tr #rootEl [ngClass]="elClasses || []" [ngStyle]="elStyle || {}">
+    <ng-container
+      [ngTemplateOutlet]="template"
+      [ngTemplateOutletContext]="{ $implicit: renderProps }"
+    ></ng-container>
+  </tr>
+</ng-template>
+<ng-template [ngIf]="elTag == 'th'">
+  <th #rootEl [ngClass]="elClasses || []" [ngStyle]="elStyle || {}">
+    <ng-container
+      [ngTemplateOutlet]="template"
+      [ngTemplateOutletContext]="{ $implicit: renderProps }"
+    ></ng-container>
+  </th>
+</ng-template>
+<ng-template [ngIf]="elTag == 'td'">
+  <td #rootEl [ngClass]="elClasses || []" [ngStyle]="elStyle || {}">
+    <ng-container
+      [ngTemplateOutlet]="template"
+      [ngTemplateOutletContext]="{ $implicit: renderProps }"
+    ></ng-container>
+  </td>
+</ng-template>

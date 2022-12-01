@@ -1,0 +1,11 @@
+<offscreen-fragment>
+  <transport-container *ngFor="let customRendering of customRenderingMap.values()"
+    [inPlaceOf]="customRendering.containerEl"
+    [elTag]="customRendering.elTag"
+    [elClasses]="customRendering.elClasses"
+    [elStyle]="customRendering.elStyle"
+    [elAttrs]="customRendering.elAttrs"
+    [template]="templateMap[customRendering.generatorName]!"
+    [renderProps]="customRendering.renderProps"
+  ></transport-container>
+</offscreen-fragment>

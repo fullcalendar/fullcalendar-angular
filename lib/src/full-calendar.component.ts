@@ -1,39 +1,75 @@
 import {
   Component,
+  ContentChild,
+  TemplateRef,
   ElementRef,
   Input,
   AfterViewInit,
   DoCheck,
   AfterContentChecked,
   OnDestroy,
-  ViewEncapsulation
+  ViewEncapsulation,
+  OnChanges,
 } from '@angular/core';
 import { Calendar, CalendarOptions } from '@fullcalendar/core';
-import { deepEqual } from './fast-deep-equal';
-import { deepCopy, shallowCopy, mapHash } from './utils';
-import { OPTION_IS_DEEP } from './options';
-
-type CalendarOptionsLookup<OptionName> = OptionName extends keyof CalendarOptions
-  ? CalendarOptions[OptionName]
-  : unknown
+import { CustomRendering, CustomRenderingStore } from '@fullcalendar/core/internal';
+import { OPTION_INPUT_NAMES, OPTION_IS_DEEP, OPTION_TEMPLATE_NAMES } from './options';
+import { CalendarOption, CalendarTemplateRef } from './private-types';
+import { deepEqual } from './utils/fast-deep-equal';
+import { deepCopy, shallowCopy, mapHash } from './utils/obj';
 
 @Component({
   selector: 'full-calendar',
-  template: '',
+  templateUrl: './full-calendar.component.html',
   encapsulation: ViewEncapsulation.None // the styles are root-level, not scoped within the component
 })
-export class FullCalendarComponent implements AfterViewInit, DoCheck, AfterContentChecked, OnDestroy {
-
+export class FullCalendarComponent implements OnChanges, AfterViewInit, DoCheck, AfterContentChecked, OnDestroy {
   @Input() options?: CalendarOptions;
-  @Input() events?: CalendarOptionsLookup<'events'>;
-  @Input() eventSources?: CalendarOptionsLookup<'eventSources'>;
-  @Input() resources?: CalendarOptionsLookup<'resources'>;
   @Input() deepChangeDetection?: boolean;
 
+  /*
+  Options as individual Inputs
+  NOTE: keep in sync with OPTION_INPUT_NAMES
+  */
+  @Input() events?: CalendarOption<'events'>;
+  @Input() eventSources?: CalendarOption<'eventSources'>;
+  @Input() resources?: CalendarOption<'resources'>;
+
+  /*
+  NOTE: keep in sync with OPTION_TEMPLATE_NAMES
+  */
+  @ContentChild('allDayContent') allDayContent?: CalendarTemplateRef<'allDayContent'>;
+  @ContentChild('noEventsContent') noEventsContent?: CalendarTemplateRef<'noEventsContent'>;
+  @ContentChild('eventContent') eventContent?: CalendarTemplateRef<'eventContent'>;
+
   private calendar: Calendar | null = null;
-  private optionSnapshot: Record<string, any> = {}; // for diffing only
+  private optionSnapshot: Record<string, any> = {}; // for diffing
+  private handleCustomRendering: (customRendering: CustomRendering<any>) => void
+  public customRenderingMap = new Map<string, CustomRendering<any>>()
+  public templateMap: { [templateName: string]: TemplateRef<any> } = {}
 
   constructor(private element: ElementRef) {
+    const customRenderingStore = new CustomRenderingStore()
+
+    customRenderingStore.subscribe((customRenderingMap) => {
+      this.customRenderingMap = customRenderingMap
+    })
+
+    this.handleCustomRendering = customRenderingStore.handle.bind(customRenderingStore)
+  }
+
+  ngOnChanges(): void {
+    const templateMap: { [templateName: string]: TemplateRef<any> } = {};
+
+    for (const templateName of OPTION_TEMPLATE_NAMES) {
+      const templateRef: TemplateRef<any> | undefined = (this as any)[templateName];
+
+      if (templateRef) {
+        templateMap[templateName] = templateRef
+      }
+    }
+
+    this.templateMap = templateMap
   }
 
   ngAfterViewInit() {
@@ -77,7 +113,6 @@ export class FullCalendarComponent implements AfterViewInit, DoCheck, AfterConte
               // can't use the previously-made deep copy because it blows away prototype-association.
               optionVal = shallowCopy(optionVal);
             }
-
           } else {
             if (optionSnapshot[optionName] !== optionVal) {
               optionSnapshot[optionName] = optionVal;
@@ -124,19 +159,26 @@ export class FullCalendarComponent implements AfterViewInit, DoCheck, AfterConte
   }
 
   private buildOptions(): CalendarOptions {
-    const options = { ...this.options };
+    const customRenderingMetaMap: { [templateName: string]: boolean } = {};
 
-    if (this.events !== undefined) {
-      (options as any).events = this.events;
+    for (const templateName of OPTION_TEMPLATE_NAMES) {
+      customRenderingMetaMap[templateName] = Boolean((this as any)[templateName]);
     }
-    if (this.eventSources !== undefined) {
-      (options as any).eventSources = this.eventSources;
-    }
-    if (this.resources !== undefined) {
-      (options as any).resources = this.resources;
+
+    const options: CalendarOptions = {
+      ...this.options,
+      customRenderingMetaMap,
+      handleCustomRendering: this.handleCustomRendering,
+    };
+
+    for (const inputName of OPTION_INPUT_NAMES) {
+      const inputValue = (this as any)[inputName]
+
+      if (inputValue !== undefined) {
+        (options as any)[inputName] = inputValue
+      }
     }
 
     return options;
   }
-
 }

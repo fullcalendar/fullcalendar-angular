@@ -6,3 +6,21 @@ export const OPTION_IS_DEEP: { [optionName: string]: boolean } = {
   eventSources: true,
   resources: true
 };
+
+/*
+NOTE: keep synced with component
+*/
+export const OPTION_INPUT_NAMES: string[] = [
+  'events',
+  'eventSources',
+  'resources',
+];
+
+/*
+NOTE: keep synced with component
+*/
+export const OPTION_TEMPLATE_NAMES: string[] = [
+  'allDayContent',
+  'noEventsContent',
+  'eventContent'
+];
