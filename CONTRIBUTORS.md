@@ -4,6 +4,12 @@
 Information for people wanting to contribute code to this project.
 
 
+## Special Monorepo Note
+
+Building this package only works (from a TypeScript perspective) if the outer monorepo is
+fully BUILT, not in dev-mode.
+
+
 ## Important Directories
 
 This repo was initially created with Angular CLI, which is why certain directories are where they are:
