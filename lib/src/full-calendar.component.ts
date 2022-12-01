@@ -9,21 +9,20 @@ import {
   AfterContentChecked,
   OnDestroy,
   ViewEncapsulation,
-  OnChanges,
 } from '@angular/core';
 import { Calendar, CalendarOptions } from '@fullcalendar/core';
 import { CustomRendering, CustomRenderingStore } from '@fullcalendar/core/internal';
-import { OPTION_INPUT_NAMES, OPTION_IS_DEEP, OPTION_TEMPLATE_NAMES } from './options';
+import { OPTION_INPUT_NAMES, OPTION_TEMPLATE_NAMES, OPTION_IS_DEEP } from './options';
 import { CalendarOption, CalendarTemplateRef } from './private-types';
-import { deepEqual } from './utils/fast-deep-equal';
 import { deepCopy, shallowCopy, mapHash } from './utils/obj';
+import { deepEqual } from './utils/fast-deep-equal';
 
 @Component({
   selector: 'full-calendar',
   templateUrl: './full-calendar.component.html',
   encapsulation: ViewEncapsulation.None // the styles are root-level, not scoped within the component
 })
-export class FullCalendarComponent implements OnChanges, AfterViewInit, DoCheck, AfterContentChecked, OnDestroy {
+export class FullCalendarComponent implements AfterViewInit, DoCheck, AfterContentChecked, OnDestroy {
   @Input() options?: CalendarOptions;
   @Input() deepChangeDetection?: boolean;
 
@@ -38,43 +37,32 @@ export class FullCalendarComponent implements OnChanges, AfterViewInit, DoCheck,
   /*
   NOTE: keep in sync with OPTION_TEMPLATE_NAMES
   */
-  @ContentChild('allDayContent') allDayContent?: CalendarTemplateRef<'allDayContent'>;
-  @ContentChild('noEventsContent') noEventsContent?: CalendarTemplateRef<'noEventsContent'>;
-  @ContentChild('eventContent') eventContent?: CalendarTemplateRef<'eventContent'>;
+  @ContentChild('allDayContent', { static: true }) allDayContent?: CalendarTemplateRef<'allDayContent'>;
+  @ContentChild('noEventsContent', { static: true }) noEventsContent?: CalendarTemplateRef<'noEventsContent'>;
+  @ContentChild('eventContent', { static: true }) eventContent?: CalendarTemplateRef<'eventContent'>;
 
   private calendar: Calendar | null = null;
   private optionSnapshot: Record<string, any> = {}; // for diffing
   private handleCustomRendering: (customRendering: CustomRendering<any>) => void
-  public customRenderingMap = new Map<string, CustomRendering<any>>()
+  private customRenderingMap = new Map<string, CustomRendering<any>>()
+  private customRenderingArray?: CustomRendering<any>[]
   public templateMap: { [templateName: string]: TemplateRef<any> } = {}
 
   constructor(private element: ElementRef) {
-    const customRenderingStore = new CustomRenderingStore()
+    const customRenderingStore = new CustomRenderingStore();
 
     customRenderingStore.subscribe((customRenderingMap) => {
       this.customRenderingMap = customRenderingMap
-    })
+      this.customRenderingArray = undefined // clear cache
+    });
 
-    this.handleCustomRendering = customRenderingStore.handle.bind(customRenderingStore)
-  }
-
-  ngOnChanges(): void {
-    const templateMap: { [templateName: string]: TemplateRef<any> } = {};
-
-    for (const templateName of OPTION_TEMPLATE_NAMES) {
-      const templateRef: TemplateRef<any> | undefined = (this as any)[templateName];
-
-      if (templateRef) {
-        templateMap[templateName] = templateRef
-      }
-    }
-
-    this.templateMap = templateMap
+    this.handleCustomRendering = customRenderingStore.handle.bind(customRenderingStore);
+    this.templateMap = this as any; // alias to this
   }
 
   ngAfterViewInit() {
     const { deepChangeDetection } = this;
-    const options = this.buildOptions();
+    const options = this.options || {};
 
     // initialize snapshot
     this.optionSnapshot = mapHash(options, (optionVal: any, optionName: string) => (
@@ -83,7 +71,10 @@ export class FullCalendarComponent implements OnChanges, AfterViewInit, DoCheck,
         : optionVal
     ));
 
-    this.calendar = new Calendar(this.element.nativeElement, options);
+    this.calendar = new Calendar(this.element.nativeElement, {
+      ...options,
+      ...this.buildExtraOptions(),
+    });
     this.calendar.render();
   }
 
@@ -94,7 +85,7 @@ export class FullCalendarComponent implements OnChanges, AfterViewInit, DoCheck,
   ngDoCheck() {
     if (this.calendar) { // not the initial render
       const { deepChangeDetection, optionSnapshot } = this;
-      const newOptions = this.buildOptions();
+      const newOptions = this.options || {};
       const newProcessedOptions: Record<string, any> = {};
       let anyChanges = false;
 
@@ -136,7 +127,10 @@ export class FullCalendarComponent implements OnChanges, AfterViewInit, DoCheck,
 
       if (anyChanges) {
         this.calendar.pauseRendering();
-        this.calendar.resetOptions(newProcessedOptions);
+        this.calendar.resetOptions({
+          ...newProcessedOptions,
+          ...this.buildExtraOptions(),
+        });
       }
     }
   }
@@ -154,11 +148,16 @@ export class FullCalendarComponent implements OnChanges, AfterViewInit, DoCheck,
     }
   }
 
+  get customRenderings(): CustomRendering<any>[] {
+    return this.customRenderingArray ||
+      (this.customRenderingArray = [...this.customRenderingMap.values()]);
+  }
+
   public getApi(): Calendar {
     return this.calendar!;
   }
 
-  private buildOptions(): CalendarOptions {
+  private buildExtraOptions(): CalendarOptions {
     const customRenderingMetaMap: { [templateName: string]: boolean } = {};
 
     for (const templateName of OPTION_TEMPLATE_NAMES) {
@@ -166,16 +165,15 @@ export class FullCalendarComponent implements OnChanges, AfterViewInit, DoCheck,
     }
 
     const options: CalendarOptions = {
-      ...this.options,
       customRenderingMetaMap,
       handleCustomRendering: this.handleCustomRendering,
     };
 
     for (const inputName of OPTION_INPUT_NAMES) {
-      const inputValue = (this as any)[inputName]
+      const inputValue = (this as any)[inputName];
 
       if (inputValue !== undefined) {
-        (options as any)[inputName] = inputValue
+        (options as any)[inputName] = inputValue;
       }
     }
 

@@ -4,4 +4,8 @@
   *ngIf="calendarOptions"
   #fullcalendar
   [options]="calendarOptions"
-></full-calendar>
+>
+  <ng-template #eventContent let-arg>
+    <b>{{ arg.event.title }}</b> - {{ arg.event.start.getDate() }}
+  </ng-template>
+</full-calendar>

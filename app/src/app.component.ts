@@ -66,7 +66,7 @@ export class AppComponent implements OnInit {
     const yearMonth = nowDate.getUTCFullYear() + '-' + (nowDate.getUTCMonth() + 1);
 
     this.calendarOptions!.events = [{
-      title: 'Updaten Event',
+      title: 'Updated Event',
       start: yearMonth + '-08',
       end: yearMonth + '-10'
     }];

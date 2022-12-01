@@ -27,17 +27,17 @@ export class TransportContainerComponent implements OnChanges, AfterViewInit, On
   @Input() template!: TemplateRef<any>; // required
   @Input() renderProps?: any;
 
-  @ViewChild('rootEl') rootElRef!: ElementRef;
+  @ViewChild('rootEl') rootElRef?: ElementRef;
 
   ngAfterViewInit() {
-    const rootEl = this.rootElRef.nativeElement;
+    const rootEl: Element = this.rootElRef?.nativeElement; // assumed defined
 
     replaceEl(rootEl, this.inPlaceOf);
     applyElAttrs(rootEl, undefined, this.elAttrs);
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    const rootEl = this.rootElRef.nativeElement;
+    const rootEl: Element | undefined = this.rootElRef?.nativeElement;
 
     // ngOnChanges is called before ngAfterViewInit (and before DOM initializes)
     // so make sure rootEl is defined before doing anything
@@ -72,13 +72,15 @@ function applyElAttrs(
   previousAttrs: Record<string, any> = {},
   currentAttrs: Record<string, any> = {}
 ): void {
+  // these are called "attributes" but they manipulate DOM node *properties*
+
   for (const attrName in previousAttrs) {
     if (!(attrName in currentAttrs)) {
-      el.removeAttribute(attrName);
+      (el as any)[attrName] = null;
     }
   }
 
   for (const attrName in currentAttrs) {
-    el.setAttribute(attrName, currentAttrs[attrName]);
+    (el as any)[attrName] = currentAttrs[attrName];
   }
 }
