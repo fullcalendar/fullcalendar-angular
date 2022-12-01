@@ -62,7 +62,10 @@ export class FullCalendarComponent implements AfterViewInit, DoCheck, AfterConte
 
   ngAfterViewInit() {
     const { deepChangeDetection } = this;
-    const options = this.options || {};
+    const options = {
+      ...this.options,
+      ...this.buildInputOptions(),
+    };
 
     // initialize snapshot
     this.optionSnapshot = mapHash(options, (optionVal: any, optionName: string) => (
@@ -85,7 +88,10 @@ export class FullCalendarComponent implements AfterViewInit, DoCheck, AfterConte
   ngDoCheck() {
     if (this.calendar) { // not the initial render
       const { deepChangeDetection, optionSnapshot } = this;
-      const newOptions = this.options || {};
+      const newOptions = {
+        ...this.options,
+        ...this.buildInputOptions(),
+      };
       const newProcessedOptions: Record<string, any> = {};
       let anyChanges = false;
 
@@ -157,17 +163,8 @@ export class FullCalendarComponent implements AfterViewInit, DoCheck, AfterConte
     return this.calendar!;
   }
 
-  private buildExtraOptions(): CalendarOptions {
-    const customRenderingMetaMap: { [templateName: string]: boolean } = {};
-
-    for (const templateName of OPTION_TEMPLATE_NAMES) {
-      customRenderingMetaMap[templateName] = Boolean((this as any)[templateName]);
-    }
-
-    const options: CalendarOptions = {
-      customRenderingMetaMap,
-      handleCustomRendering: this.handleCustomRendering,
-    };
+  private buildInputOptions(): CalendarOptions {
+    const options: CalendarOptions = {}
 
     for (const inputName of OPTION_INPUT_NAMES) {
       const inputValue = (this as any)[inputName];
@@ -178,5 +175,18 @@ export class FullCalendarComponent implements AfterViewInit, DoCheck, AfterConte
     }
 
     return options;
+  }
+
+  private buildExtraOptions(): CalendarOptions {
+    const customRenderingMetaMap: { [templateName: string]: boolean } = {};
+
+    for (const templateName of OPTION_TEMPLATE_NAMES) {
+      customRenderingMetaMap[templateName] = Boolean((this as any)[templateName]);
+    }
+
+    return {
+      customRenderingMetaMap,
+      handleCustomRendering: this.handleCustomRendering,
+    };
   }
 }
