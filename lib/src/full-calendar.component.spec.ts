@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { FullCalendarModule } from './full-calendar.module';
 import { FullCalendarComponent } from './full-calendar.component';
 import { CalendarOptions } from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
@@ -14,7 +15,7 @@ describe('FullCalendarComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [FullCalendarComponent]
+      imports: [FullCalendarModule]
     }).compileComponents();
 
     fixture = TestBed.createComponent(FullCalendarComponent);
@@ -100,7 +101,8 @@ describe('HostComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [FullCalendarComponent, HostComponent]
+      imports: [FullCalendarModule],
+      declarations: [HostComponent]
     }).compileComponents();
 
     fixture = TestBed.createComponent(HostComponent);
@@ -182,7 +184,8 @@ describe('HostComponent2', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [FullCalendarComponent, HostComponent2]
+      imports: [FullCalendarModule],
+      declarations: [HostComponent2]
     }).compileComponents();
 
     fixture = TestBed.createComponent(HostComponent2);
@@ -246,7 +249,8 @@ describe('DeepHostComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [FullCalendarComponent, DeepHostComponent]
+      imports: [FullCalendarModule],
+      declarations: [DeepHostComponent]
     }).compileComponents();
 
     fixture = TestBed.createComponent(DeepHostComponent);
