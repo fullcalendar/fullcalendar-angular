@@ -49,7 +49,6 @@ describe('FullCalendarComponent', () => {
 // some tests need a wrapper component
 
 @Component({
-  selector: 'full-calendar-test',
   template: `
     <full-calendar [options]="calendarOptions"></full-calendar>
   `
@@ -153,7 +152,6 @@ describe('HostComponent', () => {
 // uses the separate `events` input
 
 @Component({
-  selector: 'full-calendar-test',
   template: `
     <full-calendar
       [options]="calendarOptions"
@@ -161,7 +159,7 @@ describe('HostComponent', () => {
     ></full-calendar>
   `
 })
-class HostComponent2 {
+class HostComponentWithEventAttr {
   calendarOptions: CalendarOptions = {
     ...DEFAULT_OPTIONS,
     eventDidMount: this.handleEventDidMount.bind(this)
@@ -178,17 +176,17 @@ class HostComponent2 {
   }
 }
 
-describe('HostComponent2', () => {
-  let component: HostComponent2;
-  let fixture: ComponentFixture<HostComponent2>;
+describe('HostComponentWithEventAttr', () => {
+  let component: HostComponentWithEventAttr;
+  let fixture: ComponentFixture<HostComponentWithEventAttr>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [FullCalendarModule],
-      declarations: [HostComponent2]
+      declarations: [HostComponentWithEventAttr]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(HostComponent2);
+    fixture = TestBed.createComponent(HostComponentWithEventAttr);
     component = fixture.componentInstance;
     fixture.detectChanges(); // necessary for initializing change detection system
   });
@@ -205,7 +203,6 @@ describe('HostComponent2', () => {
 // some tests need a wrapper component with DEEP COMPARISON
 
 @Component({
-  selector: 'full-calendar-test',
   template: `
     <full-calendar
       deepChangeDetection="true"
