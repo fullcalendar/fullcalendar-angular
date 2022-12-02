@@ -38,9 +38,21 @@ export class FullCalendarComponent implements AfterViewInit, DoCheck, AfterConte
   /*
   NOTE: keep in sync with OPTION_TEMPLATE_NAMES
   */
-  @ContentChild('allDayContent', { static: true }) allDayContent?: CalendarTemplateRef<'allDayContent'>;
-  @ContentChild('noEventsContent', { static: true }) noEventsContent?: CalendarTemplateRef<'noEventsContent'>;
+  @ContentChild('dayHeaderContent', { static: true }) dayHeaderContent?: CalendarTemplateRef<'dayHeaderContent'>;
+  @ContentChild('dayCellContent', { static: true }) dayCellContent?: CalendarTemplateRef<'dayCellContent'>;
+  @ContentChild('weekNumberContent', { static: true }) weekNumberContent?: CalendarTemplateRef<'weekNumberContent'>;
+  @ContentChild('nowIndicatorContent', { static: true }) nowIndicatorContent?: CalendarTemplateRef<'nowIndicatorContent'>;
   @ContentChild('eventContent', { static: true }) eventContent?: CalendarTemplateRef<'eventContent'>;
+  @ContentChild('slotLaneContent', { static: true }) slotLaneContent?: CalendarTemplateRef<'slotLaneContent'>;
+  @ContentChild('slotLabelContent', { static: true }) slotLabelContent?: CalendarTemplateRef<'slotLabelContent'>;
+  @ContentChild('allDayContent', { static: true }) allDayContent?: CalendarTemplateRef<'allDayContent'>;
+  @ContentChild('moreLinkContent', { static: true }) moreLinkContent?: CalendarTemplateRef<'moreLinkContent'>;
+  @ContentChild('noEventsContent', { static: true }) noEventsContent?: CalendarTemplateRef<'noEventsContent'>;
+  @ContentChild('resourceAreaHeaderContent', { static: true }) resourceAreaHeaderContent?: CalendarTemplateRef<'resourceAreaHeaderContent'>;
+  @ContentChild('resourceGroupLabelContent', { static: true }) resourceGroupLabelContent?: CalendarTemplateRef<'resourceGroupLabelContent'>;
+  @ContentChild('resourceLabelContent', { static: true }) resourceLabelContent?: CalendarTemplateRef<'resourceLabelContent'>;
+  @ContentChild('resourceLaneContent', { static: true }) resourceLaneContent?: CalendarTemplateRef<'resourceLaneContent'>;
+  @ContentChild('resourceGroupLaneContent', { static: true }) resourceGroupLaneContent?: CalendarTemplateRef<'resourceGroupLaneContent'>;
 
   private calendar: Calendar | null = null;
   private optionSnapshot: Record<string, any> = {}; // for diffing
