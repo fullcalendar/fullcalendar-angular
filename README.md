@@ -12,4 +12,4 @@ This project is built and maintained by [irustm](https://github.com/irustm) in p
 
 ## Supported Angular Versions
 
-`@fullcalendar/angular` version 5 supports Angular 12 - 15.
+`@fullcalendar/angular` version 6 supports Angular 12 - 15.
