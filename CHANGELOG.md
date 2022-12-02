@@ -1,7 +1,8 @@
 
 v6.0.0-beta.3
 -------------
-- FEATURE: expose event/eventSources/resources as top-level component inputs (#303)
+- FEATURE: custom template rendering using ng-template (#204)
+- FEATURE: expose events/eventSources/resources as top-level component inputs (#303)
 - FIX: remove fast-deep-equals because Angular prefers ESM for tree shaking (#421)
 - FIX: backwards incompatibility with Angular 14 types (#419)
 
