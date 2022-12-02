@@ -15,9 +15,9 @@ importers:
       '@angular/platform-browser': ~13.3.0
       '@angular/platform-browser-dynamic': ~13.3.0
       '@angular/router': ~13.3.0
-      '@fullcalendar/core': 6.0.0-beta.2
-      '@fullcalendar/daygrid': 6.0.0-beta.2
-      '@fullcalendar/interaction': 6.0.0-beta.2
+      '@fullcalendar/core': 6.0.0-beta.3
+      '@fullcalendar/daygrid': 6.0.0-beta.3
+      '@fullcalendar/interaction': 6.0.0-beta.3
       '@types/jasmine': ~3.10.0
       '@types/node': ^12.11.1
       jasmine-core: ~4.0.0
