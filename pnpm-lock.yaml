@@ -15,9 +15,9 @@ importers:
       '@angular/platform-browser': ~13.3.0
       '@angular/platform-browser-dynamic': ~13.3.0
       '@angular/router': ~13.3.0
-      '@fullcalendar/core': 6.0.0-beta.3
-      '@fullcalendar/daygrid': 6.0.0-beta.3
-      '@fullcalendar/interaction': 6.0.0-beta.3
+      '@fullcalendar/core': 6.0.0-beta.4
+      '@fullcalendar/daygrid': 6.0.0-beta.4
+      '@fullcalendar/interaction': 6.0.0-beta.4
       '@types/jasmine': ~3.10.0
       '@types/node': ^12.11.1
       jasmine-core: ~4.0.0
@@ -7524,6 +7524,7 @@ packages:
 
   /sourcemap-codec/1.4.8:
     resolution: {integrity: sha512-9NykojV5Uih4lgo5So5dtw+f0JgJX30KCNI8gwhz2J9A15wD0Ml6tjHKwf6fTSa6fAdVBdZeNOs9eJ71qCk8vA==}
+    deprecated: Please use @jridgewell/sourcemap-codec instead
     dev: true
 
   /spdy-transport/3.0.0:
