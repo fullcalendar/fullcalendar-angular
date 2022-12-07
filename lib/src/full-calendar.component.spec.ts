@@ -1,12 +1,14 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FullCalendarModule } from './full-calendar.module';
 import { FullCalendarComponent } from './full-calendar.component';
 import { CalendarOptions } from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
+import interactionPlugin from '@fullcalendar/interaction';
 
 const DEFAULT_OPTIONS = {
-  plugins: [dayGridPlugin]
+  plugins: [dayGridPlugin, interactionPlugin],
+  editable: true,
 };
 
 describe('FullCalendarComponent', () => {
@@ -204,7 +206,7 @@ describe('HostComponentWithEventAttr', () => {
 
 @Component({
   template: `
-    <full-calendar [options]="calendarOptions">
+    <full-calendar #calendar [options]="calendarOptions">
       <ng-template #eventContent let-arg>
         <b *ngIf="isBold">{{ arg.event.title }}</b>
         <i *ngIf="!isBold">{{ arg.event.title }}</i>
@@ -218,6 +220,8 @@ class HostComponentWithTemplate {
     events: [buildEvent()]
   };
   isBold = false;
+
+  @ViewChild('calendar') calendarComponent?: FullCalendarComponent;
 
   turnBold() {
     this.isBold = true;
@@ -251,6 +255,27 @@ describe('HostComponentWithTemplate', () => {
     expect(eventEl.querySelectorAll('i').length).toBe(0);
     expect(eventEl.querySelectorAll('b').length).toBe(1);
   });
+
+  it('should custom-render going forward-back', () => {
+    const calendar = component.calendarComponent!.getApi();
+
+    let eventEl = getFirstEventEl(fixture);
+    expect(eventEl.querySelectorAll('i').length).toBe(1);
+    expect(eventEl.querySelectorAll('b').length).toBe(0);
+
+    calendar.next();
+    calendar.prev();
+
+    eventEl = getFirstEventEl(fixture);
+    expect(eventEl.querySelectorAll('i').length).toBe(1);
+    expect(eventEl.querySelectorAll('b').length).toBe(0);
+  });
+
+  it('should custom-render DnD-able daygrid list-like event', () => {
+    let eventEl = getFirstEventEl(fixture);
+    expect(eventEl).toHaveClass('fc-daygrid-dot-event');
+    expect(typeof eventEl.fcSeg).toBe('object');
+  })
 })
 
 
