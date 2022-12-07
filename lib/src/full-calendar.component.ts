@@ -31,9 +31,9 @@ export class FullCalendarComponent implements AfterViewInit, DoCheck, AfterConte
   Options as individual Inputs
   NOTE: keep in sync with OPTION_INPUT_NAMES
   */
-  @Input() events?: CalendarOption<'events'>;
-  @Input() eventSources?: CalendarOption<'eventSources'>;
-  @Input() resources?: CalendarOption<'resources'>;
+  @Input() events?: CalendarOption<'events'> | null | undefined;
+  @Input() eventSources?: CalendarOption<'eventSources'> | null | undefined;
+  @Input() resources?: CalendarOption<'resources'> | null | undefined;
 
   /*
   Templates
@@ -186,7 +186,7 @@ export class FullCalendarComponent implements AfterViewInit, DoCheck, AfterConte
     for (const inputName of OPTION_INPUT_NAMES) {
       const inputValue = (this as any)[inputName];
 
-      if (inputValue !== undefined) {
+      if (inputValue != null) { // exclude both null and undefined
         (options as any)[inputName] = inputValue;
       }
     }
