@@ -60,6 +60,7 @@ export class TransportContainerComponent implements OnChanges, AfterViewInit, On
     }
   }
 
+  // invoked BEFORE component removed from DOM
   ngOnDestroy() {
     dummyContainer.removeChild(this.inPlaceOf);
     this.reportEl(null);

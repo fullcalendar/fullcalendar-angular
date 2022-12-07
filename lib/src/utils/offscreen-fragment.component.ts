@@ -18,18 +18,11 @@ export class OffscreenFragmentComponent implements AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit() {
-    const el = this.element.nativeElement
-
-    if (el) {
-      dummyContainer.appendChild(el)
-    }
+    dummyContainer.appendChild(this.element.nativeElement)
   }
 
+  // invoked BEFORE component removed from DOM
   ngOnDestroy() {
-    const el = this.element.nativeElement
-
-    if (el && el.parentNode === dummyContainer) {
-      dummyContainer.removeChild(el)
-    }
+    dummyContainer.removeChild(this.element.nativeElement)
   }
 }
