@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import { CommonModule } from '@angular/common'
 import { FullCalendarComponent } from './full-calendar.component';
 import { OffscreenFragmentComponent } from './utils/offscreen-fragment.component';
 import { TransportContainerComponent } from './utils/transport-container.component';
@@ -11,7 +11,7 @@ import { TransportContainerComponent } from './utils/transport-container.compone
     TransportContainerComponent
   ],
   imports: [
-    BrowserModule
+    CommonModule
   ],
   exports: [
     FullCalendarComponent
