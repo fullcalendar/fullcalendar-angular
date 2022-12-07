@@ -20,6 +20,7 @@ const dummyContainer = document.createDocumentFragment();
 })
 export class TransportContainerComponent implements OnChanges, AfterViewInit, OnDestroy {
   @Input() inPlaceOf!: HTMLElement; // required
+  @Input() reportEl!: (el: HTMLElement | null) => void; // required
   @Input() elTag!: string; // required
   @Input() elClasses?: string[];
   @Input() elStyle?: Record<string, unknown>;
@@ -34,6 +35,7 @@ export class TransportContainerComponent implements OnChanges, AfterViewInit, On
 
     replaceEl(rootEl, this.inPlaceOf);
     applyElAttrs(rootEl, undefined, this.elAttrs);
+    this.reportEl(rootEl as HTMLElement);
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -47,6 +49,7 @@ export class TransportContainerComponent implements OnChanges, AfterViewInit, On
       if (this.inPlaceOf.parentNode !== dummyContainer) {
         replaceEl(rootEl, this.inPlaceOf);
         applyElAttrs(rootEl, undefined, this.elAttrs);
+        this.reportEl(rootEl as HTMLElement);
       } else {
         const elAttrsChange = changes['elAttrs'];
 
@@ -59,6 +62,7 @@ export class TransportContainerComponent implements OnChanges, AfterViewInit, On
 
   ngOnDestroy() {
     dummyContainer.removeChild(this.inPlaceOf);
+    this.reportEl(null);
   }
 }
 

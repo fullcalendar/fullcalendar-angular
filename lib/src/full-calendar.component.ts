@@ -13,7 +13,7 @@ import {
 } from '@angular/core';
 import { Calendar, CalendarOptions } from '@fullcalendar/core';
 import { CustomRendering, CustomRenderingStore } from '@fullcalendar/core/internal';
-import { OPTION_INPUT_NAMES, OPTION_TEMPLATE_NAMES, OPTION_IS_DEEP } from './options';
+import { OPTION_INPUT_NAMES, OPTION_IS_DEEP } from './options';
 import { CalendarOption, CalendarTemplateRef } from './private-types';
 import { deepCopy, shallowCopy, mapHash } from './utils/obj';
 import { deepEqual } from './utils/fast-deep-equal';
@@ -36,7 +36,7 @@ export class FullCalendarComponent implements AfterViewInit, DoCheck, AfterConte
   @Input() resources?: CalendarOption<'resources'>;
 
   /*
-  NOTE: keep in sync with OPTION_TEMPLATE_NAMES
+  Templates
   */
   @ContentChild('dayHeaderContent', { static: true }) dayHeaderContent?: CalendarTemplateRef<'dayHeaderContent'>;
   @ContentChild('dayCellContent', { static: true }) dayCellContent?: CalendarTemplateRef<'dayCellContent'>;
@@ -195,15 +195,10 @@ export class FullCalendarComponent implements AfterViewInit, DoCheck, AfterConte
   }
 
   private buildExtraOptions(): CalendarOptions {
-    const customRenderingMetaMap: { [templateName: string]: boolean } = {};
-
-    for (const templateName of OPTION_TEMPLATE_NAMES) {
-      customRenderingMetaMap[templateName] = Boolean((this as any)[templateName]);
-    }
-
     return {
-      customRenderingMetaMap,
       handleCustomRendering: this.handleCustomRendering,
+      customRenderingMetaMap: this.templateMap,
+      customRenderingReplacesEl: true,
     };
   }
 }

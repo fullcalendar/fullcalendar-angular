@@ -1,6 +1,7 @@
 <offscreen-fragment>
   <transport-container *ngFor="let customRendering of customRenderings"
     [inPlaceOf]="customRendering.containerEl"
+    [reportEl]="customRendering.reportNewContainerEl"
     [elTag]="customRendering.elTag"
     [elClasses]="customRendering.elClasses"
     [elStyle]="customRendering.elStyle"
