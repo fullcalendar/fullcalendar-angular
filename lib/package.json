@@ -2,13 +2,15 @@
   "name": "@fullcalendar/angular",
   "version": "6.0.0-beta.4",
   "title": "FullCalendar Angular Component",
-  "description": "An official FullCalendar component for Angular",
+  "description": "The official Angular component for FullCalendar",
   "keywords": [
-    "angular",
     "calendar",
-    "fullcalendar"
+    "event",
+    "full-sized",
+    "fullcalendar",
+    "angular"
   ],
-  "docs": "https://fullcalendar.io/docs/angular",
+  "homepage": "https://fullcalendar.io/docs/angular",
   "license": "MIT",
   "repository": {
     "type": "git",
