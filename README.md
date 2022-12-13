@@ -64,7 +64,7 @@ export class AppComponent {
 }
 ```
 
-You can supply nested templates:
+You can even supply nested templates:
 
 ```html
 <full-calendar [options]="calendarOptions">
@@ -83,7 +83,6 @@ You can supply nested templates:
 
 - [Documentation](https://fullcalendar.io/docs/angular)
 - [Example Project](https://github.com/fullcalendar/fullcalendar-examples/tree/main/angular)
-- [Contributor Guide](CONTRIBUTORS.md)
 
 ## History
 
