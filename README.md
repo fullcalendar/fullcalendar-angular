@@ -13,7 +13,7 @@ npm install @fullcalendar/angular @fullcalendar/core @fullcalendar/daygrid
 
 ## Usage
 
-First, connect `FullCalendarModule` to you app module:
+First, connect `FullCalendarModule` to your app module:
 
 ```js
 import { BrowserModule } from '@angular/platform-browser';
@@ -35,7 +35,7 @@ import { AppComponent } from './app.component';
 export class AppModule { }
 ```
 
-Then, use the `full-calendar` component, passing-in an [options](https://fullcalendar.io/docs#toc) object:
+Then, use the `full-calendar` component, supplying an [options](https://fullcalendar.io/docs#toc) object:
 
 ```js
 import { Component } from '@angular/core';
@@ -64,7 +64,7 @@ export class AppComponent {
 }
 ```
 
-You can even pass in nested templates:
+You can supply nested templates:
 
 ```html
 <full-calendar [options]="calendarOptions">
@@ -88,3 +88,20 @@ You can even pass in nested templates:
 ## History
 
 This project is built and maintained by [irustm](https://github.com/irustm) in partnership with the maintainers of FullCalendar. The project was originally called `ng-fullcalendar` which can still be [found on NPM](https://www.npmjs.com/package/ng-fullcalendar).
+
+## Development
+
+You must install this repo with [PNPM](https://pnpm.io/):
+
+```
+pnpm install
+```
+
+Available scripts (via `pnpm run <script>`):
+
+- `build` - build production-ready dist files
+- `watch` - build & watch development dist files
+- `start` - run a simple example application
+- `test` - test headlessly
+- `test:dev` - test interactively
+- `clean`
