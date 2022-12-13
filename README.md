@@ -82,7 +82,7 @@ You can supply nested templates:
 ## Links
 
 - [Documentation](https://fullcalendar.io/docs/angular)
-- [Example Project](https://github.com/fullcalendar/fullcalendar-example-projects/tree/master/angular)
+- [Example Project](https://github.com/fullcalendar/fullcalendar-examples/tree/main/angular)
 - [Contributor Guide](CONTRIBUTORS.md)
 
 ## History
