@@ -371,7 +371,11 @@ describe('DeepHostComponent', () => {
 // FullCalendar data utils
 
 function buildEvent() {
-  return  { title: 'event', start: new Date() };
+  return  {
+    title: 'event',
+    start: new Date(),
+    end: new Date(Date.now() + 1) // guarantee only within single day
+   };
 }
 
 
