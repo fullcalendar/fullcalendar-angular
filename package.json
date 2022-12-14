@@ -1,6 +1,6 @@
 {
   "name": "@fullcalendar/angular",
-  "version": "6.0.0-beta.4",
+  "version": "6.0.0",
   "versionNote": [
     "Keep lib/package.json synced!"
   ],
@@ -25,9 +25,9 @@
     "@angular/platform-browser": "~13.3.0",
     "@angular/platform-browser-dynamic": "~13.3.0",
     "@angular/router": "~13.3.0",
-    "@fullcalendar/core": "6.0.0-beta.4",
-    "@fullcalendar/daygrid": "6.0.0-beta.4",
-    "@fullcalendar/interaction": "6.0.0-beta.4",
+    "@fullcalendar/core": "~6.0.0",
+    "@fullcalendar/daygrid": "~6.0.0",
+    "@fullcalendar/interaction": "~6.0.0",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"
