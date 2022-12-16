@@ -2,10 +2,10 @@ blank_issues_enabled: false
 contact_links:
   - name: Bug Report
     url: https://github.com/fullcalendar/fullcalendar/issues/new?template=bug-report.yml
-    about: Create a new ticket on the main issue tracker. Choose the "Angular" connector
+    about: Create a ticket on the main issue tracker. Choose the "Angular" connector
   - name: Feature Request
     url: https://github.com/fullcalendar/fullcalendar/issues/new?template=feature-request.yml
-    about: Create a new ticket on the main issue tracker. Choose the "Angular" connector
+    about: Create a ticket on the main issue tracker. Choose the "Angular" connector
   - name: Getting Help
     url: https://stackoverflow.com/questions/tagged/fullcalendar%20angular
     about: Stuck on a tough problem? Visit the StackOverflow fullcalendar + angular tags
