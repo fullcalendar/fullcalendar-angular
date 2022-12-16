@@ -69,8 +69,8 @@ You can even supply nested templates:
 ```html
 <full-calendar [options]="calendarOptions">
   <ng-template #eventContent let-arg>
-    <b>{{eventInfo.timeText}}</b>
-    <i>{{eventInfo.event.title}}</i>
+    <b>{{arg.timeText}}</b>
+    <i>{{arg.event.title}}</i>
   </ng-template>
 </full-calendar>
 ```
@@ -82,7 +82,7 @@ You can even supply nested templates:
 ## Links
 
 - [Documentation](https://fullcalendar.io/docs/angular)
-- [Example Project](https://github.com/fullcalendar/fullcalendar-examples/tree/main/angular)
+- [Example Project](https://github.com/fullcalendar/fullcalendar-examples/tree/main/angular15)
 
 ## History
 
