@@ -201,4 +201,9 @@ export class FullCalendarComponent implements AfterViewInit, DoCheck, AfterConte
       customRenderingReplacesEl: true,
     };
   }
+
+  // for `trackBy` in loop
+  trackCustomRendering(index: number, customRendering: CustomRendering<any>): any {
+    return customRendering.id
+  }
 }

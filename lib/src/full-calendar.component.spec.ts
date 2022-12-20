@@ -5,6 +5,7 @@ import { FullCalendarComponent } from './full-calendar.component';
 import { CalendarOptions } from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
+import listPlugin from '@fullcalendar/list';
 
 const DEFAULT_OPTIONS = {
   plugins: [dayGridPlugin, interactionPlugin],
@@ -366,6 +367,61 @@ describe('DeepHostComponent', () => {
   });
 
 });
+
+
+// Integration test
+// https://github.com/fullcalendar/fullcalendar/issues/7058
+
+@Component({
+  template: `
+    <full-calendar #calendar [options]="calendarOptions">
+      <ng-template #eventContent let-arg>
+        <b>{{ arg.event.title }}</b>
+      </ng-template>
+    </full-calendar>
+  `
+})
+class CrapComponent {
+  private defaultHeaderToolbar = {
+    left: '',
+    center: 'title',
+    right: '',
+  }
+
+  @ViewChild('calendar') calendarComponent?: FullCalendarComponent;
+
+  calendarOptions: CalendarOptions = {
+    plugins: [listPlugin],
+    headerToolbar: this.defaultHeaderToolbar,
+    initialView: 'listWeek',
+    events: [buildEvent()] as any,
+    datesSet: this.onDatesSet.bind(this)
+  };
+
+  onDatesSet() {
+    this.calendarComponent!.getApi().setOption('headerToolbar', this.defaultHeaderToolbar)
+  }
+}
+
+describe('with list-view, customContent, and state mutation in datesSet', () => {
+  let component: CrapComponent;
+  let fixture: ComponentFixture<CrapComponent>;
+
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      imports: [FullCalendarModule],
+      declarations: [CrapComponent]
+    }).compileComponents();
+
+    fixture = TestBed.createComponent(CrapComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges(); // necessary for initializing change detection system
+  });
+
+  it('doesn\'t throw any errors', () => {
+    expect(Boolean(fixture)).toBe(true)
+  })
+})
 
 
 // FullCalendar data utils
