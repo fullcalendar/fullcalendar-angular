@@ -6,6 +6,7 @@ import { CalendarOptions } from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import listPlugin from '@fullcalendar/list';
+import resourceTimelinePlugin from '@fullcalendar/resource-timeline';
 
 const DEFAULT_OPTIONS = {
   plugins: [dayGridPlugin, interactionPlugin],
@@ -419,6 +420,55 @@ describe('with list-view, customContent, and state mutation in datesSet', () => 
   });
 
   it('doesn\'t throw any errors', () => {
+    expect(Boolean(fixture)).toBe(true)
+  })
+})
+
+
+// Integration test
+// https://github.com/fullcalendar/fullcalendar/issues/7105
+
+@Component({
+  template: `
+    <full-calendar #calendar [options]="calendarOptions">
+      <ng-template #resourceLabelContent let-arg>
+        <b>{{ arg.resource.title }}</b>
+      </ng-template>
+    </full-calendar>
+  `
+})
+class LameComponent {
+  calendarOptions: CalendarOptions = {
+    plugins: [resourceTimelinePlugin],
+    initialView: 'resourceTimelineWeek',
+    resources: [{ id: 'a', title: 'a' }]
+  };
+
+  @ViewChild('calendar') calendarComponent?: FullCalendarComponent;
+
+  removeResource() {
+    const resource = this.calendarComponent!.getApi().getResourceById('a')!
+    resource.remove()
+  }
+}
+
+describe('with resource-timeline view', () => {
+  let component: LameComponent;
+  let fixture: ComponentFixture<LameComponent>;
+
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      imports: [FullCalendarModule],
+      declarations: [LameComponent]
+    }).compileComponents();
+
+    fixture = TestBed.createComponent(LameComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges(); // necessary for initializing change detection system
+  });
+
+  it('doesn\'t throw any errors when removing a resource', () => {
+    component.removeResource()
     expect(Boolean(fixture)).toBe(true)
   })
 })

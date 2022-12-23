@@ -35,6 +35,10 @@ export class TransportContainerComponent implements OnChanges, AfterViewInit, On
 
     replaceEl(rootEl, this.inPlaceOf);
     applyElAttrs(rootEl, undefined, this.elAttrs);
+
+    // insurance for if Preact recreates and reroots inPlaceOf element
+    this.inPlaceOf.style.display = 'none';
+
     this.reportEl(rootEl as HTMLElement);
   }
 
@@ -62,7 +66,11 @@ export class TransportContainerComponent implements OnChanges, AfterViewInit, On
 
   // invoked BEFORE component removed from DOM
   ngOnDestroy() {
-    dummyContainer.removeChild(this.inPlaceOf);
+    // protect against Preact recreating and rerooting inPlaceOf element
+    if (this.inPlaceOf.parentNode === dummyContainer) {
+      dummyContainer.removeChild(this.inPlaceOf);
+    }
+
     this.reportEl(null);
   }
 }
