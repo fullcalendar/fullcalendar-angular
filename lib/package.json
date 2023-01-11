@@ -1,6 +1,6 @@
 {
   "name": "@fullcalendar/angular",
-  "version": "6.0.2",
+  "version": "6.0.3",
   "title": "FullCalendar Angular Component",
   "description": "The official Angular component for FullCalendar",
   "keywords": [
@@ -22,6 +22,6 @@
   "peerDependencies": {
     "@angular/common": "12 - 15",
     "@angular/core": "12 - 15",
-    "@fullcalendar/core": "~6.0.2"
+    "@fullcalendar/core": "~6.0.3"
   }
 }
