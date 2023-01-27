@@ -22,18 +22,6 @@ export function deepCopy(input: any): any {
 }
 
 
-export function shallowCopy(val: any): any {
-  if (typeof val === 'object') {
-    if (Array.isArray(val)) {
-      val = Array.prototype.slice.call(val);
-    } else if (val) { // non-null
-      val = { ...val };
-    }
-  }
-  return val;
-}
-
-
 export function mapHash(input: any, func: any): any {
   const output: { [key: string]: any } = {};
 

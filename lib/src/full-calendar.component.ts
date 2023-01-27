@@ -15,7 +15,7 @@ import { Calendar, CalendarOptions } from '@fullcalendar/core';
 import { CustomRendering, CustomRenderingStore } from '@fullcalendar/core/internal';
 import { OPTION_INPUT_NAMES, OPTION_IS_DEEP } from './options';
 import { CalendarOption, CalendarTemplateRef } from './private-types';
-import { deepCopy, shallowCopy, mapHash } from './utils/obj';
+import { deepCopy, mapHash } from './utils/obj';
 import { deepEqual } from './utils/fast-deep-equal';
 
 @Component({
@@ -110,7 +110,7 @@ export class FullCalendarComponent implements AfterViewInit, DoCheck, AfterConte
         ...this.buildInputOptions(),
       };
       const newProcessedOptions: Record<string, any> = {};
-      let anyChanges = false;
+      const changedOptionNames: string[] = []
 
       // detect adds and updates (and update snapshot)
       for (const optionName in newOptions) {
@@ -120,17 +120,12 @@ export class FullCalendarComponent implements AfterViewInit, DoCheck, AfterConte
           if (deepChangeDetection && OPTION_IS_DEEP[optionName]) {
             if (!deepEqual(optionSnapshot[optionName], optionVal)) {
               optionSnapshot[optionName] = deepCopy(optionVal);
-              anyChanges = true;
-
-              // trick FC into knowing about a nested change.
-              // TODO: future versions won't need this.
-              // can't use the previously-made deep copy because it blows away prototype-association.
-              optionVal = shallowCopy(optionVal);
+              changedOptionNames.push(optionName);
             }
           } else {
             if (optionSnapshot[optionName] !== optionVal) {
               optionSnapshot[optionName] = optionVal;
-              anyChanges = true;
+              changedOptionNames.push(optionName);
             }
           }
 
@@ -144,16 +139,16 @@ export class FullCalendarComponent implements AfterViewInit, DoCheck, AfterConte
       for (const optionName of oldOptionNames) {
         if (!(optionName in newOptions)) { // doesn't exist in new options?
           delete optionSnapshot[optionName];
-          anyChanges = true;
+          changedOptionNames.push(optionName);
         }
       }
 
-      if (anyChanges) {
+      if (changedOptionNames.length) {
         this.calendar.pauseRendering();
         this.calendar.resetOptions({
           ...newProcessedOptions,
           ...this.buildExtraOptions(),
-        });
+        }, changedOptionNames);
       }
     }
   }
