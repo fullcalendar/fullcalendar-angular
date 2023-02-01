@@ -6,6 +6,7 @@ import { CalendarOptions } from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import listPlugin from '@fullcalendar/list';
+import resourceTimeGridPlugin from '@fullcalendar/resource-timegrid';
 import resourceTimelinePlugin from '@fullcalendar/resource-timeline';
 
 const DEFAULT_OPTIONS = {
@@ -425,7 +426,7 @@ describe('with list-view, customContent, and state mutation in datesSet', () => 
 })
 
 
-// Integration test
+// Integration test: resource-timeline
 // https://github.com/fullcalendar/fullcalendar/issues/7105
 
 @Component({
@@ -472,6 +473,89 @@ describe('with resource-timeline view', () => {
     expect(Boolean(fixture)).toBe(true)
   })
 })
+
+
+// Integration test: resource-timegrid
+// https://github.com/fullcalendar/fullcalendar/issues/7182
+
+
+@Component({
+  template: `
+    <full-calendar #calendar [options]="calendarOptions">
+      <ng-template #resourceLabelContent let-arg>
+        <b>{{ arg.resource.title }}</b>
+      </ng-template>
+    </full-calendar>
+  `
+})
+class ResourceTimeGridComponent {
+  calendarOptions: CalendarOptions = {
+    plugins: [resourceTimeGridPlugin],
+    initialView: 'resourceTimeGridDay',
+    resources: [{ id: 'a', title: 'a' }]
+  };
+}
+
+describe('with resource-timeline view', () => {
+  let component: ResourceTimeGridComponent;
+  let fixture: ComponentFixture<ResourceTimeGridComponent>;
+
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      imports: [FullCalendarModule],
+      declarations: [ResourceTimeGridComponent]
+    }).compileComponents();
+
+    fixture = TestBed.createComponent(ResourceTimeGridComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges(); // necessary for initializing change detection system
+  });
+
+  it('renders custom label', () => {
+    const resourceColHeader = fixture.nativeElement.querySelector('.fc-col-header-cell.fc-resource')
+    expect(resourceColHeader.querySelectorAll('b').length).toBe(1)
+  })
+})
+
+
+// Supplying content-injection as a function for dayCellContent
+// https://github.com/fullcalendar/fullcalendar/issues/7187
+
+
+@Component({
+  template: `
+    <full-calendar #calendar [options]="calendarOptions"></full-calendar>
+  `
+})
+class MonthComponent {
+  calendarOptions: CalendarOptions = {
+    plugins: [dayGridPlugin],
+    initialView: 'dayGridMonth',
+    dayCellContent(arg) {
+      return { html: `<b>${arg.dayNumberText}</b>` }
+    },
+  };
+}
+
+describe('with month view and dayCellContent as a function', () => {
+  let component: MonthComponent;
+  let fixture: ComponentFixture<MonthComponent>;
+
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      imports: [FullCalendarModule],
+      declarations: [MonthComponent]
+    }).compileComponents();
+
+    fixture = TestBed.createComponent(MonthComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges(); // necessary for initializing change detection system
+  });
+
+  it('shouldn\'t throw an error', () => {
+    expect(fixture.nativeElement).toBeTruthy();
+  });
+});
 
 
 // FullCalendar data utils

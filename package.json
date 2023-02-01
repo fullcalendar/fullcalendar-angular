@@ -30,6 +30,7 @@
     "@fullcalendar/interaction": "~6.1.1",
     "@fullcalendar/list": "~6.1.1",
     "@fullcalendar/resource": "~6.1.1",
+    "@fullcalendar/resource-timegrid": "~6.1.1",
     "@fullcalendar/resource-timeline": "~6.1.1",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
