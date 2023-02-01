@@ -512,8 +512,8 @@ describe('with resource-timeline view', () => {
   });
 
   it('renders custom label', () => {
-    const resourceColHeader = fixture.nativeElement.querySelector('.fc-col-header-cell.fc-resource')
-    expect(resourceColHeader.querySelectorAll('b').length).toBe(1)
+    const resourceColHeader = fixture.nativeElement.querySelector('.fc-col-header-cell.fc-resource');
+    expect(resourceColHeader.querySelectorAll('b').length).toBe(1);
   })
 })
 
@@ -552,8 +552,9 @@ describe('with month view and dayCellContent as a function', () => {
     fixture.detectChanges(); // necessary for initializing change detection system
   });
 
-  it('shouldn\'t throw an error', () => {
-    expect(fixture.nativeElement).toBeTruthy();
+  it('should render custom content', () => {
+    const resourceColHeader = fixture.nativeElement.querySelector('.fc-daygrid-day-top');
+    expect(resourceColHeader.querySelectorAll('b').length).toBe(1);
   });
 });
 
