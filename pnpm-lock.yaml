@@ -15,9 +15,13 @@ importers:
       '@angular/platform-browser': ~13.3.0
       '@angular/platform-browser-dynamic': ~13.3.0
       '@angular/router': ~13.3.0
-      '@fullcalendar/core': ~6.0.0
-      '@fullcalendar/daygrid': ~6.0.0
-      '@fullcalendar/interaction': ~6.0.0
+      '@fullcalendar/core': ~6.1.1
+      '@fullcalendar/daygrid': ~6.1.1
+      '@fullcalendar/interaction': ~6.1.1
+      '@fullcalendar/list': ~6.1.1
+      '@fullcalendar/resource': ~6.1.1
+      '@fullcalendar/resource-timegrid': ~6.1.1
+      '@fullcalendar/resource-timeline': ~6.1.1
       '@types/jasmine': ~3.10.0
       '@types/node': ^12.11.1
       jasmine-core: ~4.0.0
@@ -40,9 +44,13 @@ importers:
       '@angular/platform-browser': 13.3.12_acwdh3s5scpi27yetsnk333ipe
       '@angular/platform-browser-dynamic': 13.3.12_lfh4sfbrsw42sg4wkiqtq6co5y
       '@angular/router': 13.3.12_2t2bpfj4cznukshpuw3tvmcezy
-      '@fullcalendar/core': link:../../standard/packages/core/dist
-      '@fullcalendar/daygrid': link:../../standard/packages/daygrid/dist
-      '@fullcalendar/interaction': link:../../standard/packages/interaction/dist
+      '@fullcalendar/core': 6.1.1
+      '@fullcalendar/daygrid': 6.1.1_@fullcalendar+core@6.1.1
+      '@fullcalendar/interaction': 6.1.1_@fullcalendar+core@6.1.1
+      '@fullcalendar/list': 6.1.1_@fullcalendar+core@6.1.1
+      '@fullcalendar/resource': 6.1.1_@fullcalendar+core@6.1.1
+      '@fullcalendar/resource-timegrid': 6.1.1_fua6kvsyvpr55sj25tedizkrlu
+      '@fullcalendar/resource-timeline': 6.1.1_fua6kvsyvpr55sj25tedizkrlu
       rxjs: 7.5.7
       tslib: 2.4.1
       zone.js: 0.11.8
@@ -61,6 +69,14 @@ importers:
       ng-packagr: 13.3.1_6pz3o57i65nbrpn6uhy3c7xyj4
       typescript: 4.6.4
     publishDirectory: ./dist/lib
+
+  ../..:
+    specifiers:
+      '@fullcalendar/standard-scripts': '*'
+      '@fullcalendar/workspace-scripts': '*'
+    devDependencies:
+      '@fullcalendar/standard-scripts': 0.0.0
+      '@fullcalendar/workspace-scripts': 0.0.0
 
 packages:
 
@@ -1837,6 +1853,127 @@ packages:
     requiresBuild: true
     dev: true
     optional: true
+
+  /@fullcalendar/core/6.1.1:
+    resolution: {integrity: sha512-im5Dbgi/d7Q8DEUFuLaInL/TG+CrRH+zePq58LrKyFFoJKkx2CP+OS29ijVBnUiGyzCWtZ9lMIzLmWDzIMnJ0A==}
+    dependencies:
+      preact: 10.11.3
+    dev: false
+
+  /@fullcalendar/daygrid/6.1.1_@fullcalendar+core@6.1.1:
+    resolution: {integrity: sha512-/yIrN3IZSdob/UvAaPqWzBqyaQf3+DdcGG7xocVpmt2MudFbTpstF+ffPdBAQWqoWoB18Q92s6fn9teva5nDwA==}
+    peerDependencies:
+      '@fullcalendar/core': ~6.1.1
+    dependencies:
+      '@fullcalendar/core': 6.1.1
+    dev: false
+
+  /@fullcalendar/interaction/6.1.1_@fullcalendar+core@6.1.1:
+    resolution: {integrity: sha512-eJjdBu/ytX4EuV1mAr6mlB9mPhn80uNpuZz0eXjklYbjFNra9VVrEyNpC7kJiqsajGqQxQekbR2mk+SUJA/rzA==}
+    peerDependencies:
+      '@fullcalendar/core': ~6.1.1
+    dependencies:
+      '@fullcalendar/core': 6.1.1
+    dev: false
+
+  /@fullcalendar/list/6.1.1_@fullcalendar+core@6.1.1:
+    resolution: {integrity: sha512-JHhjIREGDYdmoPdniP6fNDypuAXwVZkouWUSD8/8CMmgHAICPuME95ttVZNTmvsE6Jbv1NY4VGoUkTpBGlfG+g==}
+    peerDependencies:
+      '@fullcalendar/core': ~6.1.1
+    dependencies:
+      '@fullcalendar/core': 6.1.1
+    dev: false
+
+  /@fullcalendar/premium-common/6.1.1_@fullcalendar+core@6.1.1:
+    resolution: {integrity: sha512-20uW8NiXEpCjJfGY7XUrXR9PAwk3/VSAeKIFmMf75+qtHU5Fs+NcDjN3xeig9zbIz6jFYdVWW8PON77gdVLDYw==}
+    peerDependencies:
+      '@fullcalendar/core': ~6.1.1
+    dependencies:
+      '@fullcalendar/core': 6.1.1
+    dev: false
+
+  /@fullcalendar/resource-daygrid/6.1.1_fua6kvsyvpr55sj25tedizkrlu:
+    resolution: {integrity: sha512-jijJiXjq3e9vjghmo6FEoUtKEtyk+qg4Uun4qpH2G7P1liY/kTteXyVPAWMeTzvRlW7QfpSqEyHfmtoGOtdp8A==}
+    peerDependencies:
+      '@fullcalendar/core': ~6.1.1
+      '@fullcalendar/resource': ~6.1.1
+    dependencies:
+      '@fullcalendar/core': 6.1.1
+      '@fullcalendar/daygrid': 6.1.1_@fullcalendar+core@6.1.1
+      '@fullcalendar/premium-common': 6.1.1_@fullcalendar+core@6.1.1
+      '@fullcalendar/resource': 6.1.1_@fullcalendar+core@6.1.1
+    dev: false
+
+  /@fullcalendar/resource-timegrid/6.1.1_fua6kvsyvpr55sj25tedizkrlu:
+    resolution: {integrity: sha512-OUfPbirY93GFdSRQHWMBfl4pf2ssqkW8KAyKjAVGI1GeRz3eG1YhAs6r+kdismUnFRlx+N+3jQayKMiY39lM1A==}
+    peerDependencies:
+      '@fullcalendar/core': ~6.1.1
+      '@fullcalendar/resource': ~6.1.1
+    dependencies:
+      '@fullcalendar/core': 6.1.1
+      '@fullcalendar/premium-common': 6.1.1_@fullcalendar+core@6.1.1
+      '@fullcalendar/resource': 6.1.1_@fullcalendar+core@6.1.1
+      '@fullcalendar/resource-daygrid': 6.1.1_fua6kvsyvpr55sj25tedizkrlu
+      '@fullcalendar/timegrid': 6.1.1_@fullcalendar+core@6.1.1
+    dev: false
+
+  /@fullcalendar/resource-timeline/6.1.1_fua6kvsyvpr55sj25tedizkrlu:
+    resolution: {integrity: sha512-mc9Fib6PQSlkvmM+jgdptjYYx4S+oyywqRgmhqoeQJYBCtLthrARnBlf96el7fVQjxobiTPCv2HMQbjiNVwkKQ==}
+    peerDependencies:
+      '@fullcalendar/core': ~6.1.1
+      '@fullcalendar/resource': ~6.1.1
+    dependencies:
+      '@fullcalendar/core': 6.1.1
+      '@fullcalendar/premium-common': 6.1.1_@fullcalendar+core@6.1.1
+      '@fullcalendar/resource': 6.1.1_@fullcalendar+core@6.1.1
+      '@fullcalendar/scrollgrid': 6.1.1_@fullcalendar+core@6.1.1
+      '@fullcalendar/timeline': 6.1.1_@fullcalendar+core@6.1.1
+    dev: false
+
+  /@fullcalendar/resource/6.1.1_@fullcalendar+core@6.1.1:
+    resolution: {integrity: sha512-YbLd7dlTv+Gbn5XZ4wXyXGskd6Fu5P92unvTgJQ25aSAE2di7xLZbn11jKlqKntUIoR8/PK0F1ueWy7swT8W6Q==}
+    peerDependencies:
+      '@fullcalendar/core': ~6.1.1
+    dependencies:
+      '@fullcalendar/core': 6.1.1
+      '@fullcalendar/premium-common': 6.1.1_@fullcalendar+core@6.1.1
+    dev: false
+
+  /@fullcalendar/scrollgrid/6.1.1_@fullcalendar+core@6.1.1:
+    resolution: {integrity: sha512-2mPxiyHvsHgPDWmfJ+mzz3aW4sW1DKefoNtvxCTnRSmu45l4j++qotOiapxOpVikRbsJZcRq4NIagsS8GbdlXw==}
+    peerDependencies:
+      '@fullcalendar/core': ~6.1.1
+    dependencies:
+      '@fullcalendar/core': 6.1.1
+      '@fullcalendar/premium-common': 6.1.1_@fullcalendar+core@6.1.1
+    dev: false
+
+  /@fullcalendar/standard-scripts/0.0.0:
+    resolution: {integrity: sha512-vXE/ZYb/7ZhMgWLjfGa/mxUZ/VZlzYTy/AKlOpVk8CK0J7iZyoe6mzp4WJfzSKpk39HkNbeIPaKjTxEt2jlzHw==}
+    dev: true
+
+  /@fullcalendar/timegrid/6.1.1_@fullcalendar+core@6.1.1:
+    resolution: {integrity: sha512-JWjSxjxCBxIhkLsKT1uQmRWUHqfQWjtXJIy25Ur0jPlTHSLne5CBAyW2UWPwdV0nXpUnN5QWXjjTVLpMJB6uNA==}
+    peerDependencies:
+      '@fullcalendar/core': ~6.1.1
+    dependencies:
+      '@fullcalendar/core': 6.1.1
+      '@fullcalendar/daygrid': 6.1.1_@fullcalendar+core@6.1.1
+    dev: false
+
+  /@fullcalendar/timeline/6.1.1_@fullcalendar+core@6.1.1:
+    resolution: {integrity: sha512-cRS+DDqOWHX1xGZzWNkXnOTBpFk1CA+Kw5dgyGS+qW4BvqoPwQBDOwRmzIdEMG9EDdm72bMM/+78L2hHnzWARA==}
+    peerDependencies:
+      '@fullcalendar/core': ~6.1.1
+    dependencies:
+      '@fullcalendar/core': 6.1.1
+      '@fullcalendar/premium-common': 6.1.1_@fullcalendar+core@6.1.1
+      '@fullcalendar/scrollgrid': 6.1.1_@fullcalendar+core@6.1.1
+    dev: false
+
+  /@fullcalendar/workspace-scripts/0.0.0:
+    resolution: {integrity: sha512-Jg5oNLF8M84uAEa3g1sDrVbE2ISO3JbOyxdPU27h07hFeqWRYfprR7gz6tOYwKAGFCeRObQa/X2HVdIhPIKW9A==}
+    dev: true
 
   /@gar/promisify/1.1.3:
     resolution: {integrity: sha512-k2Ty1JcVojjJFwrg/ThKi2ujJ7XNLYaFGNB/bWT9wGR+oSMJHMa5w+CUq6p/pVrKeNNgA7pCqEcjSnHVoqJQFw==}
@@ -6853,6 +6990,10 @@ packages:
       picocolors: 1.0.0
       source-map-js: 1.0.2
     dev: true
+
+  /preact/10.11.3:
+    resolution: {integrity: sha512-eY93IVpod/zG3uMF22Unl8h9KkrcKIRs2EGar8hwLZZDU1lkjph303V9HZBwufh2s736U6VXuhD109LYqPoffg==}
+    dev: false
 
   /pretty-bytes/5.6.0:
     resolution: {integrity: sha512-FFw039TmrBqFK8ma/7OL3sDz/VytdtJr044/QUJtH0wK9lb9jLq9tJyIxUwtQJHwar2BqtiA4iCWSwo9JLkzFg==}
