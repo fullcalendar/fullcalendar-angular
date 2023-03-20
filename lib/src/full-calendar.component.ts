@@ -91,11 +91,24 @@ export class FullCalendarComponent implements AfterViewInit, DoCheck, AfterConte
         : optionVal
     ));
 
-    this.calendar = new Calendar(this.element.nativeElement, {
+    const calendarEl = this.element.nativeElement
+    const calendar = this.calendar = new Calendar(calendarEl, {
       ...options,
       ...this.buildExtraOptions(),
     });
-    this.calendar.render();
+
+    // Ionic dimensions hack
+    // https://github.com/fullcalendar/fullcalendar/issues/4976
+    const ionContent = calendarEl.closest('ion-content')
+    if (ionContent && ionContent.componentOnReady) {
+      ionContent.componentOnReady().then(() => {
+        window.requestAnimationFrame(() => {
+          calendar.render()
+        })
+      })
+    } else {
+      calendar.render()
+    }
   }
 
   /*
