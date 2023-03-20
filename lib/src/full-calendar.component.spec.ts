@@ -559,6 +559,56 @@ describe('with month view and dayCellContent as a function', () => {
 });
 
 
+// https://github.com/fullcalendar/fullcalendar/issues/7191
+describe('dayGridMonth view dot-event elements, custom content, and eventDidMount', () => {
+  let dotEventEl: any
+
+  @Component({
+    template: `
+      <full-calendar #calendar [options]="calendarOptions">
+        <ng-template #eventContent let-arg>
+          <b>{{ arg.timeText }}</b>
+          <i>{{ arg.event.title }}</i>
+        </ng-template>
+      </full-calendar>
+    `
+  })
+  class MonthComponent2 {
+    calendarOptions: CalendarOptions = {
+      plugins: [dayGridPlugin],
+      initialDate: '2023-03-20',
+      events: [
+        { start: '2023-03-20T00:12:00', allDay: false }
+      ],
+      initialView: 'dayGridMonth',
+      eventDidMount(arg) {
+        dotEventEl = arg.el
+      },
+    };
+  }
+
+  let component: MonthComponent2;
+  let fixture: ComponentFixture<MonthComponent2>;
+
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      imports: [FullCalendarModule],
+      declarations: [MonthComponent2]
+    }).compileComponents();
+
+    fixture = TestBed.createComponent(MonthComponent2);
+    component = fixture.componentInstance;
+    fixture.detectChanges(); // necessary for initializing change detection system
+  });
+
+  it('has elements visible in DOM', () => {
+    expect(dotEventEl).toBeTruthy()
+    expect(dotEventEl.offsetWidth).toBeGreaterThan(0)
+    expect(dotEventEl.offsetHeight).toBeGreaterThan(0)
+  });
+});
+
+
 // FullCalendar data utils
 
 function buildEvent() {
