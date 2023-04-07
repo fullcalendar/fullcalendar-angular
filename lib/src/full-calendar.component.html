@@ -1,5 +1,9 @@
 <offscreen-fragment>
-  <transport-container *ngFor="let customRendering of customRenderings; trackBy:trackCustomRendering"
+  <transport-container
+    *ngFor="
+      let customRendering of customRenderings;
+      trackBy: trackCustomRendering
+    "
     [inPlaceOf]="customRendering.containerEl"
     [reportEl]="customRendering.reportNewContainerEl"
     [elTag]="customRendering.elTag"
