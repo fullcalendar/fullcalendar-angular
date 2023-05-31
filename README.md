@@ -1,4 +1,3 @@
-
 # FullCalendar Angular Component
 
 The official [Angular](https://angular.io/) Component for [FullCalendar](https://fullcalendar.io)
@@ -22,17 +21,15 @@ import { FullCalendarModule } from '@fullcalendar/angular';
 import { AppComponent } from './app.component';
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
-    FullCalendarModule // register FullCalendar with your app
+    FullCalendarModule, // register FullCalendar with your app
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
 ```
 
 Then, use the `full-calendar` component, supplying an [options](https://fullcalendar.io/docs#toc) object:
@@ -44,22 +41,20 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 
 @Component({
   selector: 'app-root',
-  templateUrl: `
+  template: `
     <div>
       <h1>Demo App</h1>
       <full-calendar [options]="calendarOptions"></full-calendar>
     </div>
   `,
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
   calendarOptions: CalendarOptions = {
     plugins: [dayGridPlugin],
     initialView: 'dayGridMonth',
     weekends: false,
-    events: [
-      { title: 'Meeting', start: new Date() }
-    ]
+    events: [{ title: 'Meeting', start: new Date() }],
   };
 }
 ```

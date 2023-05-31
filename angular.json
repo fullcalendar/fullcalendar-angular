@@ -53,9 +53,7 @@
             "main": "app/src/main.ts",
             "polyfills": "app/src/polyfills.ts",
             "tsConfig": "app/tsconfig.app.json",
-            "styles": [
-              "app/src/styles.css"
-            ],
+            "styles": ["app/src/styles.css"],
             "scripts": []
           },
           "configurations": {
@@ -116,9 +114,7 @@
             "polyfills": "app/src/polyfills.ts",
             "tsConfig": "app/tsconfig.spec.json",
             "karmaConfig": "app/karma.conf.js",
-            "styles": [
-              "app/src/styles.css"
-            ],
+            "styles": ["app/src/styles.css"],
             "scripts": []
           }
         }

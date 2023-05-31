@@ -8,7 +8,7 @@ import {
   OnChanges,
   AfterViewInit,
   OnDestroy,
-  SimpleChanges
+  SimpleChanges,
 } from '@angular/core';
 
 const dummyContainer = document.createDocumentFragment();
@@ -16,9 +16,11 @@ const dummyContainer = document.createDocumentFragment();
 @Component({
   selector: 'transport-container',
   templateUrl: './transport-container.component.html',
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
 })
-export class TransportContainerComponent implements OnChanges, AfterViewInit, OnDestroy {
+export class TransportContainerComponent
+  implements OnChanges, AfterViewInit, OnDestroy
+{
   @Input() inPlaceOf!: HTMLElement; // required
   @Input() reportEl!: (el: HTMLElement | null) => void; // required
   @Input() elTag!: string; // required
@@ -58,7 +60,11 @@ export class TransportContainerComponent implements OnChanges, AfterViewInit, On
         const elAttrsChange = changes['elAttrs'];
 
         if (elAttrsChange) {
-          applyElAttrs(rootEl, elAttrsChange.previousValue, elAttrsChange.currentValue);
+          applyElAttrs(
+            rootEl,
+            elAttrsChange.previousValue,
+            elAttrsChange.currentValue
+          );
         }
       }
     }

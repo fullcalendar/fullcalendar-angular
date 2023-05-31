@@ -4,14 +4,9 @@ import { FullCalendarModule } from '@fullcalendar/angular';
 import { AppComponent } from './app.component';
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
-  imports: [
-    BrowserModule,
-    FullCalendarModule
-  ],
+  declarations: [AppComponent],
+  imports: [BrowserModule, FullCalendarModule],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

@@ -6,13 +6,8 @@ import { FullCalendarModule } from '@fullcalendar/angular';
 describe('AppComponent', () => {
   beforeEach(async () => {
     TestBed.configureTestingModule({
-      imports: [
-        RouterTestingModule,
-        FullCalendarModule
-      ],
-      declarations: [
-        AppComponent
-      ],
+      imports: [RouterTestingModule, FullCalendarModule],
+      declarations: [AppComponent],
     }).compileComponents();
   });
 

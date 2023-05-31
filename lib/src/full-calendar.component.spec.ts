@@ -20,7 +20,7 @@ describe('FullCalendarComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [FullCalendarModule]
+      imports: [FullCalendarModule],
     }).compileComponents();
 
     fixture = TestBed.createComponent(FullCalendarComponent);
@@ -47,16 +47,12 @@ describe('FullCalendarComponent', () => {
     calendarApi.gotoDate(newDate);
     expect(calendarApi.getDate().valueOf()).toBe(newDate.valueOf());
   });
-
 });
-
 
 // some tests need a wrapper component
 
 @Component({
-  template: `
-    <full-calendar [options]="calendarOptions"></full-calendar>
-  `
+  template: ` <full-calendar [options]="calendarOptions"></full-calendar> `,
 })
 class HostComponent {
   calendarOptions = {
@@ -64,7 +60,7 @@ class HostComponent {
     weekends: true,
     events: [buildEvent()] as any,
     viewDidMount: this.handleViewDidMount.bind(this),
-    eventDidMount: this.handleEventDidMount.bind(this)
+    eventDidMount: this.handleEventDidMount.bind(this),
   };
   viewSkeletonRenderCnt = 0;
   eventRenderCnt = 0;
@@ -79,13 +75,15 @@ class HostComponent {
   }
 
   addEventReset() {
-    this.calendarOptions.events = this.calendarOptions.events.concat([ buildEvent() ]);
+    this.calendarOptions.events = this.calendarOptions.events.concat([
+      buildEvent(),
+    ]);
   }
 
   setEventFunc(timeout: number) {
-    this.calendarOptions.events = function(info: any, successCallback: any) {
-      setTimeout(function() {
-        successCallback([ buildEvent() ]);
+    this.calendarOptions.events = function (info: any, successCallback: any) {
+      setTimeout(function () {
+        successCallback([buildEvent()]);
       }, timeout);
     };
   }
@@ -106,7 +104,7 @@ describe('HostComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [FullCalendarModule],
-      declarations: [HostComponent]
+      declarations: [HostComponent],
     }).compileComponents();
 
     fixture = TestBed.createComponent(HostComponent);
@@ -121,7 +119,7 @@ describe('HostComponent', () => {
     expect(isWeekendsRendered(fixture)).toBe(false);
   });
 
-  it('should handle prop changes that don\'t rerender any DOM', () => {
+  it("should handle prop changes that don't rerender any DOM", () => {
     const headerEl = getHeaderToolbarEl(fixture);
     expect(component.viewSkeletonRenderCnt).toBe(1);
     component.changeSomething();
@@ -141,18 +139,16 @@ describe('HostComponent', () => {
     expect(component.eventRenderCnt).toBe(3); // +2 (the two events were freshly rendered)
   });
 
-  it('should handle new events async function', (done) => {
+  it('should handle new events async function', done => {
     expect(component.eventRenderCnt).toBe(1);
     component.setEventFunc(100);
     fixture.detectChanges();
-    setTimeout(function() {
+    setTimeout(function () {
       expect(component.eventRenderCnt).toBe(2); // +1
       done();
     }, 200);
   });
-
 });
-
 
 // uses the separate `events` input
 
@@ -162,12 +158,12 @@ describe('HostComponent', () => {
       [options]="calendarOptions"
       [events]="events"
     ></full-calendar>
-  `
+  `,
 })
 class HostComponentWithEventAttr {
   calendarOptions: CalendarOptions = {
     ...DEFAULT_OPTIONS,
-    eventDidMount: this.handleEventDidMount.bind(this)
+    eventDidMount: this.handleEventDidMount.bind(this),
   };
   events = [buildEvent()];
   eventRenderCnt = 0;
@@ -188,7 +184,7 @@ describe('HostComponentWithEventAttr', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [FullCalendarModule],
-      declarations: [HostComponentWithEventAttr]
+      declarations: [HostComponentWithEventAttr],
     }).compileComponents();
 
     fixture = TestBed.createComponent(HostComponentWithEventAttr);
@@ -202,8 +198,7 @@ describe('HostComponentWithEventAttr', () => {
     fixture.detectChanges();
     expect(component.eventRenderCnt).toBe(3); // +2 (the two events were freshly rendered)
   });
-})
-
+});
 
 // has content-injection template
 
@@ -215,12 +210,12 @@ describe('HostComponentWithEventAttr', () => {
         <i *ngIf="!isBold">{{ arg.event.title }}</i>
       </ng-template>
     </full-calendar>
-  `
+  `,
 })
 class HostComponentWithTemplate {
   calendarOptions = {
     ...DEFAULT_OPTIONS,
-    events: [buildEvent()]
+    events: [buildEvent()],
   };
   isBold = false;
 
@@ -238,7 +233,7 @@ describe('HostComponentWithTemplate', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [FullCalendarModule],
-      declarations: [HostComponentWithTemplate]
+      declarations: [HostComponentWithTemplate],
     }).compileComponents();
 
     fixture = TestBed.createComponent(HostComponentWithTemplate);
@@ -278,9 +273,8 @@ describe('HostComponentWithTemplate', () => {
     let eventEl = getFirstEventEl(fixture);
     expect(eventEl).toHaveClass('fc-daygrid-dot-event');
     expect(typeof eventEl.fcSeg).toBe('object');
-  })
-})
-
+  });
+});
 
 // some tests need a wrapper component with DEEP COMPARISON
 
@@ -290,14 +284,13 @@ describe('HostComponentWithTemplate', () => {
       deepChangeDetection="true"
       [options]="calendarOptions"
     ></full-calendar>
-  `
+  `,
 })
 class DeepHostComponent {
-
   calendarOptions = {
     ...DEFAULT_OPTIONS,
     events: [buildEvent()] as any,
-    eventDidMount: this.handleEventDidMount.bind(this)
+    eventDidMount: this.handleEventDidMount.bind(this),
   };
   eventRenderCnt = 0;
 
@@ -310,9 +303,9 @@ class DeepHostComponent {
   }
 
   setEventFunc(timeout: number) {
-    this.calendarOptions.events = function(info: any, successCallback: any) {
-      setTimeout(function() {
-        successCallback([ buildEvent() ]);
+    this.calendarOptions.events = function (info: any, successCallback: any) {
+      setTimeout(function () {
+        successCallback([buildEvent()]);
       }, timeout);
     };
   }
@@ -329,7 +322,7 @@ describe('DeepHostComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [FullCalendarModule],
-      declarations: [DeepHostComponent]
+      declarations: [DeepHostComponent],
     }).compileComponents();
 
     fixture = TestBed.createComponent(DeepHostComponent);
@@ -358,18 +351,16 @@ describe('DeepHostComponent', () => {
     expect(component.eventRenderCnt).toBe(2); // +0 (didn't rerender anything)
   });
 
-  it('should handle new events async function', (done) => {
+  it('should handle new events async function', done => {
     expect(component.eventRenderCnt).toBe(1);
     component.setEventFunc(100);
     fixture.detectChanges();
-    setTimeout(function() {
+    setTimeout(function () {
       expect(component.eventRenderCnt).toBe(2); // +1
       done();
     }, 200);
   });
-
 });
-
 
 // Integration test
 // https://github.com/fullcalendar/fullcalendar/issues/7058
@@ -381,14 +372,14 @@ describe('DeepHostComponent', () => {
         <b>{{ arg.event.title }}</b>
       </ng-template>
     </full-calendar>
-  `
+  `,
 })
 class CrapComponent {
   private defaultHeaderToolbar = {
     left: '',
     center: 'title',
     right: '',
-  }
+  };
 
   @ViewChild('calendar') calendarComponent?: FullCalendarComponent;
 
@@ -397,11 +388,14 @@ class CrapComponent {
     headerToolbar: this.defaultHeaderToolbar,
     initialView: 'listWeek',
     events: [buildEvent()] as any,
-    datesSet: this.onDatesSet.bind(this)
+    datesSet: this.onDatesSet.bind(this),
   };
 
   onDatesSet() {
-    this.calendarComponent!.getApi().setOption('headerToolbar', this.defaultHeaderToolbar)
+    this.calendarComponent!.getApi().setOption(
+      'headerToolbar',
+      this.defaultHeaderToolbar
+    );
   }
 }
 
@@ -412,7 +406,7 @@ describe('with list-view, customContent, and state mutation in datesSet', () => 
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [FullCalendarModule],
-      declarations: [CrapComponent]
+      declarations: [CrapComponent],
     }).compileComponents();
 
     fixture = TestBed.createComponent(CrapComponent);
@@ -420,11 +414,10 @@ describe('with list-view, customContent, and state mutation in datesSet', () => 
     fixture.detectChanges(); // necessary for initializing change detection system
   });
 
-  it('doesn\'t throw any errors', () => {
-    expect(Boolean(fixture)).toBe(true)
-  })
-})
-
+  it("doesn't throw any errors", () => {
+    expect(Boolean(fixture)).toBe(true);
+  });
+});
 
 // Integration test: resource-timeline
 // https://github.com/fullcalendar/fullcalendar/issues/7105
@@ -436,20 +429,20 @@ describe('with list-view, customContent, and state mutation in datesSet', () => 
         <b>{{ arg.resource.title }}</b>
       </ng-template>
     </full-calendar>
-  `
+  `,
 })
 class LameComponent {
   calendarOptions: CalendarOptions = {
     plugins: [resourceTimelinePlugin],
     initialView: 'resourceTimelineWeek',
-    resources: [{ id: 'a', title: 'a' }]
+    resources: [{ id: 'a', title: 'a' }],
   };
 
   @ViewChild('calendar') calendarComponent?: FullCalendarComponent;
 
   removeResource() {
-    const resource = this.calendarComponent!.getApi().getResourceById('a')!
-    resource.remove()
+    const resource = this.calendarComponent!.getApi().getResourceById('a')!;
+    resource.remove();
   }
 }
 
@@ -460,7 +453,7 @@ describe('with resource-timeline view', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [FullCalendarModule],
-      declarations: [LameComponent]
+      declarations: [LameComponent],
     }).compileComponents();
 
     fixture = TestBed.createComponent(LameComponent);
@@ -468,16 +461,14 @@ describe('with resource-timeline view', () => {
     fixture.detectChanges(); // necessary for initializing change detection system
   });
 
-  it('doesn\'t throw any errors when removing a resource', () => {
-    component.removeResource()
-    expect(Boolean(fixture)).toBe(true)
-  })
-})
-
+  it("doesn't throw any errors when removing a resource", () => {
+    component.removeResource();
+    expect(Boolean(fixture)).toBe(true);
+  });
+});
 
 // Integration test: resource-timegrid
 // https://github.com/fullcalendar/fullcalendar/issues/7182
-
 
 @Component({
   template: `
@@ -486,13 +477,13 @@ describe('with resource-timeline view', () => {
         <b>{{ arg.resource.title }}</b>
       </ng-template>
     </full-calendar>
-  `
+  `,
 })
 class ResourceTimeGridComponent {
   calendarOptions: CalendarOptions = {
     plugins: [resourceTimeGridPlugin],
     initialView: 'resourceTimeGridDay',
-    resources: [{ id: 'a', title: 'a' }]
+    resources: [{ id: 'a', title: 'a' }],
   };
 }
 
@@ -503,7 +494,7 @@ describe('with resource-timeline view', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [FullCalendarModule],
-      declarations: [ResourceTimeGridComponent]
+      declarations: [ResourceTimeGridComponent],
     }).compileComponents();
 
     fixture = TestBed.createComponent(ResourceTimeGridComponent);
@@ -512,27 +503,27 @@ describe('with resource-timeline view', () => {
   });
 
   it('renders custom label', () => {
-    const resourceColHeader = fixture.nativeElement.querySelector('.fc-col-header-cell.fc-resource');
+    const resourceColHeader = fixture.nativeElement.querySelector(
+      '.fc-col-header-cell.fc-resource'
+    );
     expect(resourceColHeader.querySelectorAll('b').length).toBe(1);
-  })
-})
-
+  });
+});
 
 // Supplying content-injection as a function for dayCellContent
 // https://github.com/fullcalendar/fullcalendar/issues/7187
 
-
 @Component({
   template: `
     <full-calendar #calendar [options]="calendarOptions"></full-calendar>
-  `
+  `,
 })
 class MonthComponent {
   calendarOptions: CalendarOptions = {
     plugins: [dayGridPlugin],
     initialView: 'dayGridMonth',
     dayCellContent(arg) {
-      return { html: `<b>${arg.dayNumberText}</b>` }
+      return { html: `<b>${arg.dayNumberText}</b>` };
     },
   };
 }
@@ -544,7 +535,7 @@ describe('with month view and dayCellContent as a function', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [FullCalendarModule],
-      declarations: [MonthComponent]
+      declarations: [MonthComponent],
     }).compileComponents();
 
     fixture = TestBed.createComponent(MonthComponent);
@@ -553,15 +544,16 @@ describe('with month view and dayCellContent as a function', () => {
   });
 
   it('should render custom content', () => {
-    const resourceColHeader = fixture.nativeElement.querySelector('.fc-daygrid-day-top');
+    const resourceColHeader = fixture.nativeElement.querySelector(
+      '.fc-daygrid-day-top'
+    );
     expect(resourceColHeader.querySelectorAll('b').length).toBe(1);
   });
 });
 
-
 // https://github.com/fullcalendar/fullcalendar/issues/7191
 describe('dayGridMonth view dot-event elements, custom content, and eventDidMount', () => {
-  let dotEventEl: any
+  let dotEventEl: any;
 
   @Component({
     template: `
@@ -571,18 +563,16 @@ describe('dayGridMonth view dot-event elements, custom content, and eventDidMoun
           <i>{{ arg.event.title }}</i>
         </ng-template>
       </full-calendar>
-    `
+    `,
   })
   class MonthComponent2 {
     calendarOptions: CalendarOptions = {
       plugins: [dayGridPlugin],
       initialDate: '2023-03-20',
-      events: [
-        { start: '2023-03-20T00:12:00', allDay: false }
-      ],
+      events: [{ start: '2023-03-20T00:12:00', allDay: false }],
       initialView: 'dayGridMonth',
       eventDidMount(arg) {
-        dotEventEl = arg.el
+        dotEventEl = arg.el;
       },
     };
   }
@@ -593,7 +583,7 @@ describe('dayGridMonth view dot-event elements, custom content, and eventDidMoun
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [FullCalendarModule],
-      declarations: [MonthComponent2]
+      declarations: [MonthComponent2],
     }).compileComponents();
 
     fixture = TestBed.createComponent(MonthComponent2);
@@ -602,23 +592,21 @@ describe('dayGridMonth view dot-event elements, custom content, and eventDidMoun
   });
 
   it('has elements visible in DOM', () => {
-    expect(dotEventEl).toBeTruthy()
-    expect(dotEventEl.offsetWidth).toBeGreaterThan(0)
-    expect(dotEventEl.offsetHeight).toBeGreaterThan(0)
+    expect(dotEventEl).toBeTruthy();
+    expect(dotEventEl.offsetWidth).toBeGreaterThan(0);
+    expect(dotEventEl.offsetHeight).toBeGreaterThan(0);
   });
 });
-
 
 // FullCalendar data utils
 
 function buildEvent() {
-  return  {
+  return {
     title: 'event',
     start: new Date(),
-    end: new Date(Date.now() + 1) // guarantee only within single day
-   };
+    end: new Date(Date.now() + 1), // guarantee only within single day
+  };
 }
-
 
 // DOM utils
 
