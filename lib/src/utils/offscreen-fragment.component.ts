@@ -3,10 +3,9 @@ import {
   ViewEncapsulation,
   AfterViewInit,
   OnDestroy,
-  ElementRef
+  ElementRef, Inject
 } from '@angular/core';
-
-const dummyContainer = document.createDocumentFragment()
+import { DOCUMENT } from '@angular/common';
 
 @Component({
   selector: 'offscreen-fragment',
@@ -14,15 +13,19 @@ const dummyContainer = document.createDocumentFragment()
   encapsulation: ViewEncapsulation.None
 })
 export class OffscreenFragmentComponent implements AfterViewInit, OnDestroy {
-  constructor(private element: ElementRef) {
+
+  private dummyContainer!: DocumentFragment;
+
+  constructor(private element: ElementRef, @Inject(DOCUMENT) private document: Document) {
+    this.dummyContainer = this.document.createDocumentFragment();
   }
 
   ngAfterViewInit() {
-    dummyContainer.appendChild(this.element.nativeElement)
+    this.dummyContainer.appendChild(this.element.nativeElement)
   }
 
   // invoked BEFORE component removed from DOM
   ngOnDestroy() {
-    dummyContainer.removeChild(this.element.nativeElement)
+    this.dummyContainer.removeChild(this.element.nativeElement)
   }
 }

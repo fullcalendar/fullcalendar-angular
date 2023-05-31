@@ -8,10 +8,9 @@ import {
   OnChanges,
   AfterViewInit,
   OnDestroy,
-  SimpleChanges
+  SimpleChanges, Inject
 } from '@angular/core';
-
-const dummyContainer = document.createDocumentFragment();
+import { DOCUMENT } from '@angular/common';
 
 @Component({
   selector: 'transport-container',
@@ -30,10 +29,16 @@ export class TransportContainerComponent implements OnChanges, AfterViewInit, On
 
   @ViewChild('rootEl') rootElRef?: ElementRef;
 
+  private dummyContainer!: DocumentFragment;
+
+  constructor(@Inject(DOCUMENT) private document: Document) {
+    this.dummyContainer = this.document.createDocumentFragment();
+  }
+
   ngAfterViewInit() {
     const rootEl: Element = this.rootElRef?.nativeElement; // assumed defined
 
-    replaceEl(rootEl, this.inPlaceOf);
+    replaceEl(rootEl, this.inPlaceOf, this.dummyContainer);
     applyElAttrs(rootEl, undefined, this.elAttrs);
 
     // insurance for if Preact recreates and reroots inPlaceOf element
@@ -50,8 +55,8 @@ export class TransportContainerComponent implements OnChanges, AfterViewInit, On
     if (rootEl) {
       // If the ContentContainer's tagName changed, it will create a new DOM element in its
       // original place. Detect this and re-replace.
-      if (this.inPlaceOf.parentNode !== dummyContainer) {
-        replaceEl(rootEl, this.inPlaceOf);
+      if (this.inPlaceOf.parentNode !== this.dummyContainer) {
+        replaceEl(rootEl, this.inPlaceOf, this.dummyContainer);
         applyElAttrs(rootEl, undefined, this.elAttrs);
         this.reportEl(rootEl as HTMLElement);
       } else {
@@ -67,15 +72,15 @@ export class TransportContainerComponent implements OnChanges, AfterViewInit, On
   // invoked BEFORE component removed from DOM
   ngOnDestroy() {
     // protect against Preact recreating and rerooting inPlaceOf element
-    if (this.inPlaceOf.parentNode === dummyContainer) {
-      dummyContainer.removeChild(this.inPlaceOf);
+    if (this.inPlaceOf.parentNode === this.dummyContainer) {
+      this.dummyContainer.removeChild(this.inPlaceOf);
     }
 
     this.reportEl(null);
   }
 }
 
-function replaceEl(subject: Element, inPlaceOf: Element): void {
+function replaceEl(subject: Element, inPlaceOf: Element, dummyContainer: DocumentFragment): void {
   inPlaceOf.parentNode?.insertBefore(subject, inPlaceOf.nextSibling);
   dummyContainer.appendChild(inPlaceOf);
 }
