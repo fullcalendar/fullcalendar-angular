@@ -1,11 +1,15 @@
 <button (click)="updateHeader()" id="updateHeader">Update header</button>
 <button (click)="updateEvents()" id="updateEvents">Update events</button>
-<full-calendar
-  *ngIf="calendarOptions"
-  #fullcalendar
-  [options]="calendarOptions"
->
+<button (click)="goToToday()">Today</button>
+<full-calendar *ngIf="calendarOptions" #fullcalendar [options]="calendarOptions">
   <ng-template #eventContent let-arg>
     <b>{{ arg.event.title }}</b> - {{ arg.event.start.getDate() }}
   </ng-template>
 </full-calendar>
+<!-- <div #popup class="popup" *ngIf="showPopup" [ngStyle]="{top: position.top + 'px', left: position.left + 'px'}">
+  <input type="text" [(ngModel)]="popupText">
+</div> -->
+<div *ngIf="showPopup" class="modal">
+  Selected Date: {{ selectedDate }}
+  <button (click)="closePopup()">Close</button>
+</div>

@@ -2,14 +2,19 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FullCalendarModule } from '@fullcalendar/angular';
 import { AppComponent } from './app.component';
+import { FormsModule } from '@angular/forms';
+
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
-    FullCalendarModule
+    FullCalendarModule,
+    BrowserModule,
+    FormsModule,
+    
   ],
   providers: [],
   bootstrap: [AppComponent]

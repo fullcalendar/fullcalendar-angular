@@ -1,0 +1,117 @@
+
+::ng-deep .fc-day-today {
+    --fc-today-bg-color:#10569c; /* Semi-transparent light gray */}
+
+
+
+.fc-day-today {
+    --fc-today-bg-color:#000102; /* Semi-transparent light gray */
+}
+
+/* Center the month label in the toolbar */
+/* ::ng-deep.fc .fc-toolbar-title {
+    text-align: center;
+} */
+
+/* If you also want to center the text within each day cell */
+/* ::ng-deep.fc .fc-daygrid-day-frame {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+} */
+
+/* If you want to center the header cells, which display the days of the week (e.g., Sun, Mon, etc.) */
+/* ::ng-deep.fc .fc-col-header-cell {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+} */
+::ng-deep.fc-toolbar{
+    background-color: blue;
+    align-items: center;
+    
+}
+
+
+/* Sunday */
+::ng-deep .fc-col-header-cell.fc-day-sun {
+    background-color: #FF9C9C;  /* Brighter Red */
+}
+
+/* Monday */
+::ng-deep .fc-col-header-cell.fc-day-mon {
+    background-color: #93C5FF;  /* Brighter Blue */
+}
+
+/* Tuesday */
+::ng-deep .fc-col-header-cell.fc-day-tue {
+    background-color: #93FFAB;  /* Brighter Green */
+}
+
+/* Wednesday */
+::ng-deep .fc-col-header-cell.fc-day-wed {
+    background-color: #FFFF9C;  /* Brighter Yellow */
+}
+
+/* Thursday */
+::ng-deep .fc-col-header-cell.fc-day-thu {
+    background-color: #D293FF;  /* Brighter Purple */
+}
+
+/* Friday */
+::ng-deep .fc-col-header-cell.fc-day-fri {
+    background-color: #FFC993;  /* Brighter Orange */
+}
+
+/* Saturday */
+::ng-deep .fc-col-header-cell.fc-day-sat {
+    background-color: #93E2FF;  /* Brighter Teal */
+}
+
+
+
+::ng-deep .fc-day-sun {
+    background-color: #ffcccc;  /* Color for Sunday */
+}
+
+::ng-deep .fc-day-mon {
+    background-color: #ffe0cc;  /* Color for Monday */
+}
+
+::ng-deep .fc-day-tue {
+    background-color: #ffffcc;  /* Color for Tuesday */
+}
+
+::ng-deep .fc-day-wed {
+    background-color: #e0ffcc;  /* Color for Wednesday */
+}
+
+::ng-deep .fc-day-thu {
+    background-color: #ccffcc;  /* Color for Thursday */
+}
+
+::ng-deep .fc-day-fri {
+    background-color: #ccffe0;  /* Color for Friday */
+}
+
+::ng-deep .fc-day-sat {
+    background-color: #ccffff;  /* Color for Saturday */
+}
+
+.popup {
+    position: absolute;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 10px;
+  }
+  .modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    z-index: 1000;
+  }
