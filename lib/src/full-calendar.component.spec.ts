@@ -561,7 +561,8 @@ describe('with month view and dayCellContent as a function', () => {
 
 // https://github.com/fullcalendar/fullcalendar/issues/7191
 describe('dayGridMonth view dot-event elements, custom content, and eventDidMount', () => {
-  let dotEventEl: any
+  let eventDidMountCnt: number | undefined
+  let dotEventEl: HTMLElement | undefined
 
   @Component({
     template: `
@@ -583,6 +584,7 @@ describe('dayGridMonth view dot-event elements, custom content, and eventDidMoun
       initialView: 'dayGridMonth',
       eventDidMount(arg) {
         dotEventEl = arg.el
+        eventDidMountCnt!++
       },
     };
   }
@@ -591,6 +593,9 @@ describe('dayGridMonth view dot-event elements, custom content, and eventDidMoun
   let fixture: ComponentFixture<MonthComponent2>;
 
   beforeEach(() => {
+    eventDidMountCnt = 0
+    dotEventEl = undefined
+
     TestBed.configureTestingModule({
       imports: [FullCalendarModule],
       declarations: [MonthComponent2]
@@ -601,10 +606,14 @@ describe('dayGridMonth view dot-event elements, custom content, and eventDidMoun
     fixture.detectChanges(); // necessary for initializing change detection system
   });
 
-  it('has elements visible in DOM', () => {
-    expect(dotEventEl).toBeTruthy()
-    expect(dotEventEl.offsetWidth).toBeGreaterThan(0)
-    expect(dotEventEl.offsetHeight).toBeGreaterThan(0)
+  it('has elements visible in DOM', (done) => {
+    setTimeout(() => {
+      expect(eventDidMountCnt).toBe(1)
+      expect(dotEventEl).toBeTruthy()
+      expect(dotEventEl!.offsetWidth).toBeGreaterThan(0)
+      expect(dotEventEl!.offsetHeight).toBeGreaterThan(0)
+      done()
+    }, 100)
   });
 });
 
