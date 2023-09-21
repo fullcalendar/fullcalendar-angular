@@ -6,7 +6,7 @@ import {
   ElementRef
 } from '@angular/core';
 
-const dummyContainer = document.createDocumentFragment()
+const dummyContainer = typeof document !== 'undefined' ? document.createDocumentFragment() : null;
 
 @Component({
   selector: 'offscreen-fragment',
@@ -18,11 +18,15 @@ export class OffscreenFragmentComponent implements AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit() {
-    dummyContainer.appendChild(this.element.nativeElement)
+    if (dummyContainer) {
+      dummyContainer.appendChild(this.element.nativeElement)
+    }
   }
 
   // invoked BEFORE component removed from DOM
   ngOnDestroy() {
-    dummyContainer.removeChild(this.element.nativeElement)
+    if (dummyContainer) {
+      dummyContainer.removeChild(this.element.nativeElement)
+    }
   }
 }

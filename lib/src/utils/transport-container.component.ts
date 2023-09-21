@@ -11,7 +11,7 @@ import {
   SimpleChanges
 } from '@angular/core';
 
-const dummyContainer = document.createDocumentFragment();
+const dummyContainer = typeof document !== 'undefined' ? document.createDocumentFragment() : null;
 
 @Component({
   selector: 'transport-container',
@@ -66,8 +66,11 @@ export class TransportContainerComponent implements OnChanges, AfterViewInit, On
 
   // invoked BEFORE component removed from DOM
   ngOnDestroy() {
-    // protect against Preact recreating and rerooting inPlaceOf element
-    if (this.inPlaceOf.parentNode === dummyContainer) {
+    if (
+      // protect against Preact recreating and rerooting inPlaceOf element
+      this.inPlaceOf.parentNode === dummyContainer &&
+      dummyContainer
+    ) {
       dummyContainer.removeChild(this.inPlaceOf);
     }
 
@@ -77,7 +80,10 @@ export class TransportContainerComponent implements OnChanges, AfterViewInit, On
 
 function replaceEl(subject: Element, inPlaceOf: Element): void {
   inPlaceOf.parentNode?.insertBefore(subject, inPlaceOf.nextSibling);
-  dummyContainer.appendChild(inPlaceOf);
+
+  if (dummyContainer) {
+    dummyContainer.appendChild(inPlaceOf);
+  }
 }
 
 function applyElAttrs(
