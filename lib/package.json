@@ -20,8 +20,8 @@
     "tslib": "^2.3.0"
   },
   "peerDependencies": {
-    "@angular/common": "12 - 16",
-    "@angular/core": "12 - 16",
+    "@angular/common": "12 - 17",
+    "@angular/core": "12 - 17",
     "@fullcalendar/core": "~6.1.9"
   }
 }
