@@ -206,6 +206,7 @@ export class FullCalendarComponent implements AfterViewInit, DoCheck, AfterConte
     return {
       handleCustomRendering: this.handleCustomRendering,
       customRenderingMetaMap: this.templateMap,
+      customRenderingReplaces: true,
     };
   }
 
