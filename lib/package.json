@@ -22,6 +22,6 @@
   "peerDependencies": {
     "@angular/common": "12 - 17",
     "@angular/core": "12 - 17",
-    "@fullcalendar/core": "~6.1.10"
+    "@fullcalendar/core": "~6.1.13"
   }
 }

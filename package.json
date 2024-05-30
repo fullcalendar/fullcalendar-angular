@@ -1,9 +1,6 @@
 {
   "name": "@fullcalendar/angular",
   "version": "6.1.13",
-  "versionNote": [
-    "Keep lib/package.json synced!"
-  ],
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -15,11 +12,21 @@
     "meta": "mkdir -p dist/lib && cp README.md LICENSE.txt dist/lib",
     "ci": "pnpm run clean && pnpm run build && pnpm run test"
   },
-  "private": true,
   "dependencies": {
+    "tslib": "^2.3.0"
+  },
+  "peerDependencies": {
+    "@angular/common": "12 - 17",
+    "@angular/core": "12 - 17",
+    "@fullcalendar/core": "~6.1.13"
+  },
+  "devDependencies": {
+    "@angular-devkit/build-angular": "~13.3.10",
     "@angular/animations": "~13.3.0",
+    "@angular/cli": "~13.3.10",
     "@angular/common": "~13.3.0",
     "@angular/compiler": "~13.3.0",
+    "@angular/compiler-cli": "~13.3.0",
     "@angular/core": "~13.3.0",
     "@angular/forms": "~13.3.0",
     "@angular/platform-browser": "~13.3.0",
@@ -32,17 +39,6 @@
     "@fullcalendar/resource": "~6.1.13",
     "@fullcalendar/resource-timegrid": "~6.1.13",
     "@fullcalendar/resource-timeline": "~6.1.13",
-    "rxjs": "~7.5.0",
-    "tslib": "^2.3.0",
-    "zone.js": "~0.11.4"
-  },
-  "dependenciesNote": [
-    "Keep lib/package.json synced!"
-  ],
-  "devDependencies": {
-    "@angular-devkit/build-angular": "~13.3.10",
-    "@angular/cli": "~13.3.10",
-    "@angular/compiler-cli": "~13.3.0",
     "@types/jasmine": "~3.10.0",
     "@types/node": "^12.11.1",
     "jasmine-core": "~4.0.0",
@@ -52,7 +48,9 @@
     "karma-jasmine": "~4.0.0",
     "karma-jasmine-html-reporter": "~1.7.0",
     "ng-packagr": "^13.0.0",
-    "typescript": "~4.6.4"
+    "rxjs": "~7.5.0",
+    "typescript": "~4.6.4",
+    "zone.js": "~0.11.4"
   },
   "publishConfig": {
     "directory": "./dist/lib",
