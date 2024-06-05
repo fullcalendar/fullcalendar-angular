@@ -77,7 +77,7 @@ You can even supply nested templates:
 
 ## Supported Angular Versions
 
-`@fullcalendar/angular` version 6 supports Angular 12 - 16
+`@fullcalendar/angular` version 6 supports Angular 12 - 18
 
 ## Links
 
