@@ -1,11 +1,3 @@
-Problems with Stackblitz and Angular 18:
-
-```
-Error in turbo_modules/@fullcalendar/interaction@6.1.14/index.cjs (1:1)
-Option 'bundler' can only be used when 'module' is set to 'preserve' or to 'es2015' or later.
-```
-
-Even though 'module' is set to es2022
 
 ## Note
 
