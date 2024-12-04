@@ -109,6 +109,11 @@ export class FullCalendarComponent implements AfterViewInit, DoCheck, AfterConte
     } else {
       calendar.render()
     }
+
+    // Angular v19, whether because of new Vite dev environment or not,
+    // loads outer elements' styles late, so dimensions might not be final here.
+    // Force a size-update after a delay.
+    setTimeout(() => calendar.updateSize())
   }
 
   /*
