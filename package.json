@@ -13,7 +13,7 @@
     "ci": "pnpm run clean && pnpm run build && pnpm run test"
   },
   "dependencies": {
-    "tslib": "^2.3.0"
+    "tslib": "^2.8.1"
   },
   "peerDependencies": {
     "@angular/common": "17 - 19",
@@ -39,16 +39,16 @@
     "@fullcalendar/resource": "~6.1.17",
     "@fullcalendar/resource-timegrid": "~6.1.17",
     "@fullcalendar/resource-timeline": "~6.1.17",
-    "@types/jasmine": "~3.10.0",
-    "@types/node": "^12.11.1",
-    "jasmine-core": "~4.0.0",
-    "karma": "~6.3.0",
-    "karma-chrome-launcher": "~3.1.0",
-    "karma-coverage": "~2.1.0",
-    "karma-jasmine": "~4.0.0",
+    "@types/jasmine": "~3.10.18",
+    "@types/node": "^18.19.111",
+    "jasmine-core": "~4.0.1",
+    "karma": "~6.3.20",
+    "karma-chrome-launcher": "~3.1.1",
+    "karma-coverage": "~2.1.1",
+    "karma-jasmine": "~4.0.2",
     "karma-jasmine-html-reporter": "~1.7.0",
     "ng-packagr": "^17.3.0",
-    "rxjs": "~7.5.0",
+    "rxjs": "~7.8.2",
     "typescript": "~5.4.5",
     "zone.js": "~0.14.10"
   },
