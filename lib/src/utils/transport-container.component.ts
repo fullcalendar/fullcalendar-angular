@@ -10,12 +10,15 @@ import {
   OnDestroy,
   SimpleChanges
 } from '@angular/core';
+import { NgClass, NgStyle, NgTemplateOutlet } from "@angular/common";
 
 const dummyContainer = typeof document !== 'undefined' ? document.createDocumentFragment() : null;
 
 @Component({
   selector: 'transport-container',
   templateUrl: './transport-container.component.html',
+  standalone: true,
+  imports: [NgClass, NgStyle, NgTemplateOutlet],
   encapsulation: ViewEncapsulation.None
 })
 export class TransportContainerComponent implements OnChanges, AfterViewInit, OnDestroy {
