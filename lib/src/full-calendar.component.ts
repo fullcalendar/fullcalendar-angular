@@ -10,6 +10,7 @@ import {
   OnDestroy,
   ViewEncapsulation,
   ChangeDetectorRef,
+  ChangeDetectionStrategy
 } from '@angular/core';
 import { Calendar, CalendarOptions } from '@fullcalendar/core';
 import { CustomRendering, CustomRenderingStore } from '@fullcalendar/core/internal';
@@ -25,7 +26,8 @@ import { TransportContainerComponent } from "./utils/transport-container.compone
   templateUrl: './full-calendar.component.html',
   standalone: true,
   imports: [OffscreenFragmentComponent, TransportContainerComponent],
-  encapsulation: ViewEncapsulation.None // the styles are root-level, not scoped within the component
+  encapsulation: ViewEncapsulation.None, // the styles are root-level, not scoped within the component
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FullCalendarComponent implements AfterViewInit, DoCheck, AfterContentChecked, OnDestroy {
   @Input() options?: CalendarOptions;
