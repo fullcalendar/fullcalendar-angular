@@ -7,10 +7,10 @@ import { TransportContainerComponent } from './utils/transport-container.compone
 @NgModule({
   declarations: [
     FullCalendarComponent,
-    OffscreenFragmentComponent,
     TransportContainerComponent
   ],
   imports: [
+    OffscreenFragmentComponent,
     CommonModule
   ],
   exports: [

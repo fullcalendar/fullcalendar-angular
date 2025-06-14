@@ -11,6 +11,7 @@ const dummyContainer = typeof document !== 'undefined' ? document.createDocument
 @Component({
   selector: 'offscreen-fragment',
   template: '<ng-content></ng-content>',
+  standalone: true,
   encapsulation: ViewEncapsulation.None
 })
 export class OffscreenFragmentComponent implements AfterViewInit, OnDestroy {
