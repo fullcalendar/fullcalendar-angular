@@ -1,6 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { FullCalendarModule } from './full-calendar.module';
 import { FullCalendarComponent } from './full-calendar.component';
 import { CalendarOptions } from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
@@ -19,10 +18,6 @@ describe('FullCalendarComponent', () => {
   let fixture: ComponentFixture<FullCalendarComponent>;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({
-      imports: [FullCalendarModule]
-    }).compileComponents();
-
     fixture = TestBed.createComponent(FullCalendarComponent);
     component = fixture.componentInstance;
     component.options = DEFAULT_OPTIONS;
@@ -56,7 +51,9 @@ describe('FullCalendarComponent', () => {
 @Component({
   template: `
     <full-calendar [options]="calendarOptions"></full-calendar>
-  `
+  `,
+  standalone: true,
+  imports: [FullCalendarComponent]
 })
 class HostComponent {
   calendarOptions = {
@@ -104,11 +101,6 @@ describe('HostComponent', () => {
   let fixture: ComponentFixture<HostComponent>;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({
-      imports: [FullCalendarModule],
-      declarations: [HostComponent]
-    }).compileComponents();
-
     fixture = TestBed.createComponent(HostComponent);
     component = fixture.componentInstance;
     fixture.detectChanges(); // necessary for initializing change detection system
@@ -162,7 +154,9 @@ describe('HostComponent', () => {
       [options]="calendarOptions"
       [events]="events"
     ></full-calendar>
-  `
+  `,
+  standalone: true,
+  imports: [FullCalendarComponent]
 })
 class HostComponentWithEventAttr {
   calendarOptions: CalendarOptions = {
@@ -186,11 +180,6 @@ describe('HostComponentWithEventAttr', () => {
   let fixture: ComponentFixture<HostComponentWithEventAttr>;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({
-      imports: [FullCalendarModule],
-      declarations: [HostComponentWithEventAttr]
-    }).compileComponents();
-
     fixture = TestBed.createComponent(HostComponentWithEventAttr);
     component = fixture.componentInstance;
     fixture.detectChanges(); // necessary for initializing change detection system
@@ -219,7 +208,9 @@ describe('HostComponentWithEventAttr', () => {
         }
       </ng-template>
     </full-calendar>
-    `
+    `,
+  standalone: true,
+  imports: [FullCalendarComponent]
 })
 class HostComponentWithTemplate {
   calendarOptions = {
@@ -240,11 +231,6 @@ describe('HostComponentWithTemplate', () => {
   let fixture: ComponentFixture<HostComponentWithTemplate>;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({
-      imports: [FullCalendarModule],
-      declarations: [HostComponentWithTemplate]
-    }).compileComponents();
-
     fixture = TestBed.createComponent(HostComponentWithTemplate);
     component = fixture.componentInstance;
     fixture.detectChanges();
@@ -294,7 +280,9 @@ describe('HostComponentWithTemplate', () => {
       [deepChangeDetection]="true"
       [options]="calendarOptions"
     ></full-calendar>
-  `
+  `,
+  standalone: true,
+  imports: [FullCalendarComponent]
 })
 class DeepHostComponent {
 
@@ -331,11 +319,6 @@ describe('DeepHostComponent', () => {
   let fixture: ComponentFixture<DeepHostComponent>;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({
-      imports: [FullCalendarModule],
-      declarations: [DeepHostComponent]
-    }).compileComponents();
-
     fixture = TestBed.createComponent(DeepHostComponent);
     component = fixture.componentInstance;
     fixture.detectChanges(); // necessary for initializing change detection system
@@ -385,7 +368,9 @@ describe('DeepHostComponent', () => {
         <b>{{ arg.event.title }}</b>
       </ng-template>
     </full-calendar>
-  `
+  `,
+  standalone: true,
+  imports: [FullCalendarComponent]
 })
 class CrapComponent {
   private defaultHeaderToolbar = {
@@ -414,11 +399,6 @@ describe('with list-view, customContent, and state mutation in datesSet', () => 
   let fixture: ComponentFixture<CrapComponent>;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({
-      imports: [FullCalendarModule],
-      declarations: [CrapComponent]
-    }).compileComponents();
-
     fixture = TestBed.createComponent(CrapComponent);
     component = fixture.componentInstance;
     fixture.detectChanges(); // necessary for initializing change detection system
@@ -440,7 +420,9 @@ describe('with list-view, customContent, and state mutation in datesSet', () => 
         <b>{{ arg.resource.title }}</b>
       </ng-template>
     </full-calendar>
-  `
+  `,
+  standalone: true,
+  imports: [FullCalendarComponent]
 })
 class LameComponent {
   calendarOptions: CalendarOptions = {
@@ -462,11 +444,6 @@ describe('with resource-timeline view', () => {
   let fixture: ComponentFixture<LameComponent>;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({
-      imports: [FullCalendarModule],
-      declarations: [LameComponent]
-    }).compileComponents();
-
     fixture = TestBed.createComponent(LameComponent);
     component = fixture.componentInstance;
     fixture.detectChanges(); // necessary for initializing change detection system
@@ -490,7 +467,9 @@ describe('with resource-timeline view', () => {
         <b>{{ arg.resource.title }}</b>
       </ng-template>
     </full-calendar>
-  `
+  `,
+  standalone: true,
+  imports: [FullCalendarComponent]
 })
 class ResourceTimeGridComponent {
   calendarOptions: CalendarOptions = {
@@ -505,11 +484,6 @@ describe('with resource-timeline view', () => {
   let fixture: ComponentFixture<ResourceTimeGridComponent>;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({
-      imports: [FullCalendarModule],
-      declarations: [ResourceTimeGridComponent]
-    }).compileComponents();
-
     fixture = TestBed.createComponent(ResourceTimeGridComponent);
     component = fixture.componentInstance;
     fixture.detectChanges(); // necessary for initializing change detection system
@@ -529,7 +503,9 @@ describe('with resource-timeline view', () => {
 @Component({
   template: `
     <full-calendar #calendar [options]="calendarOptions"></full-calendar>
-  `
+  `,
+  standalone: true,
+  imports: [FullCalendarComponent]
 })
 class MonthComponent {
   calendarOptions: CalendarOptions = {
@@ -546,11 +522,6 @@ describe('with month view and dayCellContent as a function', () => {
   let fixture: ComponentFixture<MonthComponent>;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({
-      imports: [FullCalendarModule],
-      declarations: [MonthComponent]
-    }).compileComponents();
-
     fixture = TestBed.createComponent(MonthComponent);
     component = fixture.componentInstance;
     fixture.detectChanges(); // necessary for initializing change detection system
@@ -576,7 +547,9 @@ describe('dayGridMonth view dot-event elements, custom content, and eventDidMoun
           <i>{{ arg.event.title }}</i>
         </ng-template>
       </full-calendar>
-    `
+    `,
+    standalone: true,
+    imports: [FullCalendarComponent]
   })
   class MonthComponent2 {
     calendarOptions: CalendarOptions = {
@@ -599,12 +572,6 @@ describe('dayGridMonth view dot-event elements, custom content, and eventDidMoun
   beforeEach(() => {
     eventDidMountCnt = 0
     dotEventEl = undefined
-
-    TestBed.configureTestingModule({
-      imports: [FullCalendarModule],
-      declarations: [MonthComponent2]
-    }).compileComponents();
-
     fixture = TestBed.createComponent(MonthComponent2);
     component = fixture.componentInstance;
     fixture.detectChanges(); // necessary for initializing change detection system
@@ -635,7 +602,9 @@ describe('dayGridMonth view dot-event elements, custom content, and eventDidMoun
             <i>{{ arg.event.title }}</i>
           </ng-template>
         </full-calendar>
-      `
+      `,
+      standalone: true,
+      imports: [FullCalendarComponent]
     })
     class MonthComponent3 {
       calendarOptions: CalendarOptions = {
@@ -657,12 +626,6 @@ describe('dayGridMonth view dot-event elements, custom content, and eventDidMoun
 
     beforeEach(() => {
       eventDidMountCalled = false
-
-      TestBed.configureTestingModule({
-        imports: [FullCalendarModule],
-        declarations: [MonthComponent3]
-      }).compileComponents();
-
       fixture = TestBed.createComponent(MonthComponent3);
       component = fixture.componentInstance;
       fixture.detectChanges(); // necessary for initializing change detection system
