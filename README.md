@@ -13,33 +13,12 @@ npm install @fullcalendar/angular @fullcalendar/core @fullcalendar/daygrid
 
 ## Usage
 
-First, connect `FullCalendarModule` to your app module:
-
-```js
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { FullCalendarModule } from '@fullcalendar/angular';
-import { AppComponent } from './app.component';
-
-@NgModule({
-  declarations: [
-    AppComponent
-  ],
-  imports: [
-    BrowserModule,
-    FullCalendarModule // register FullCalendar with your app
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
-})
-export class AppModule { }
-```
-
-Then, use the `full-calendar` component, supplying an [options](https://fullcalendar.io/docs#toc) object:
+Use the `full-calendar` component, supplying an [options](https://fullcalendar.io/docs#toc) object:
 
 ```js
 import { Component } from '@angular/core';
 import { CalendarOptions } from '@fullcalendar/core';
+import { FullCalendarComponent } from '@fullcalendar/angular';
 import dayGridPlugin from '@fullcalendar/daygrid';
 
 @Component({
@@ -50,6 +29,8 @@ import dayGridPlugin from '@fullcalendar/daygrid';
       <full-calendar [options]="calendarOptions"></full-calendar>
     </div>
   `,
+  standalone: true,
+  imports: [FullCalendarComponent],
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
@@ -77,7 +58,7 @@ You can even supply nested templates:
 
 ## Supported Angular Versions
 
-`@fullcalendar/angular` version 6 supports Angular 12 - 18
+`@fullcalendar/angular` version 7 supports Angular 17 - 20
 
 ## Links
 

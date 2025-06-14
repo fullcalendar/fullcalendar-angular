@@ -7,7 +7,9 @@ import { FullCalendarComponent } from '@fullcalendar/angular';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
+  standalone: true,
+  imports: [FullCalendarComponent]
 })
 export class AppComponent implements OnInit {
 
