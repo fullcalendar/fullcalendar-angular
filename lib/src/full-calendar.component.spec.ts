@@ -211,11 +211,15 @@ describe('HostComponentWithEventAttr', () => {
   template: `
     <full-calendar #calendar [options]="calendarOptions">
       <ng-template #eventContent let-arg>
-        <b *ngIf="isBold">{{ arg.event.title }}</b>
-        <i *ngIf="!isBold">{{ arg.event.title }}</i>
+        @if (isBold) {
+          <b>{{ arg.event.title }}</b>
+        }
+        @if (!isBold) {
+          <i>{{ arg.event.title }}</i>
+        }
       </ng-template>
     </full-calendar>
-  `
+    `
 })
 class HostComponentWithTemplate {
   calendarOptions = {
@@ -287,7 +291,7 @@ describe('HostComponentWithTemplate', () => {
 @Component({
   template: `
     <full-calendar
-      deepChangeDetection="true"
+      [deepChangeDetection]="true"
       [options]="calendarOptions"
     ></full-calendar>
   `
