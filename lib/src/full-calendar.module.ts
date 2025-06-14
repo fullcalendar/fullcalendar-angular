@@ -5,10 +5,8 @@ import { OffscreenFragmentComponent } from './utils/offscreen-fragment.component
 import { TransportContainerComponent } from './utils/transport-container.component';
 
 @NgModule({
-  declarations: [
-    FullCalendarComponent,
-  ],
   imports: [
+    FullCalendarComponent,
     OffscreenFragmentComponent,
     TransportContainerComponent,
     CommonModule

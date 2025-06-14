@@ -17,10 +17,14 @@ import { OPTION_INPUT_NAMES, OPTION_IS_DEEP } from './options';
 import { CalendarOption, CalendarTemplateRef } from './private-types';
 import { deepCopy, mapHash } from './utils/obj';
 import { deepEqual } from './utils/fast-deep-equal';
+import { OffscreenFragmentComponent } from "./utils/offscreen-fragment.component";
+import { TransportContainerComponent } from "./utils/transport-container.component";
 
 @Component({
   selector: 'full-calendar',
   templateUrl: './full-calendar.component.html',
+  standalone: true,
+  imports: [OffscreenFragmentComponent, TransportContainerComponent],
   encapsulation: ViewEncapsulation.None // the styles are root-level, not scoped within the component
 })
 export class FullCalendarComponent implements AfterViewInit, DoCheck, AfterContentChecked, OnDestroy {
