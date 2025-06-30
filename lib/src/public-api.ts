@@ -2,5 +2,5 @@
  * Public API Surface of lib
  */
 
-export * from './full-calendar.component';
-export * from './full-calendar.module';
+export { FullCalendarComponent } from './full-calendar.component';
+export { FullCalendarModule } from './full-calendar.module';

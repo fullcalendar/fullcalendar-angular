@@ -3,7 +3,8 @@ import {
   ViewEncapsulation,
   AfterViewInit,
   OnDestroy,
-  ElementRef
+  ElementRef,
+  ChangeDetectionStrategy
 } from '@angular/core';
 
 const dummyContainer = typeof document !== 'undefined' ? document.createDocumentFragment() : null;
@@ -11,7 +12,9 @@ const dummyContainer = typeof document !== 'undefined' ? document.createDocument
 @Component({
   selector: 'offscreen-fragment',
   template: '<ng-content></ng-content>',
-  encapsulation: ViewEncapsulation.None
+  standalone: true,
+  encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class OffscreenFragmentComponent implements AfterViewInit, OnDestroy {
   constructor(private element: ElementRef) {

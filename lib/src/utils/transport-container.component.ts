@@ -8,15 +8,20 @@ import {
   OnChanges,
   AfterViewInit,
   OnDestroy,
-  SimpleChanges
+  SimpleChanges,
+  ChangeDetectionStrategy
 } from '@angular/core';
+import { NgClass, NgStyle, NgTemplateOutlet } from "@angular/common";
 
 const dummyContainer = typeof document !== 'undefined' ? document.createDocumentFragment() : null;
 
 @Component({
   selector: 'transport-container',
   templateUrl: './transport-container.component.html',
-  encapsulation: ViewEncapsulation.None
+  standalone: true,
+  imports: [NgClass, NgStyle, NgTemplateOutlet],
+  encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TransportContainerComponent implements OnChanges, AfterViewInit, OnDestroy {
   @Input() inPlaceOf!: HTMLElement; // required
