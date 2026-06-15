@@ -1,5 +1,6 @@
 import {
   Component,
+  ChangeDetectionStrategy,
   Input,
   ViewEncapsulation,
   ViewChild,
@@ -16,7 +17,8 @@ const dummyContainer = typeof document !== 'undefined' ? document.createDocument
 @Component({
   selector: 'transport-container',
   templateUrl: './transport-container.component.html',
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.Default
 })
 export class TransportContainerComponent implements OnChanges, AfterViewInit, OnDestroy {
   @Input() inPlaceOf!: HTMLElement; // required
