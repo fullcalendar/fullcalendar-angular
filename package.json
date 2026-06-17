@@ -1,6 +1,6 @@
 {
   "name": "@fullcalendar/angular",
-  "version": "6.1.20",
+  "version": "6.1.21",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -18,7 +18,7 @@
   "peerDependencies": {
     "@angular/common": "12 - 22",
     "@angular/core": "12 - 22",
-    "@fullcalendar/core": "~6.1.20"
+    "@fullcalendar/core": "~6.1.21"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~13.3.10",
@@ -32,13 +32,13 @@
     "@angular/platform-browser": "~13.3.0",
     "@angular/platform-browser-dynamic": "~13.3.0",
     "@angular/router": "~13.3.0",
-    "@fullcalendar/core": "~6.1.20",
-    "@fullcalendar/daygrid": "~6.1.20",
-    "@fullcalendar/interaction": "~6.1.20",
-    "@fullcalendar/list": "~6.1.20",
-    "@fullcalendar/resource": "~6.1.20",
-    "@fullcalendar/resource-timegrid": "~6.1.20",
-    "@fullcalendar/resource-timeline": "~6.1.20",
+    "@fullcalendar/core": "~6.1.21",
+    "@fullcalendar/daygrid": "~6.1.21",
+    "@fullcalendar/interaction": "~6.1.21",
+    "@fullcalendar/list": "~6.1.21",
+    "@fullcalendar/resource": "~6.1.21",
+    "@fullcalendar/resource-timegrid": "~6.1.21",
+    "@fullcalendar/resource-timeline": "~6.1.21",
     "@types/jasmine": "~3.10.0",
     "@types/node": "^12.11.1",
     "jasmine-core": "~4.0.0",
